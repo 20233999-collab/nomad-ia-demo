@@ -251,21 +251,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .shape-triangle {
-  background: linear-gradient(135deg, #E52521, #FF4B47);
+  background: linear-gradient(135deg, #F7D000, #FFE55C);
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  filter: drop-shadow(0 4px 8px rgba(229, 37, 33, 0.4));
+  filter: drop-shadow(0 4px 8px rgba(247, 208, 0, 0.4));
 }
 
 .shape-square {
-  background: linear-gradient(135deg, #F7D000, #FFE55C);
+  background: linear-gradient(135deg, #004586, #0063BE);
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(247, 208, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 69, 134, 0.4);
 }
 
 .shape-circle {
-  background: linear-gradient(135deg, #004586, #0063BE);
+  background: linear-gradient(135deg, #E52521, #FF4B47);
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 69, 134, 0.4);
+  box-shadow: 0 4px 12px rgba(229, 37, 33, 0.4);
 }
 
 /* --------------------------------------------------------------------------
