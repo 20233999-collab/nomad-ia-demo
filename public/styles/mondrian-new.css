@@ -239,18 +239,34 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mondrian-logo-icon {
-  width: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   height: 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 4px;
 }
-.mondrian-logo-icon div { border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.mondrian-logo-icon .sq1 { background: var(--mondrian-red); }
-.mondrian-logo-icon .sq2 { background: var(--mondrian-yellow); }
-.mondrian-logo-icon .sq3 { background: var(--mondrian-blue); }
-.mondrian-logo-icon .sq4 { background: var(--mondrian-black); }
+
+.mondrian-logo-icon div {
+  width: 24px;
+  height: 24px;
+}
+
+.shape-triangle {
+  background: linear-gradient(135deg, #E52521, #FF4B47);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  filter: drop-shadow(0 4px 8px rgba(229, 37, 33, 0.4));
+}
+
+.shape-square {
+  background: linear-gradient(135deg, #F7D000, #FFE55C);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(247, 208, 0, 0.4);
+}
+
+.shape-circle {
+  background: linear-gradient(135deg, #004586, #0063BE);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 69, 134, 0.4);
+}
 
 /* --------------------------------------------------------------------------
    5. AprenderIA Specific Layout & Components
