@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EducarIA — Panel Docente NOMAD-IA</title>
+  <link rel="stylesheet" href="/styles/mondrian.css">
+  <style>
+    .filter-btn.active {
+      background-color: var(--mondrian-yellow);
+      color: var(--mondrian-black);
+      box-shadow: 1px 1px 0px var(--mondrian-black);
+      transform: translate(2px, 2px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Navigation Bar -->
+  <header class="mondrian-navbar">
+    <div class="mondrian-logo">
+      <div class="mondrian-logo-icon">
+        <div class="sq1"></div>
+        <div class="sq2"></div>
+        <div class="sq3"></div>
+        <div class="sq4"></div>
+      </div>
+      <div>
+        <h1 style="font-size: 1.4rem; margin: 0;">EducarIA — Panel Docente NOMAD-IA</h1>
+        <p style="font-size: 0.75rem; margin: 0; font-weight: 700;">Monitoreo Cognitivo & Alerta Temprana Off-Grid</p>
+      </div>
+    </div>
+    <div>
+      <a href="/" class="mondrian-btn mondrian-btn-yellow" style="font-size: 0.85rem; padding: 6px 16px;">🏠 Volver al Hub</a>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Container -->
+  <main class="dashboard-container">
+    <div class="mondrian-block bg-blue" style="margin-bottom: 24px;">
+      <h2 style="font-size: 1.6rem; margin-bottom: 6px;">Panel de Monitoreo Docente</h2>
+      <p style="font-size: 0.95rem;">Visualización de telemetría de aprendizaje, nivel de frustración y clasificación de riesgo predictivo en tiempo real.</p>
+    </div>
+
+    <!-- KPI Summary Cards Container -->
+    <div class="kpi-grid">
+      <div class="kpi-card" style="border-left: 6px solid var(--mondrian-black);">
+        <div class="kpi-title">Total Estudiantes</div>
+        <div class="kpi-value" id="kpi-total-students">0</div>
+      </div>
+      <div class="kpi-card" style="border-left: 6px solid var(--status-green-border);">
+        <div class="kpi-title">Riesgo Bajo (Verde)</div>
+        <div class="kpi-value" id="kpi-low-risk" style="color: var(--status-green-text);">0</div>
+      </div>
+      <div class="kpi-card" style="border-left: 6px solid var(--status-yellow-border);">
+        <div class="kpi-title">Riesgo Medio (Amarillo)</div>
+        <div class="kpi-value" id="kpi-medium-risk" style="color: var(--status-yellow-text);">0</div>
+      </div>
+      <div class="kpi-card" style="border-left: 6px solid var(--status-red-border);">
+        <div class="kpi-title">Riesgo Alto (Rojo)</div>
+        <div class="kpi-value" id="kpi-high-risk" style="color: var(--status-red-text);">0</div>
+      </div>
+      <div class="kpi-card" style="border-left: 6px solid var(--mondrian-blue);">
+        <div class="kpi-title">Tiempo Promedio (s)</div>
+        <div class="kpi-value" id="kpi-avg-time" style="color: var(--mondrian-blue);">0.0s</div>
+      </div>
+    </div>
+
+    <!-- Filter & Action Bar -->
+    <div class="mondrian-card" style="padding: 16px; margin-bottom: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;">
+      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;" id="filter-bar">
+        <span style="font-weight: 800; font-size: 0.9rem; text-transform: uppercase; margin-right: 4px;">Filtrar Riesgo:</span>
+        <button class="mondrian-btn filter-btn active" data-filter="TODOS">Todos</button>
+        <button class="mondrian-btn filter-btn" data-filter="VERDE">Verde</button>
+        <button class="mondrian-btn filter-btn" data-filter="AMARILLO">Amarillo</button>
+        <button class="mondrian-btn filter-btn" data-filter="ROJO">Rojo</button>
+      </div>
+      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <button id="btn-refresh" class="mondrian-btn mondrian-btn-blue">Actualizar Data</button>
+        <span id="last-updated" style="font-size: 0.85rem; font-weight: 700; color: var(--mondrian-gray-dark);">
+          Última actualización: --:--:--
+        </span>
+      </div>
+    </div>
+
+    <!-- Telemetry Data Table -->
+    <div class="mondrian-table-container">
+      <table class="mondrian-table">
+        <thead>
+          <tr>
+            <th>Estudiante</th>
+            <th>ID</th>
+            <th>Juego</th>
+            <th>Tiempo (s)</th>
+            <th>Errores</th>
+            <th>Clics Frustración</th>
+            <th>Semáforo</th>
+            <th>Fecha/Hora</th>
+          </tr>
+        </thead>
+        <tbody id="telemetry-table-body">
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 24px; font-weight: 700;">Cargando telemetría...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

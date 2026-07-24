@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Ecosistema EdTech - AprenderIA & EducarIA</title>
+    <style>
+        /* Importación de fuente para títulos */
+        @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+
+        /* Variables de la paleta estricta de design.md */
+        :root {
+            --bg-neutro: #E5DAD1;
+            --c-rojo: #BA2518;
+            --c-azul: #1E5ABA;
+            --c-amarillo: #EDC932;
+            --c-blanco: #FFFFFF;
+            --c-negro: #000000;
+            
+            /* Tipografías */
+            --font-titulos: 'Gloria Hallelujah', cursive;
+            --font-cuerpo: 'DIN Next LT Pro', Arial, sans-serif;
+        }
+
+        /* Reset y ajustes base */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-neutro);
+            color: var(--c-negro);
+            font-family: var(--font-cuerpo);
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Contenedor principal: Estructura Mondrian sin líneas negras */
+        .infografia-mondrian {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 15px; /* Líneas divisorias blancas gruesas */
+            background-color: var(--c-blanco);
+            padding: 15px;
+            max-width: 1100px;
+            width: 100%;
+            /* Sombra azul suave para evitar el negro por completo */
+            box-shadow: 0 15px 35px rgba(30, 90, 186, 0.15); 
+        }
+
+        /* Estilos tipográficos generales */
+        h1, h2, h3, h4 {
+            font-family: var(--font-titulos);
+            margin: 0 0 15px 0;
+            font-weight: normal;
+        }
+        
+        p {
+            margin: 0;
+            line-height: 1.5;
+            font-size: 1.05rem;
+        }
+
+        .texto-tecnico {
+            font-family: var(--font-cuerpo);
+            font-weight: bold;
+        }
+
+        /* Módulos de la cuadrícula (Celdas) */
+        .modulo {
+            background-color: var(--bg-neutro);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Cabecera */
+        .cabecera {
+            grid-column: span 12;
+            text-align: center;
+            align-items: center;
+        }
+
+        .cabecera h1 {
+            font-size: 3rem;
+            color: var(--c-azul);
+            margin-bottom: 5px;
+        }
+
+        .cabecera h2 {
+            font-size: 2.2rem;
+        }
+
+        /* Objetivo General (Cuadrado Amarillo - Excepción de texto blanco) */
+        .objetivo-general {
+            grid-column: span 12;
+            background-color: var(--c-amarillo);
+            color: var(--c-blanco);
+            text-align: center;
+            align-items: center;
+        }
+
+        .objetivo-general h2 {
+            color: var(--c-blanco);
+            font-size: 2.5rem;
+        }
+
+        .objetivo-general p {
+            font-size: 1.3rem;
+            max-width: 800px;
+        }
+
+        /* Objetivos Específicos */
+        .obj-esp-1, .obj-esp-2, .obj-esp-3 {
+            grid-column: span 4;
+        }
+
+        .obj-esp-4, .obj-esp-5 {
+            grid-column: span 6;
+        }
+
+        .header-obj {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Figuras Geométricas Psicológicas */
+        .circulo-rojo {
+            background-color: var(--c-rojo);
+            min-width: 65px;
+            min-height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Íconos siempre blancos para evitar el negro */
+        .circulo-rojo svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--c-blanco);
+        }
+
+        .triangulo-azul {
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 20px solid var(--c-azul);
+        }
+
+        /* Diseño Responsivo */
+        @media (max-width: 900px) {
+            .obj-esp-1, .obj-esp-2, .obj-esp-3, .obj-esp-4, .obj-esp-5 {
+                grid-column: span 12;
+            }
+            .cabecera h1 { font-size: 2.2rem; }
+            .cabecera h2 { font-size: 1.8rem; }
+            .objetivo-general h2 { font-size: 2rem; }
+            .objetivo-general p { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="infografia-mondrian">
+        
+        <!-- Cabecera -->
+        <header class="modulo cabecera">
+            <h1>Ecosistema EdTech</h1>
+            <h2>Aprender<span class="texto-tecnico">IA</span> & Educar<span class="texto-tecnico">IA</span></h2>
+        </header>
+
+        <!-- Módulo Objetivo General -->
+        <section class="modulo objetivo-general">
+            <h2>Objetivo General</h2>
+            <p class="texto-tecnico">Resolver la brecha de integración tecnológica en la Educación Básica Regular mediante un ecosistema digital dual, digitalizando y democratizando el acceso a herramientas educativas avanzadas y garantizando conectividad offline para promover la equidad en zonas rurales.</p>
+        </section>
+
+        <!-- Módulo Objetivo Específico 1 -->
+        <article class="modulo obj-esp-1">
+            <div class="header-obj">
+                <div class="circulo-rojo">
+                    <!-- Icono Libro / ODS4 -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6v13c0 1.1.9 2 2 2h14v-15h-14c-.6 0-1-.4-1-1s.4-1 1-1h14v-2h-16c-1.7 0-3 1.3-3 3z"/></svg>
+                </div>
+                <div class="triangulo-azul"></div>
+            </div>
+            <h3>1. Equidad y ODS 4</h3>
+            <p>Promover un aprendizaje inclusivo, equitativo y de calidad, mitigando las barreras tecnológicas y geográficas para todos los estudiantes.</p>
+        </article>
+
+        <!-- Módulo Objetivo Específico 2 -->
+        <article class="modulo obj-esp-2">
+            <div class="header-obj">
+                <div class="circulo-rojo">
+                    <!-- Icono Docente -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zm0 2c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4z"/></svg>
+                </div>
+                <div class="triangulo-azul"></div>
+            </div>
+            <h3>2. Empoderamiento Docente</h3>
+            <p>Facilitar la labor de educadores y facilitadores a través de <strong>EducarIA</strong>, optimizando la estructuración y gestión del proceso de enseñanza.</p>
+        </article>
+
+        <!-- Módulo Objetivo Específico 3 -->
+        <article class="modulo obj-esp-3">
+            <div class="header-obj">
+                <div class="circulo-rojo">
+                    <!-- Icono Cerebro/Niño -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2c-5.5 0-10 4.5-10 10s4.5 10 10 10 10-4.5 10-10-4.5-10-10-10zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm-2-11c-.6 0-1 .4-1 1s.4 1 1 1 1-.4 1-1-.4-1-1-1zm4 0c-.6 0-1 .4-1 1s.4 1 1 1 1-.4 1-1-.4-1-1-1zm-2 6c-1.7 0-3.1-.9-3.8-2h7.6c-.7 1.1-2.1 2-3.8 2z"/></svg>
+                </div>
+                <div class="triangulo-azul"></div>
+            </div>
+            <h3>3. Experiencia Interactiva</h3>
+            <p>Brindar a niños y adolescentes a través de <strong>AprenderIA</strong> una plataforma lúdica y amigable que fomente la retención e interés cognitivo.</p>
+        </article>
+
+        <!-- Módulo Objetivo Específico 4 -->
+        <article class="modulo obj-esp-4">
+            <div class="header-obj">
+                <div class="circulo-rojo">
+                    <!-- Icono Nube Offline -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.4 15l-1.4-1.4c1.1-.9 1.9-2.2 2-3.6.1-2.5-1.9-4.7-4.4-4.9-1.2-1.9-3.4-3.1-5.6-3.1-2.1 0-4.1 1-5.3 2.6l-2.3-2.3-1.4 1.4 18.4 18.4 1.4-1.4-1.4-1.4zm-14.1-1.3c-.8-.5-1.3-1.4-1.3-2.3 0-1.7 1.3-3 3-3h.5l3.8 3.8-1.5 1.5h-4.5zM12 4c2.2 0 4 1.8 4 4v.5h1.5c1.4 0 2.5 1.1 2.5 2.5 0 .9-.5 1.7-1.3 2.1l1.6 1.6c1.1-.8 1.7-2 1.7-3.3 0-2.2-1.7-4-3.8-4.2-1.3-2.5-3.8-4.1-6.5-4.1-1.7 0-3.3.6-4.6 1.7l1.5 1.5C9.8 4.7 10.9 4 12 4z"/></svg>
+                </div>
+                <div class="triangulo-azul"></div>
+            </div>
+            <h3>4. Accesibilidad Offline Rural</h3>
+            <p>Garantizar la operatividad en zonas sin conectividad desarrollando arquitecturas de almacenamiento local y sincronización diferida.</p>
+        </article>
+
+        <!-- Módulo Objetivo Específico 5 -->
+        <article class="modulo obj-esp-5">
+            <div class="header-obj">
+                <div class="circulo-rojo">
+                    <!-- Icono Multiplataforma / Dispositivos -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 18c-.8 0-1.5-.7-1.5-1.5S11.2 17 12 17s1.5.7 1.5 1.5S12.8 20 12 20zm5-4H6V4h12v12z"/></svg>
+                </div>
+                <div class="triangulo-azul"></div>
+            </div>
+            <h3>5. Despliegue Multiplataforma</h3>
+            <p>Asegurar la viabilidad técnica y escalabilidad mediante un diseño adaptativo fluido en dispositivos móviles, tabletas y computadoras estándar.</p>
+        </article>
+
+    </div>
+
+</body>
+</html>

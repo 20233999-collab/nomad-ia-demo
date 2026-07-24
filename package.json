@@ -1,0 +1,24 @@
+{
+  "name": "nomad-ia-demo-hub",
+  "version": "1.0.0",
+  "description": "NOMAD-IA Demo Hub - Offline EdTech Ecosystem Web Application with Cognitive Telemetry & Early Warning Teacher Dashboard",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "edtech",
+    "offline",
+    "telemetry",
+    "express",
+    "nomad-ia"
+  ],
+  "author": "NOMAD-IA Team",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  }
+}
