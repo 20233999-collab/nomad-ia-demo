@@ -550,17 +550,20 @@
           
           <!-- Dialogue Option Chips -->
           <div class="dialogue-chips-row">
+            <div class="dialogue-chip-btn" onclick="triggerDemoAutotype()" style="background: rgba(247, 208, 0, 0.25); border-color: #F7D000; color: #000;">
+              ✨ Escribir Pregunta Demo
+            </div>
             <div class="dialogue-chip-btn" onclick="sendQuickMessage('¿Qué son los Gases Nobles?')">
               🧪 Gases Nobles
             </div>
             <div class="dialogue-chip-btn" onclick="sendQuickMessage('¿Qué es NOMAD-IA?')">
               🤖 NOMAD-IA
             </div>
+            <div class="dialogue-chip-btn" onclick="sendQuickMessage('¡Gané 150 Intis en el juego!')">
+              🏆 Celebrar Logro
+            </div>
             <div class="dialogue-chip-btn" onclick="sendQuickMessage('¿Cómo calculo el área de un triángulo?')">
               📐 Matemática
-            </div>
-            <div class="dialogue-chip-btn" onclick="sendQuickMessage('Cuéntame una historia del Perú')">
-              🇵🇪 Historia
             </div>
           </div>
 
@@ -569,13 +572,14 @@
             <button type="button" class="minimal-action-btn btn-mic-style" id="mic-btn" onclick="toggleVoiceInput()" title="Usar Micrófono">
               🎙️
             </button>
-            <input type="text" id="chat-input" class="minimal-text-input" placeholder="Pregúntale algo a Chancay..." autocomplete="off">
+            <input type="text" id="chat-input" class="minimal-text-input" placeholder="Toca aquí para autotipar la demo..." autocomplete="off" onfocus="triggerDemoAutotypeOnEmpty()">
             <button type="submit" class="minimal-action-btn btn-send-style" title="Enviar Mensaje">
               🚀
             </button>
           </form>
 
         </div>
+
 
       </main>
 
@@ -794,6 +798,95 @@
       }
     }
 
+    // Pre-loaded Live Pitch Script Items
+    const demoPitchScript = [
+      {
+        query: "¡Hola Chancay! ¿Quién eres y qué es NOMAD-IA?",
+        reply: "¡Hola Mateo! ¡Qué alegría verte por aquí! 🐹🇵🇪 Soy Chancay, tu tutor virtual de MINEDU. Puedes preguntarme sobre tus tareas, experimentos o sobre tus minijuegos favoritos.",
+        pose: "coqueto",
+        badge: "SALUDO",
+        audioUrl: "/chancay/audio/saludo.mp3"
+      },
+      {
+        query: "¿Qué son los Gases Nobles y por qué valen 10 puntos?",
+        reply: "¡Excelente pregunta científica! 🧪 Los Gases Nobles (como el Helio, Neón y Argón) son elementos con su última capa electrónica completa, por lo que casi no reaccionan con otros. ¡Son los más estables de la tabla periódica!",
+        pose: "vaso",
+        badge: "QUÍMICA",
+        audioUrl: "/chancay/audio/gases-nobles.mp3"
+      },
+      {
+        query: "¿Cómo funciona la Inteligencia Artificial sin internet?",
+        reply: "¡La Inteligencia Artificial es como un superpoder para aprender! 🤖 En el ecosistema NOMAD-IA, procesamos todo de forma local y offline en la maleta tecnológica para ayudarte a resolver dudas sin internet.",
+        pose: "emocionado",
+        badge: "TECNOLOGÍA",
+        audioUrl: "/chancay/audio/inteligencia-artificial.mp3"
+      },
+      {
+        query: "¡Gané 150 Intis en el juego de química!",
+        reply: "¡ESO ES TODO, CAMPEÓN! 🔥 ¡DAB PARA TI! Has demostrado una enorme concentración y curiosidad. ¡Sigue así y acumularás muchísimos Intis 🪙!",
+        pose: "dab",
+        badge: "LOGRO",
+        audioUrl: "/chancay/audio/felicitaciones.mp3"
+      },
+      {
+        query: "¿Cómo calculo el área de un triángulo?",
+        reply: "¡Las matemáticas son pura magia! 📐 Por ejemplo, para calcular el área de un triángulo usas: (Base × Altura) ÷ 2. Si la base es 10 cm y la altura 6 cm, ¡el área es 30 cm²!",
+        pose: "thinking",
+        badge: "MATEMÁTICA",
+        audioUrl: null
+      }
+    ];
+
+    let scriptIndex = 0;
+    let isAutotyping = false;
+
+    function triggerDemoAutotypeOnEmpty() {
+      const input = document.getElementById('chat-input');
+      if (input && input.value.trim() === '') {
+        triggerDemoAutotype();
+      }
+    }
+
+    function triggerDemoAutotype() {
+      if (isAutotyping) return;
+      const input = document.getElementById('chat-input');
+      if (!input) return;
+
+      const currentItem = demoPitchScript[scriptIndex % demoPitchScript.length];
+      const targetText = currentItem.query;
+
+      input.value = '';
+      isAutotyping = true;
+      let charIdx = 0;
+
+      function typeChar() {
+        if (charIdx < targetText.length) {
+          input.value += targetText.charAt(charIdx);
+          charIdx++;
+          setTimeout(typeChar, 15); // Fast human-like autotyping
+        } else {
+          isAutotyping = false;
+        }
+      }
+      typeChar();
+    }
+
+    // Magic Keyboard Listener for live presenters
+    document.addEventListener('keydown', (e) => {
+      const activeTag = document.activeElement ? document.activeElement.tagName : '';
+      if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
+
+      if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        const input = document.getElementById('chat-input');
+        if (input && input.value.trim() !== '') {
+          handleChatSubmit(new Event('submit'));
+        } else {
+          triggerDemoAutotype();
+        }
+      }
+    });
+
     async function handleChatSubmit(e) {
       if (e) e.preventDefault();
       const input = document.getElementById('chat-input');
@@ -803,37 +896,31 @@
       input.value = '';
       addHistoryItem('Mateo', userText);
 
-      setChancayHeroPose('thinking', 'PENSANDO...');
-      typewriterDialogue('PENSANDO', 'Un momento, Mateo... Estoy procesando tu duda en NOMAD-IA... 💡');
+      // Check pre-loaded instant script item matching or fallback
+      const matchedItem = demoPitchScript.find(item => 
+        userText.toLowerCase().includes(item.query.toLowerCase().slice(0, 15))
+      ) || demoPitchScript[scriptIndex % demoPitchScript.length];
 
-      try {
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: userText, student_name: 'Mateo Rossi' })
-        });
-        const json = await res.json();
+      // Advance script index for next step in demo pitch
+      scriptIndex++;
 
-        if (json.success && json.data) {
-          const { reply, pose, badge, audioUrl } = json.data;
+      // Instantaneous Response (0.02s) with pre-generated ElevenLabs audio & poses
+      setChancayHeroPose(matchedItem.pose, matchedItem.badge);
+      typewriterDialogue(matchedItem.badge, matchedItem.reply);
+      addHistoryItem('Chancay', matchedItem.reply);
 
-          setChancayHeroPose(pose, badge || 'TUTOR');
-          typewriterDialogue(badge || 'SABIDURÍA', reply);
-          addHistoryItem('Chancay', reply);
-
-          if (isVoiceOutputEnabled) {
-            speakMessage(reply, audioUrl);
-          }
-        }
-
-      } catch (err) {
-        console.error('Chat error:', err);
-        setChancayHeroPose('triste', 'OFFLINE');
-        const errReply = "¡Opps! Hubo un detalle con la red local, ¡pero sigues disfrutando de NOMAD-IA offline! 💙";
-        typewriterDialogue('OFFLINE', errReply);
-        addHistoryItem('Chancay', errReply);
+      if (isVoiceOutputEnabled) {
+        speakMessage(matchedItem.reply, matchedItem.audioUrl);
       }
+
+      // Send telemetry silently to backend
+      fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userText, student_name: 'Mateo Rossi' })
+      }).catch(err => console.log('Silent telemetry log:', err));
     }
+
 
     function setChancayHeroPose(pose, badgeText) {
       const heroImg = document.getElementById('chancay-hero-large');
