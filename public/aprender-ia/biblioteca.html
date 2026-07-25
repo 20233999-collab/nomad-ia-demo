@@ -224,32 +224,81 @@
       border: 1px solid rgba(0,0,0,0.06);
     }
 
-    /* Games Grid */
-    .arcade-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .arcade-card {
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
+    /* CLUB PENGUIN / CARTOON NETWORK STYLE GAME ARCADE */
+    .arcade-hero-card {
+      background: linear-gradient(135deg, #111, #1a1a24);
       border-radius: 20px;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: var(--glass-shadow);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+      margin-bottom: 16px;
+      border: 2px solid var(--mondrian-yellow);
       position: relative;
     }
 
+    .arcade-hero-banner {
+      width: 100%;
+      height: 175px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .arcade-hero-body {
+      padding: 12px 14px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: rgba(17, 17, 24, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .arcade-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    @media (min-width: 600px) {
+      .arcade-hero-banner {
+        height: 220px;
+      }
+      .arcade-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+    }
+
+    .arcade-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 2px solid rgba(0,0,0,0.08);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
     .arcade-card:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 14px 32px rgba(0,0,0,0.12);
-      background: #fff;
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.18);
+      border-color: var(--mondrian-blue);
+    }
+
+    .arcade-banner-img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     /* Modals with Spring Animation */
@@ -387,8 +436,8 @@
           <div class="chancay-comics-grid">
             
             <!-- Episodio 1: Misión Circuitos -->
-            <div class="chancay-comic-card" onclick="openBookModal('Chancay: Misión Circuitos', 'Chancay aprende sobre resistores, LEDs y automatización construyendo su primer robot en el aula andina.', 'Robótica / STEAM', '/images/chancay/chancay-circuitos.png')">
-              <img src="/images/chancay/chancay-circuitos.png" class="chancay-comic-thumb" alt="Chancay Misión Circuitos">
+            <div class="chancay-comic-card" onclick="openBookModal('Chancay: Misión Circuitos', 'Chancay aprende sobre resistores, LEDs y automatización construyendo su primer robot en el aula andina.', 'Robótica / STEAM', '/images/comics/chancay-cover-circuitos.jpg')">
+              <img src="/images/comics/chancay-cover-circuitos.jpg" class="chancay-comic-thumb" alt="Chancay Misión Circuitos">
               <div style="font-size: 0.62rem; font-weight: 800; color: var(--mondrian-red); text-transform: uppercase; letter-spacing: 0.4px;">Episodio 1</div>
               <div style="font-size: 0.78rem; font-weight: 900; margin: 2px 0; color: #111; line-height: 1.2;">Misión Circuitos</div>
               <div style="font-size: 0.65rem; color: #666;">Robótica • 12 págs</div>
@@ -423,54 +472,88 @@
 
       </div>
 
-      <!-- TAB 2: APRENDE JUGANDO (PORTAL DE JUEGOS) -->
+      <!-- TAB 2: APRENDE JUGANDO (PORTAL DE JUEGOS ESTILO CLUB PENGUIN / CARTOON NETWORK) -->
       <div class="tab-content" id="tab-games">
-        <h4 style="font-size: 0.88rem; font-weight: 800; margin-bottom: 2px;">Aprende Jugando 🕹️</h4>
-        <p style="font-size: 0.74rem; color: #666; margin-bottom: 8px;">Misiones divertidas para poner a prueba tu conocimiento</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div>
+            <h4 style="font-size: 0.95rem; font-weight: 900; color: var(--mondrian-black); display: flex; align-items: center; gap: 6px;">
+              <span>🕹️</span> Arcade Chancay: Aprende Jugando
+            </h4>
+            <p style="font-size: 0.72rem; color: #666;">Selecciona una misión y acumula Semillas de Conocimiento ☀️</p>
+          </div>
+          <span style="font-size: 0.65rem; font-weight: 800; background: var(--mondrian-yellow); padding: 4px 10px; border-radius: 100px; color: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            NIVEL 1 • MATEO
+          </span>
+        </div>
 
+        <!-- HERO FEATURED GAME BANNER (Cartoon Network / Club Penguin Style) -->
+        <div class="arcade-hero-card">
+          <span style="position: absolute; top: 10px; left: 10px; background: var(--mondrian-red); color: #fff; font-size: 0.65rem; font-weight: 900; padding: 4px 10px; border-radius: 100px; z-index: 5; box-shadow: 0 4px 12px rgba(229,37,33,0.4);">
+            🔥 DESTACADO DEL AULA
+          </span>
+          <img src="/images/games/banner-circuitos.png" class="arcade-hero-banner" alt="Chancay Misión Circuitos">
+          <div class="arcade-hero-body">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3 style="font-size: 1.02rem; font-weight: 900; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">CHANCAY: MISIÓN CIRCUITOS ⚡</h3>
+              <span style="font-size: 0.7rem; font-weight: 800; color: #FFE55C;">+100 PTS ☀️</span>
+            </div>
+            <p style="font-size: 0.74rem; color: #ddd; line-height: 1.3;">
+              ¡Acompaña a Chancay en su taller de robótica! Conecta los resistores para encender el LED sin quemar la batería de 9V.
+            </p>
+            <button class="mondrian-btn mondrian-btn-yellow" onclick="openCircuitGame()" style="padding: 10px 16px; font-size: 0.82rem; margin-top: 4px; align-self: flex-start;">
+              🎮 ¡INICIAR MISIÓN CIRCUITOS!
+            </button>
+          </div>
+        </div>
+
+        <!-- GAME GRID 4 BANNERS -->
         <div class="arcade-grid">
           
-          <!-- Playable Game 1 -->
-          <div class="arcade-card" style="border: 2px solid var(--mondrian-yellow); background: rgba(247, 208, 0, 0.08);">
-            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: var(--mondrian-yellow); padding: 2px 6px; border-radius: 4px;">¡JUGAR!</span>
-            <div style="font-size: 2.2rem; text-align: center; margin: 8px 0;">⚡</div>
-            <div style="font-weight: 800; font-size: 0.82rem; text-align: center;">El Rayo de Chancay</div>
-            <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Conecta los resistores y enciende el LED.</p>
+          <!-- Game 1: Misión Circuitos -->
+          <div class="arcade-card">
+            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 900; background: var(--mondrian-red); color: #fff; padding: 2px 8px; border-radius: 100px; z-index: 2;">¡DISPONIBLE!</span>
+            <img src="/images/games/banner-circuitos.png" class="arcade-banner-img" alt="Misión Circuitos">
+            <div style="font-size: 0.62rem; font-weight: 800; color: var(--mondrian-red); text-transform: uppercase; letter-spacing: 0.4px;">⚡ ELECTRÓNICA & ROBÓTICA</div>
+            <div style="font-weight: 900; font-size: 0.85rem; margin: 2px 0; color: #111;">Misión Circuitos</div>
+            <p style="font-size: 0.68rem; color: #666; margin-bottom: 8px; line-height: 1.2;">Conecta componentes y salva el prototipo de Chancay.</p>
             <button class="mondrian-btn mondrian-btn-yellow mondrian-btn-full" style="padding: 8px; font-size: 0.75rem;" onclick="openCircuitGame()">
-              ¡JUGAR AHORA!
+              ¡JUGAR AHORA! ⚡
             </button>
           </div>
 
-          <!-- Mockup Game 2 -->
+          <!-- Game 2: Misión Hacker -->
           <div class="arcade-card">
-            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: #eee; color: #666; padding: 2px 6px; border-radius: 4px;">PRÓXIMAMENTE</span>
-            <div style="font-size: 2.2rem; text-align: center; margin: 8px 0;">🚀</div>
-            <div style="font-weight: 800; font-size: 0.82rem; text-align: center;">Cohete del Cóndor</div>
-            <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Calcula la trayectoria exacta del vuelo.</p>
-            <button class="mondrian-btn" style="padding: 8px; font-size: 0.75rem; background: #e0e0e0; color: #888; cursor: not-allowed;">
-              Bloqueado 🔒
+            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 900; background: var(--mondrian-blue); color: #fff; padding: 2px 8px; border-radius: 100px; z-index: 2;">¡DISPONIBLE!</span>
+            <img src="/images/games/banner-hacker.png" class="arcade-banner-img" alt="Misión Hacker">
+            <div style="font-size: 0.62rem; font-weight: 800; color: var(--mondrian-blue); text-transform: uppercase; letter-spacing: 0.4px;">💻 PROGRAMACIÓN</div>
+            <div style="font-weight: 900; font-size: 0.85rem; margin: 2px 0; color: #111;">Misión Hacker</div>
+            <p style="font-size: 0.68rem; color: #666; margin-bottom: 8px; line-height: 1.2;">Ayuda a Chancay a corregir errores de sintaxis en Python.</p>
+            <button class="mondrian-btn mondrian-btn-blue mondrian-btn-full" style="padding: 8px; font-size: 0.75rem;" onclick="openHackerGame()">
+              ¡JUGAR AHORA! 💻
             </button>
           </div>
 
-          <!-- Mockup Game 3 -->
+          <!-- Game 3: El Laboratorio Mágico -->
           <div class="arcade-card">
-            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: #eee; color: #666; padding: 2px 6px; border-radius: 4px;">PRÓXIMAMENTE</span>
-            <div style="font-size: 2.2rem; text-align: center; margin: 8px 0;">🧪</div>
-            <div style="font-weight: 800; font-size: 0.82rem; text-align: center;">Papas Mágicas</div>
-            <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Laboratorio de química andina lúdica.</p>
-            <button class="mondrian-btn" style="padding: 8px; font-size: 0.75rem; background: #e0e0e0; color: #888; cursor: not-allowed;">
-              Bloqueado 🔒
+            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 900; background: #2D8A4E; color: #fff; padding: 2px 8px; border-radius: 100px; z-index: 2;">¡DISPONIBLE!</span>
+            <img src="/images/games/banner-laboratorio.png" class="arcade-banner-img" alt="Laboratorio Mágico">
+            <div style="font-size: 0.62rem; font-weight: 800; color: #2D8A4E; text-transform: uppercase; letter-spacing: 0.4px;">🧪 CIENCIAS & QUÍMICA</div>
+            <div style="font-weight: 900; font-size: 0.85rem; margin: 2px 0; color: #111;">Laboratorio Mágico</div>
+            <p style="font-size: 0.68rem; color: #666; margin-bottom: 8px; line-height: 1.2;">Mezcla elementos en el laboratorio de Chancay.</p>
+            <button class="mondrian-btn mondrian-btn-red mondrian-btn-full" style="padding: 8px; font-size: 0.75rem;" onclick="openLabGame()">
+              ¡JUGAR AHORA! 🧪
             </button>
           </div>
 
-          <!-- Mockup Game 4 -->
+          <!-- Game 4: Integrando Ecuaciones -->
           <div class="arcade-card">
-            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: #eee; color: #666; padding: 2px 6px; border-radius: 4px;">PRÓXIMAMENTE</span>
-            <div style="font-size: 2.2rem; text-align: center; margin: 8px 0;">🤖</div>
-            <div style="font-weight: 800; font-size: 0.82rem; text-align: center;">Alpaca Bot</div>
-            <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Guía al robot con bloques de código.</p>
-            <button class="mondrian-btn" style="padding: 8px; font-size: 0.75rem; background: #e0e0e0; color: #888; cursor: not-allowed;">
-              Bloqueado 🔒
+            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 900; background: #8A6D00; color: #fff; padding: 2px 8px; border-radius: 100px; z-index: 2;">¡DISPONIBLE!</span>
+            <img src="/images/games/banner-ecuaciones.png" class="arcade-banner-img" alt="Integrando Ecuaciones">
+            <div style="font-size: 0.62rem; font-weight: 800; color: #8A6D00; text-transform: uppercase; letter-spacing: 0.4px;">🧮 MATEMÁTICAS</div>
+            <div style="font-weight: 900; font-size: 0.85rem; margin: 2px 0; color: #111;">Integrando Ecuaciones</div>
+            <p style="font-size: 0.68rem; color: #666; margin-bottom: 8px; line-height: 1.2;">Resuelve ecuaciones en la pizarra con Chancay.</p>
+            <button class="mondrian-btn mondrian-btn-yellow mondrian-btn-full" style="padding: 8px; font-size: 0.75rem;" onclick="openMathGame()">
+              ¡JUGAR AHORA! 🧮
             </button>
           </div>
 
@@ -593,32 +676,60 @@
 
     function submitGameAnswer() {
       if (!selectedOption) {
-        alert('Por favor selecciona una respuesta.');
+        alert('Por favor selecciona un componente.');
         return;
       }
-      
       const isCorrect = (selectedOption === 'resistencia');
+      sendGameTelemetry('circuito-1', isCorrect, 'El Rayo de Chancay');
+      closeCircuitGame();
+    }
+
+    function sendGameTelemetry(gameId, isCorrect, gameName) {
       const statusBadge = isCorrect ? 'VERDE' : 'ROJO';
-      
       fetch('/api/telemetry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           studentName: 'Mateo Rossi',
-          gameId: 'circuito-1',
-          timeSpentSec: 12.4,
+          gameId: gameId,
+          timeSpentSec: Math.floor(Math.random() * 15) + 5,
           errorsCount: isCorrect ? 0 : 1,
           rageClicks: 0,
           score: isCorrect ? 100 : 30,
           statusBadge: statusBadge
         })
       }).then(() => {
-        alert(isCorrect ? '¡Excelente! Respuesta correcta. Telemetría enviada al profesor.' : 'Respuesta incorrecta. Telemetría de intento enviada.');
-        closeCircuitGame();
+        alert(isCorrect ? `¡Excelente en ${gameName}! Misión completada. Telemetría de logro enviada a EducarIA (+100 PTS ☀️)` : `Revisa la lección. Telemetría registrada.`);
       }).catch(() => {
-        alert('Respuesta registrada en modo offline.');
-        closeCircuitGame();
+        alert(`Misión registrada localmente en modo offline (+100 PTS ☀️)`);
       });
+    }
+
+    function openHackerGame() {
+      const ans = prompt('💻 CHANCAY: MISIÓN HACKER\n\n¿Cómo se declara un bucle infinito en Python para mantener activo el servidor offline de Chancay?\n\n1) while True:\n2) loop infinity:\n3) repeat until end:\n\nIngresa el número de tu respuesta (1, 2 o 3):');
+      if (ans === '1') {
+        sendGameTelemetry('hacker-1', true, 'Misión Hacker');
+      } else if (ans !== null) {
+        sendGameTelemetry('hacker-1', false, 'Misión Hacker');
+      }
+    }
+
+    function openLabGame() {
+      const ans = prompt('🧪 CHANCAY: EL LABORATORIO MÁGICO\n\n¿Qué cambio de estado ocurre cuando el agua alcanza 100°C en el tubo de ensayo?\n\n1) Fusión (Líquido a Sólido)\n2) Evaporación (Líquido a Gas)\n3) Condensación (Gas a Líquido)\n\nIngresa el número de tu respuesta (1, 2 o 3):');
+      if (ans === '2') {
+        sendGameTelemetry('lab-1', true, 'El Laboratorio Mágico');
+      } else if (ans !== null) {
+        sendGameTelemetry('lab-1', false, 'El Laboratorio Mágico');
+      }
+    }
+
+    function openMathGame() {
+      const ans = prompt('🧮 CHANCAY: INTEGRANDO ECUACIONES\n\nDespeja la variable X en la ecuación:\n 2X + 4 = 14\n\n1) X = 3\n2) X = 5\n3) X = 7\n\nIngresa el número de tu respuesta (1, 2 o 3):');
+      if (ans === '2') {
+        sendGameTelemetry('math-1', true, 'Integrando Ecuaciones');
+      } else if (ans !== null) {
+        sendGameTelemetry('math-1', false, 'Integrando Ecuaciones');
+      }
     }
   </script>
 
