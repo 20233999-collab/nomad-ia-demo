@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AprenderIA | Biblioteca & Minijuegos</title>
+  <link rel="stylesheet" href="/styles/mondrian-new.css">
+  <style>
+    /* Tab System */
+    .tab-navigation {
+      display: flex;
+      background: rgba(0,0,0,0.05);
+      padding: 4px;
+      border-radius: 14px;
+      margin: 12px 16px 0 16px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 10px 12px;
+      font-family: var(--font-family);
+      font-size: 0.8rem;
+      font-weight: 800;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #666;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .tab-btn.active {
+      background: #fff;
+      color: var(--mondrian-black);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 16px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .tab-content.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Book / Storybook Carousel */
+    .book-carousel {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-top: 10px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .book-card {
+      min-width: 140px;
+      max-width: 140px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 8px;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .book-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+
+    .book-cover-img {
+      width: 100%;
+      height: 175px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    }
+
+    /* Games Grid */
+    .arcade-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .arcade-card {
+      background: var(--glass-bg-light);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--glass-shadow);
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .arcade-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+    }
+
+    /* Modals */
+    .modal-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(17, 17, 17, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 300;
+      padding: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 24px;
+      padding: 20px;
+      width: 100%;
+      max-height: 90%;
+      overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="mobile-frame-wrapper">
+    <div class="mobile-frame" id="app-container">
+      
+      <!-- Top Navigation Bar -->
+      <header class="game-header">
+        <a href="/aprender-ia/index.html" style="text-decoration: none; font-weight: 800; font-size: 0.85rem; color: var(--mondrian-black); display: flex; align-items: center; gap: 4px;">
+          ← Volver
+        </a>
+        <span style="font-weight: 800; font-size: 0.9rem;">Biblioteca & Juegos</span>
+        <div style="background: rgba(247, 208, 0, 0.2); padding: 4px 10px; border-radius: 100px; border: 1px solid rgba(247, 208, 0, 0.4); font-size: 0.75rem; font-weight: 800; color: #8A6D00;">
+          ☀️ 150
+        </div>
+      </header>
+
+      <!-- Tabs Switcher -->
+      <div class="tab-navigation">
+        <button class="tab-btn active" id="tab-btn-books" onclick="switchTab('books')">
+          📖 Libros & Historietas
+        </button>
+        <button class="tab-btn" id="tab-btn-games" onclick="switchTab('games')">
+          🎮 Misiones Arcade
+        </button>
+      </div>
+
+      <!-- TAB 1: LIBROS & HISTORIETAS (ESTILO EDITORIAL / STORYBOOK) -->
+      <div class="tab-content active" id="tab-books">
+        
+        <!-- Search bar mockup -->
+        <div style="position: relative; margin-bottom: 12px;">
+          <input type="text" placeholder="Buscar libro, tema o guía..." style="width: 100%; padding: 10px 14px; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; font-family: var(--font-family); font-size: 0.8rem; outline: none; background: rgba(255,255,255,0.85);">
+        </div>
+
+        <h4 style="font-size: 0.88rem; font-weight: 800; margin-bottom: 2px;">Lecturas Educativas 📚</h4>
+        <p style="font-size: 0.74rem; color: #666; margin-bottom: 6px;">Libros y guías de campo descargables para tu tablet offline</p>
+
+        <!-- Horizontal Storybook Editorial Carousel -->
+        <div class="book-carousel">
+          
+          <!-- Book 1: La Leyenda del Rayo -->
+          <div class="book-card" onclick="openBookModal('La Leyenda del Rayo', 'Texto educativo sobre energía y electrónica básica. Mateo y su equipo descubren los secretos de los circuitos en los Andes.', 'Física / STEAM', '/images/comics/circuito.jpg')">
+            <img src="/images/comics/circuito.jpg" class="book-cover-img" alt="La Leyenda del Rayo">
+            <div style="font-weight: 800; font-size: 0.78rem; margin-top: 6px; line-height: 1.1;">La Leyenda del Rayo</div>
+            <div style="font-size: 0.65rem; color: #666; margin-top: 2px;">Física • 32 págs</div>
+          </div>
+
+          <!-- Book 2: Geometría de los Andes -->
+          <div class="book-card" onclick="openBookModal('Geometría de los Andes', 'Libro de matemáticas aplicadas. Descubre la simetría y las formas geométricas de las terrazas incas.', 'Matemáticas', '/images/comics/mate.jpg')">
+            <img src="/images/comics/mate.jpg" class="book-cover-img" alt="Geometría de los Andes">
+            <div style="font-weight: 800; font-size: 0.78rem; margin-top: 6px; line-height: 1.1;">Geometría Andina</div>
+            <div style="font-size: 0.65rem; color: #666; margin-top: 2px;">Matemáticas • 28 págs</div>
+          </div>
+
+          <!-- Book 3: El Huerto del Cuy -->
+          <div class="book-card" onclick="openBookModal('El Huerto del Cuy', 'Manual práctico de agronomía y automatización. Chancay diseña un invernadero inteligente en los Andes.', 'Robótica / Agronomía', '/images/comics/huerto.jpg')">
+            <img src="/images/comics/huerto.jpg" class="book-cover-img" alt="El Huerto del Cuy">
+            <div style="font-weight: 800; font-size: 0.78rem; margin-top: 6px; line-height: 1.1;">El Huerto del Cuy</div>
+            <div style="font-size: 0.65rem; color: #666; margin-top: 2px;">Robótica • 24 págs</div>
+          </div>
+
+          <!-- Book 4: Código Secreto -->
+          <div class="book-card" onclick="openBookModal('Código Secreto: Aventuras en los Andes', 'Introducción al pensamiento computacional y algoritmos a través de misterios y acertijos en el campo.', 'Computación / Lógica', '/images/comics/algoritmo.jpg')">
+            <img src="/images/comics/algoritmo.jpg" class="book-cover-img" alt="Código Secreto">
+            <div style="font-weight: 800; font-size: 0.78rem; margin-top: 6px; line-height: 1.1;">Código Secreto</div>
+            <div style="font-size: 0.65rem; color: #666; margin-top: 2px;">Algoritmos • 30 págs</div>
+          </div>
+
+        </div>
+
+        <!-- Extra Field Guides List (Institucionales pero amigables) -->
+        <h4 style="font-size: 0.85rem; font-weight: 800; margin: 10px 0 8px 0;">📜 Guías de Campo & Fichas Educativas</h4>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="background: #fff; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; font-weight: 700;">
+            <span>📄 Ficha de Experimentos: El Rayo Casero</span>
+            <span style="color: var(--mondrian-blue); font-size: 0.7rem;">Guardar PDF</span>
+          </div>
+          <div style="background: #fff; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; font-weight: 700;">
+            <span>📄 Guía Pedagógica: Geometría Inca</span>
+            <span style="color: var(--mondrian-blue); font-size: 0.7rem;">Guardar PDF</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TAB 2: PORTAL DE MISIONES ARCADE -->
+      <div class="tab-content" id="tab-games">
+        <h4 style="font-size: 0.85rem; font-weight: 800; margin-bottom: 2px;">Misiones Arcade STEAM 🕹️</h4>
+        <p style="font-size: 0.75rem; color: #666; margin-bottom: 8px;">Supera misiones y demuestra tu superpoder cognitivo</p>
+
+        <div class="arcade-grid">
+          
+          <!-- Playable Game 1 -->
+          <div class="arcade-card" style="border: 2px solid var(--mondrian-yellow); background: rgba(247, 208, 0, 0.05);">
+            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: var(--mondrian-yellow); padding: 2px 6px; border-radius: 4px;">¡ACTIVO!</span>
+            <div style="font-size: 2rem; text-align: center; margin: 8px 0;">⚡</div>
+            <div style="font-weight: 800; font-size: 0.8rem; text-align: center;">El Rayo de Chancay</div>
+            <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Conecta los resistores y enciende el LED.</p>
+            <button class="mondrian-btn mondrian-btn-yellow mondrian-btn-full" style="padding: 8px; font-size: 0.75rem;" onclick="openCircuitGame()">
+              ¡JUGAR AHORA!
+            </button>
+          </div>
+
+          <!-- Mockup Game 2 -->
+          <div class="arcade-card">
+            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: #eee; color: #666; padding: 2px 6px; border-radius: 4px;">PRÓXIMAMENTE</span>
+            <div style="font-size: 2rem; text-align: center; margin: 8px 0;">🚀</div>
+            <div style="font-weight: 800; font-size: 0.8rem; text-align: center;">Cohete del Cóndor</div>
+            <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Calcula la trayectoria exacta del vuelo.</p>
+            <button class="mondrian-btn" style="padding: 8px; font-size: 0.75rem; background: #e0e0e0; color: #888; cursor: not-allowed;">
+              Bloqueado 🔒
+            </button>
+          </div>
+
+          <!-- Mockup Game 3 -->
+          <div class="arcade-card">
+            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: #eee; color: #666; padding: 2px 6px; border-radius: 4px;">PRÓXIMAMENTE</span>
+            <div style="font-size: 2rem; text-align: center; margin: 8px 0;">🧪</div>
+            <div style="font-weight: 800; font-size: 0.8rem; text-align: center;">Papas Mágicas</div>
+            <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Laboratorio de química andina lúdica.</p>
+            <button class="mondrian-btn" style="padding: 8px; font-size: 0.75rem; background: #e0e0e0; color: #888; cursor: not-allowed;">
+              Bloqueado 🔒
+            </button>
+          </div>
+
+          <!-- Mockup Game 4 -->
+          <div class="arcade-card">
+            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: #eee; color: #666; padding: 2px 6px; border-radius: 4px;">PRÓXIMAMENTE</span>
+            <div style="font-size: 2rem; text-align: center; margin: 8px 0;">🤖</div>
+            <div style="font-weight: 800; font-size: 0.8rem; text-align: center;">Alpaca Bot</div>
+            <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Guía al robot con bloques de código.</p>
+            <button class="mondrian-btn" style="padding: 8px; font-size: 0.75rem; background: #e0e0e0; color: #888; cursor: not-allowed;">
+              Bloqueado 🔒
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- MODAL VISOR DE CÓMICS -->
+      <div class="modal-overlay" id="book-modal">
+        <div class="modal-content">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <span class="badge-tag" style="position: static; background: rgba(0,69,134,0.1); color: var(--mondrian-blue);" id="modal-book-category">Física / STEAM</span>
+            <button onclick="closeBookModal()" style="background: none; border: none; font-size: 1.4rem; font-weight: 800; cursor: pointer;">×</button>
+          </div>
+          
+          <img id="modal-book-img" src="" style="width: 100%; max-height: 220px; object-fit: cover; border-radius: 14px; margin-bottom: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.15);">
+
+          <h3 id="modal-book-title" style="font-size: 1.1rem; margin-bottom: 6px;">Título del Libro</h3>
+          <p id="modal-book-desc" style="font-size: 0.8rem; color: #555; line-height: 1.4; margin-bottom: 16px;">Descripción completa del libro...</p>
+
+          <button class="mondrian-btn mondrian-btn-blue mondrian-btn-full" onclick="alert('¡Libro guardado en tu tablet para lectura offline!')" style="font-size: 0.85rem; padding: 12px;">
+            Descargar Libro en Tablet 📥
+          </button>
+        </div>
+      </div>
+
+      <!-- MODAL MINIJUEGO CIRCUITO -->
+      <div class="modal-overlay" id="game-modal">
+        <div class="modal-content" style="padding: 12px; background: #F8F9FB;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-weight: 800; font-size: 0.85rem;">⚡ EL RAYO DE CHANCAY</span>
+            <button onclick="closeCircuitGame()" style="background: none; border: none; font-size: 1.4rem; font-weight: 800; cursor: pointer;">×</button>
+          </div>
+
+          <!-- Question Box -->
+          <div class="mondrian-block bg-yellow" style="padding: 12px; margin-bottom: 8px; border-radius: 12px;">
+            <h4 style="font-size: 0.85rem; margin-bottom: 2px;">¿Cómo evitas que el LED se queme?</h4>
+            <p style="font-size: 0.72rem;">Selecciona el componente correcto para colocar entre la batería de 9V y el diodo LED.</p>
+          </div>
+
+          <!-- Diagram -->
+          <div style="background: #fff; padding: 12px; text-align: center; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); margin-bottom: 8px;">
+            <div style="font-weight: 800; font-size: 0.75rem; margin-bottom: 6px;">[ Batería 9V ] ➔ [ ??? ] ➔ [ Diodo LED ]</div>
+            <div id="target-slot" style="border: 2px dashed rgba(0,0,0,0.2); background: #f9f9f9; padding: 10px; font-weight: 700; font-size: 0.75rem; color: #555; border-radius: 8px;">
+              Toca un componente abajo
+            </div>
+          </div>
+
+          <!-- Options -->
+          <div class="game-options-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+            <div class="game-tile" onclick="selectGameOption(this, 'resistencia')" style="padding: 10px; font-size: 0.75rem;">Resistencia (220Ω)</div>
+            <div class="game-tile" onclick="selectGameOption(this, 'cable')" style="padding: 10px; font-size: 0.75rem;">Cable Directo</div>
+            <div class="game-tile" onclick="selectGameOption(this, 'interruptor')" style="padding: 10px; font-size: 0.75rem;">Interruptor</div>
+            <div class="game-tile" onclick="selectGameOption(this, 'condensador')" style="padding: 10px; font-size: 0.75rem;">Condensador</div>
+          </div>
+
+          <button class="mondrian-btn mondrian-btn-red mondrian-btn-full" onclick="submitGameAnswer()" style="padding: 10px; font-size: 0.85rem;">
+            Confirmar Respuesta
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabName) {
+      document.getElementById('tab-books').classList.remove('active');
+      document.getElementById('tab-games').classList.remove('active');
+      document.getElementById('tab-btn-books').classList.remove('active');
+      document.getElementById('tab-btn-games').classList.remove('active');
+
+      if (tabName === 'books') {
+        document.getElementById('tab-books').classList.add('active');
+        document.getElementById('tab-btn-books').classList.add('active');
+      } else {
+        document.getElementById('tab-games').classList.add('active');
+        document.getElementById('tab-btn-games').classList.add('active');
+      }
+    }
+
+    function openBookModal(title, desc, category, imgSrc) {
+      document.getElementById('modal-book-title').textContent = title;
+      document.getElementById('modal-book-desc').textContent = desc;
+      document.getElementById('modal-book-category').textContent = category;
+      document.getElementById('modal-book-img').src = imgSrc;
+      document.getElementById('book-modal').style.display = 'flex';
+    }
+
+    function closeBookModal() {
+      document.getElementById('book-modal').style.display = 'none';
+    }
+
+    let selectedOption = null;
+    function openCircuitGame() {
+      document.getElementById('game-modal').style.display = 'flex';
+    }
+    function closeCircuitGame() {
+      document.getElementById('game-modal').style.display = 'none';
+    }
+
+    function selectGameOption(el, opt) {
+      document.querySelectorAll('.game-tile').forEach(t => t.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedOption = opt;
+      document.getElementById('target-slot').textContent = el.textContent;
+    }
+
+    function submitGameAnswer() {
+      if (!selectedOption) {
+        alert('Por favor selecciona una respuesta.');
+        return;
+      }
+      
+      const isCorrect = (selectedOption === 'resistencia');
+      const statusBadge = isCorrect ? 'VERDE' : 'ROJO';
+      
+      fetch('/api/telemetry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          studentName: 'Mateo Rossi',
+          gameId: 'circuito-1',
+          timeSpentSec: 12.4,
+          errorsCount: isCorrect ? 0 : 1,
+          rageClicks: 0,
+          score: isCorrect ? 100 : 30,
+          statusBadge: statusBadge
+        })
+      }).then(() => {
+        alert(isCorrect ? '¡Excelente! Respuesta correcta. Telemetría enviada al profesor.' : 'Respuesta incorrecta. Telemetría de intento enviada.');
+        closeCircuitGame();
+      }).catch(() => {
+        alert('Respuesta registrada en modo offline.');
+        closeCircuitGame();
+      });
+    }
+  </script>
+</body>
+</html>

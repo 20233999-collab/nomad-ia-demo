@@ -72,7 +72,28 @@ body {
   overflow-x: hidden;
 }
 
-/* Futuristic Ambient Glowing Orbs Background */
+/* Sleek Stylized Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(0, 69, 134, 0.6), rgba(229, 37, 33, 0.6));
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--mondrian-blue), var(--mondrian-red));
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 69, 134, 0.6) rgba(0, 0, 0, 0.05);
+}
+
+/* Futuristic Ambient Glowing & Andean Landscape Background */
 body::before {
   content: "";
   position: fixed;
@@ -81,10 +102,12 @@ body::before {
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background: 
-    radial-gradient(circle at 15% 50%, rgba(229, 37, 33, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 85% 30%, rgba(0, 69, 134, 0.12) 0%, transparent 50%),
-    radial-gradient(circle at 50% 80%, rgba(247, 208, 0, 0.1) 0%, transparent 50%);
+  background-image: 
+    linear-gradient(180deg, rgba(248, 249, 251, 0.65) 0%, rgba(248, 249, 251, 0.45) 100%),
+    url('/images/paisaje_andino_fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Headings */
