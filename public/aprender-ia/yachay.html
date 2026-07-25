@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YACHAY - Juego estilo Duolingo con Chancay</title>
+  <link rel="stylesheet" href="./styles/yachay.css">
+</head>
+<body>
+
+  <!-- Shell Móvil YACHAY Ultra Clean -->
+  <div class="yachay-app-shell" id="yachayContainer">
+
+    <!-- Topbar 100% Transparente (Efecto PNG sobre el fondo del juego) -->
+    <header class="yachay-topbar">
+      <button class="topbar-btn" id="btnCloseScreen" title="Cerrar / Volver">✕</button>
+
+      <!-- Barra de Progreso Detallada y Específica -->
+      <div class="progress-wrapper" id="progressWrapper">
+        <div class="progress-container" id="progressBarContainer">
+          <div class="progress-fill" id="progressBarFill"></div>
+        </div>
+        <div class="progress-detail-text" id="progressDetailText">PASO 1 DE 4</div>
+      </div>
+
+      <!-- Stats Transparentes PNG: Racha 🔥 e Intis ☀️ -->
+      <div style="display: flex; align-items: center; gap: 12px;" id="topbarStatsGroup">
+        <div class="topbar-stat streak" title="Racha de Días">
+          <span>🔥</span>
+          <span id="streakCount">3</span>
+        </div>
+        <div class="topbar-stat intis" title="Intis (Monedas del Sol)">
+          <span>☀️</span>
+          <span id="intisCount">120</span>
+        </div>
+      </div>
+
+      <!-- Toggle Tema (Default Light Mode ☀️ / Dark Mode 🌙) -->
+      <button class="btn-theme" id="btnThemeToggle" title="Cambiar Modo Claro / Oscuro">
+        ☀️
+      </button>
+    </header>
+
+    <!-- ====================================================================
+         PASO 1 DE ONBOARDING: BIENVENIDA DE CHANCAY GIGANTE PROTAGONISTA
+         ==================================================================== -->
+    <section class="screen active" id="onboardStep1">
+      <div class="hero-onboard-center">
+        <!-- Globo de Texto compacto solo para el saludo -->
+        <div class="speech-bubble-compact">
+          ¡Allianllachu! Soy <strong>Chancay</strong> 🐹
+        </div>
+
+        <!-- Imagen Gigante de Chancay en el Centro -->
+        <img src="/images/chancay/CHANCAY DEFAULT 2.png" alt="Chancay Protagonista" class="chancay-hero-giant">
+      </div>
+
+      <!-- Botón de Continuar Azul Mondrian -->
+      <button class="btn-action-blue" id="btnOnboard1">CONTINUAR ➔</button>
+    </section>
+
+    <!-- PASO 2 DE ONBOARDING: SELECCIÓN DE MATERIA STEAM -->
+    <section class="screen" id="onboardStep2">
+      <div class="chancay-hero-box">
+        <img src="/images/chancay/CHANCAY EMOCIONADO.png" alt="Chancay Emocionado" class="chancay-question-img">
+        <div class="speech-bubble-clean">
+          ¿Qué materia STEAM deseas explorar hoy?
+        </div>
+      </div>
+
+      <div class="options-stack">
+        <div class="card-option-clean selected" data-topic="circuitos">
+          <div class="option-icon-square yellow">⚡</div>
+          <div>
+            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--text-main);">Ciencias & Circuitos</span>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Electricidad y faros de luz</div>
+          </div>
+        </div>
+
+        <div class="card-option-clean" data-topic="geometria">
+          <div class="option-icon-square red">📐</div>
+          <div>
+            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--text-main);">Geometría Andina</span>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Patrones y medidas locales</div>
+          </div>
+        </div>
+
+        <div class="card-option-clean" data-topic="algoritmos">
+          <div class="option-icon-square blue">🤖</div>
+          <div>
+            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--text-main);">Algoritmos & Código</span>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Secuencias de programación</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-action-blue" id="btnOnboard2">CONTINUAR ➔</button>
+    </section>
+
+    <!-- PASO 3 DE ONBOARDING: PROPUESTA DE VALOR -->
+    <section class="screen" id="onboardStep3">
+      <div class="chancay-hero-box">
+        <img src="/images/chancay/CHANCAY COQUETO.png" alt="Chancay Coqueto" class="chancay-question-img">
+        <div class="speech-bubble-clean">
+          ¡Esto es lo que aprenderás con Chancay!
+        </div>
+      </div>
+
+      <div class="options-stack" style="margin-bottom: 24px;">
+        <div class="card-option-clean" style="cursor: default;">
+          <div class="option-icon-square blue">💡</div>
+          <div>
+            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Retos STEAM sin estrés</span>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Sin vidas punitivas ni contadores de tiempo</div>
+          </div>
+        </div>
+
+        <div class="card-option-clean" style="cursor: default;">
+          <div class="option-icon-square yellow">☀️</div>
+          <div>
+            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Gana Intis (Soles ☀️) de Conocimiento</span>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Acumula racha y desbloquea insignias de sol</div>
+          </div>
+        </div>
+
+        <div class="card-option-clean" style="cursor: default;">
+          <div class="option-icon-square red">📡</div>
+          <div>
+            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Progreso 100% Offline</span>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Sincroniza tus avances con el docente</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-action-blue" id="btnOnboard3">CONTINUAR ➔</button>
+    </section>
+
+    <!-- PASO 4 DE ONBOARDING: ELECCIÓN DE INICIO -->
+    <section class="screen" id="onboardStep4">
+      <div class="chancay-hero-box">
+        <img src="/images/chancay/CHANCAY DAB.png" alt="Chancay Dab" class="chancay-question-img">
+        <div class="speech-bubble-clean">
+          ¿Desde dónde deseas empezar tu ruta de misiones?
+        </div>
+      </div>
+
+      <div class="options-stack" style="margin-bottom: 24px;">
+        <div class="card-option-clean selected" id="optStartBeginner">
+          <div class="option-icon-square yellow">📘</div>
+          <div>
+            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--text-main);">Desde el principio</span>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Misión 1: El Secreto de los Circuitos (Recomendado)</div>
+          </div>
+        </div>
+
+        <div class="card-option-clean" id="optStartPlacement">
+          <div class="option-icon-square red">🎯</div>
+          <div>
+            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--text-main);">Prueba de Nivel</span>
+            <div style="font-size: 0.82rem; color: var(--text-muted);">Demuestra lo que ya sabes</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-action-yellow" id="btnOnboard4">¡IR AL MAPA DE PROGRESO! 🚀</button>
+    </section>
+
+    <!-- ====================================================================
+         ROADMAP CON DECORACIONES PNG CON DISTRIBUCIÓN PERFECTA EN LOS FLANCOS
+         ==================================================================== -->
+    <section class="screen" id="screenPath">
+      
+      <!-- Section Card Banner con Puntero -->
+      <div class="roadmap-section-card">
+        <div>
+          <div class="tag">ETAPA 1, SECCIÓN 1</div>
+          <div class="title">El Secreto de los Circuitos ⚡</div>
+        </div>
+        <span style="font-size: 1.5rem; cursor: pointer;">📋</span>
+        <div class="roadmap-section-pointer"></div>
+      </div>
+
+      <!-- Ruta de Nodos S-Curve -->
+      <div class="duolingo-roadmap-path">
+
+        <!-- DECORACIONES PNG EN FLANCO IZQUIERDO (Montaña 1, Árbol Intermedio, Montaña 2 Abajo) -->
+        <img src="/images/roadmap_decorations/montana_roadmap.png" alt="Montaña Izquierda Superior" class="roadmap-decoration-png deco-mountain-left-1">
+        <img src="/images/roadmap_decorations/arbol_roadmap.png" alt="Árbol Izquierda Medio" class="roadmap-decoration-png deco-tree-left-mid">
+        <img src="/images/roadmap_decorations/montana_roadmap.png" alt="Montaña Izquierda Inferior" class="roadmap-decoration-png deco-mountain-left-2">
+
+        <!-- DECORACIONES PNG EN FLANCO DERECHO (Árbol 1, Montaña 1, Árbol 2) -->
+        <img src="/images/roadmap_decorations/arbol_roadmap.png" alt="Árbol Derecho Superior" class="roadmap-decoration-png deco-tree-right-1">
+        <img src="/images/roadmap_decorations/montana_roadmap.png" alt="Montaña Derecho Medio" class="roadmap-decoration-png deco-mountain-right-1">
+        <img src="/images/roadmap_decorations/arbol_roadmap.png" alt="Árbol Derecho Inferior" class="roadmap-decoration-png deco-tree-right-2">
+
+        <!-- Nodo 1: Cofre de Tesoro (Rojo Mondrian - Desbloqueado/Vibrante) -->
+        <div class="path-node-wrapper pos-center">
+          <button class="duo-node-btn node-red" id="btnNodeChest" title="Cofre de Recompensas">
+            📦
+          </button>
+        </div>
+
+        <!-- Nodo 2: LECCIÓN ACTIVA con CHANCAY EMOCIONADO SÚPER ANIMADO ACOMPAÑANDO -->
+        <div class="path-node-wrapper pos-left">
+          <button class="duo-node-btn node-yellow active-ring" id="btnNode1" title="Lección 1: Circuitos (Activo)">
+            ⭐
+          </button>
+          
+          <!-- CHANCAY EMOCIONADO SÚPER ANIMADO GIGANTE (120px x 120px) acompañando -->
+          <img src="/images/chancay/CHANCAY EMOCIONADO.png" alt="Chancay Emocionado Animado" class="roadmap-chancay-companion">
+        </div>
+
+        <!-- Nodo 3: Repaso / Práctica (Azul Mondrian - Translúcido) -->
+        <div class="path-node-wrapper pos-center">
+          <button class="duo-node-btn node-blue node-locked" id="btnNode2" title="Lección 2: Práctica (Bloqueado)">
+            🔄
+          </button>
+        </div>
+
+        <!-- Nodo 4: Lab de Video (Rojo Mondrian - Translúcido) -->
+        <div class="path-node-wrapper pos-right">
+          <button class="duo-node-btn node-red node-locked" id="btnNode3" title="Lección 3: Video Lab (Bloqueado)">
+            📹
+          </button>
+        </div>
+
+        <!-- Nodo 5: Audio Reto (Amarillo Mondrian - Translúcido) -->
+        <div class="path-node-wrapper pos-center">
+          <button class="duo-node-btn node-yellow node-locked" id="btnNode4" title="Lección 4: Audio Reto (Bloqueado)">
+            🎧
+          </button>
+        </div>
+
+        <!-- Nodo 6: Trofeo / Nivel Bloqueado con Estrellas (Translúcido) -->
+        <div class="path-node-wrapper pos-left" style="flex-direction: column;">
+          <button class="duo-node-btn node-gray node-locked" title="Gran Desafío (Bloqueado)">
+            🏆
+          </button>
+          <div class="locked-stars-row">
+            <span>★</span><span>★</span><span>★</span>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="btn-action-yellow" id="btnStartLesson">EMPEZAR LECCIÓN 🚀</button>
+    </section>
+
+    <!-- PANTALLA DE LECCIÓN INTERACTIVA -->
+    <section class="screen" id="screenGame">
+      <div class="chancay-hero-box">
+        <img src="/images/chancay/CHANCAY DEFAULT 2.png" alt="Chancay Preguntando" class="chancay-question-img" id="chancayAvatar">
+        <div class="speech-bubble-clean" id="speechBubbleText">
+          ¡Atención! Para encender el faro del laboratorio sin quemar el LED, ¿qué componente necesitamos agregar al circuito?
+        </div>
+      </div>
+
+      <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; margin-bottom: 14px;" id="questionTitle">
+        Selecciona la opción correcta:
+      </h3>
+
+      <div class="options-stack" id="optionsGrid">
+        <!-- Generado dinámicamente por yachay.js -->
+      </div>
+
+      <button class="btn-action-blue" id="btnCheck" disabled>COMPROBAR ✨</button>
+
+      <!-- Feedback Sheet Drawer -->
+      <div class="feedback-sheet-clean" id="feedbackDrawer">
+        <div style="display: flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800;">
+          <span id="feedbackIcon">🎉</span>
+          <span id="feedbackTitle">¡Excelente Trabajo!</span>
+        </div>
+        <p style="font-weight: 600; font-size: 0.95rem; line-height: 1.4;" id="feedbackText">
+          La resistencia limita la corriente y protege el circuito.
+        </p>
+        <button class="btn-action-blue" id="btnFeedbackNext">CONTINUAR ➔</button>
+      </div>
+    </section>
+
+    <!-- PANTALLA DE RESUMEN FINAL / VICTORIA -->
+    <section class="screen" id="screenSummary">
+      <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+        
+        <img src="/images/chancay/CHANCAY SALTANDO ALEGRIA.png" alt="Chancay Victorioso" class="chancay-question-img" style="width: 145px; height: 145px; margin-bottom: 12px;">
+        
+        <h2 style="font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; color: var(--m-red); margin-bottom: 4px;">¡Aprendiste muchísimo!</h2>
+        <p style="font-weight: 700; color: var(--text-muted); margin-bottom: 20px;">¡Chancay está muy orgulloso de tu avance!</p>
+
+        <!-- 3 Badges Mondrian -->
+        <div class="summary-badges-grid">
+          
+          <div class="summary-badge-item">
+            <div class="summary-badge-header yellow">INTIS (SOL)</div>
+            <div class="summary-badge-body">
+              <span>☀️</span>
+              <span id="summaryIntis">+30</span>
+            </div>
+          </div>
+
+          <div class="summary-badge-item">
+            <div class="summary-badge-header red">PRECISIÓN</div>
+            <div class="summary-badge-body">
+              <span>🎯</span>
+              <span id="summaryAccuracy">100%</span>
+            </div>
+          </div>
+
+          <div class="summary-badge-item">
+            <div class="summary-badge-header blue">TIEMPO</div>
+            <div class="summary-badge-body">
+              <span>⏱️</span>
+              <span id="summaryTime">1:15</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <button class="btn-action-yellow" id="btnRestart">VOLVER AL INICIO 🏠</button>
+    </section>
+
+  </div>
+
+  <script src="./js/yachay.js"></script>
+</body>
+</html>
