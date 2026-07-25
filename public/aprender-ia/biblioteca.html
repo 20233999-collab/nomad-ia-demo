@@ -3,31 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AprenderIA | Biblioteca & Minijuegos</title>
+  <title>AprenderIA | Biblioteca & Cómics</title>
   <link rel="stylesheet" href="/styles/mondrian-new.css">
   <style>
-    /* Tab System */
+    /* Tab System & Motion Animations */
     .tab-navigation {
       display: flex;
-      background: rgba(0,0,0,0.05);
-      padding: 4px;
-      border-radius: 14px;
+      background: rgba(0,0,0,0.06);
+      padding: 5px;
+      border-radius: 16px;
       margin: 12px 16px 0 16px;
-      gap: 4px;
+      gap: 6px;
+      backdrop-filter: blur(12px);
     }
 
     .tab-btn {
       flex: 1;
-      padding: 10px 12px;
+      padding: 10px 14px;
       font-family: var(--font-family);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 800;
       border: none;
       background: transparent;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
       color: #666;
-      transition: all 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -37,7 +38,7 @@
     .tab-btn.active {
       background: #fff;
       color: var(--mondrian-black);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
     }
 
     .tab-content {
@@ -45,49 +46,182 @@
       padding: 16px;
       flex: 1;
       overflow-y: auto;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      -webkit-overflow-scrolling: touch;
     }
 
     .tab-content.active {
       display: flex;
       flex-direction: column;
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* Book / Storybook Carousel */
-    .book-carousel {
+    /* ESTANTE ESTILO KINDLE (COMPLETO, SIN CORTES Y CON DESPLAZAMIENTO NATURAL DE PANTALLA) */
+    .kindle-shelf-carousel {
       display: flex;
       gap: 14px;
       overflow-x: auto;
-      padding-bottom: 12px;
-      margin-top: 10px;
+      overflow-y: hidden; /* Evita barra de scroll vertical interna */
+      min-height: 275px;  /* Altura suficiente para tarjeta completa + hover + scrollbar horizontal */
+      padding: 10px 4px 18px 4px;
+      margin-top: 6px;
+      margin-bottom: 8px;
       scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      align-items: stretch;
     }
 
-    .book-card {
-      min-width: 140px;
-      max-width: 140px;
-      background: #fff;
-      border-radius: 18px;
-      padding: 8px;
+    .kindle-book-card {
+      min-width: 148px;
+      max-width: 148px;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 10px;
       border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       scroll-snap-align: start;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      flex-shrink: 0;
+      position: relative;
     }
 
-    .book-card:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    .kindle-book-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+      z-index: 10;
     }
 
-    .book-cover-img {
+    .kindle-cover-img {
       width: 100%;
-      height: 175px;
-      object-fit: cover;
+      height: 180px;
+      object-fit: contain; /* Garantiza 100% de visibilidad del título e ilustración de la portada */
+      object-position: top center;
+      background: #f4f5f8;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Adaptación Responsiva para Tablets (Mateo) */
+    @media (min-width: 600px) {
+      .kindle-shelf-carousel {
+        gap: 18px;
+        min-height: 325px;
+        padding: 12px 6px 20px 6px;
+      }
+      .kindle-book-card {
+        min-width: 175px;
+        max-width: 175px;
+        padding: 12px;
+        border-radius: 16px;
+      }
+      .kindle-cover-img {
+        height: 215px;
+      }
+    }
+
+    /* Style for Graphic Novel Art Covers */
+    .graphic-novel-cover {
+      width: 100%;
+      height: 260px;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .graphic-novel-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+    }
+
+    .graphic-novel-title {
+      position: relative;
+      z-index: 2;
+      font-weight: 900;
+      font-size: 0.95rem;
+      line-height: 1.2;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    }
+
+    .graphic-novel-badge {
+      position: relative;
+      z-index: 2;
+      font-size: 0.65rem;
+      font-weight: 800;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(8px);
+      padding: 3px 8px;
+      border-radius: 6px;
+      width: fit-content;
+    }
+
+    /* SECCIÓN SEGUNDA (DESPLAZANDO HACIA ABAJO): COMICS DE CHANCAY */
+    .comics-section-container {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(0,0,0,0.1);
+    }
+
+    .chancay-comics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    @media (min-width: 600px) {
+      .chancay-comics-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+    }
+
+    .chancay-comic-card {
+      background: #ffffff;
+      border: 1.5px solid rgba(0, 69, 134, 0.15);
+      border-radius: 16px;
+      padding: 10px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
+
+    .chancay-comic-card:hover {
+      transform: translateY(-4px);
+      background: #ffffff;
+      border-color: var(--mondrian-red);
+      box-shadow: 0 10px 24px rgba(229, 37, 33, 0.18);
+    }
+
+    .chancay-comic-thumb {
+      width: 100%;
+      height: 115px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      background: #f8f9fa;
+      border: 1px solid rgba(0,0,0,0.06);
     }
 
     /* Games Grid */
@@ -99,31 +233,32 @@
     }
 
     .arcade-card {
-      background: var(--glass-bg-light);
-      backdrop-filter: var(--glass-blur);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 14px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       box-shadow: var(--glass-shadow);
-      transition: all 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
     }
 
     .arcade-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.12);
+      background: #fff;
     }
 
-    /* Modals */
+    /* Modals with Spring Animation */
     .modal-overlay {
       display: none;
       position: absolute;
       inset: 0;
       background: rgba(17, 17, 17, 0.8);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(14px);
       z-index: 300;
       padding: 20px;
       align-items: center;
@@ -132,12 +267,18 @@
 
     .modal-content {
       background: #fff;
-      border-radius: 24px;
-      padding: 20px;
+      border-radius: 26px;
+      padding: 22px;
       width: 100%;
       max-height: 90%;
       overflow-y: auto;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+      animation: modalPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
@@ -159,84 +300,141 @@
       <!-- Tabs Switcher -->
       <div class="tab-navigation">
         <button class="tab-btn active" id="tab-btn-books" onclick="switchTab('books')">
-          📖 Libros & Historietas
+          📖 Tu Biblioteca
         </button>
         <button class="tab-btn" id="tab-btn-games" onclick="switchTab('games')">
-          🎮 Misiones Arcade
+          🎮 Aprende Jugando
         </button>
       </div>
 
-      <!-- TAB 1: LIBROS & HISTORIETAS (ESTILO EDITORIAL / STORYBOOK) -->
+      <!-- TAB 1: TU BIBLIOTECA + CÓMICAS ABAJO -->
       <div class="tab-content active" id="tab-books">
         
         <!-- Search bar mockup -->
-        <div style="position: relative; margin-bottom: 12px;">
-          <input type="text" placeholder="Buscar libro, tema o guía..." style="width: 100%; padding: 10px 14px; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; font-family: var(--font-family); font-size: 0.8rem; outline: none; background: rgba(255,255,255,0.85);">
+        <div style="position: relative; margin-bottom: 8px;">
+          <input type="text" placeholder="Buscar en tu biblioteca..." style="width: 100%; padding: 10px 14px; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; font-family: var(--font-family); font-size: 0.8rem; outline: none; background: rgba(255,255,255,0.9);">
         </div>
 
-        <h4 style="font-size: 0.88rem; font-weight: 800; margin-bottom: 2px;">Lecturas Educativas 📚</h4>
-        <p style="font-size: 0.74rem; color: #666; margin-bottom: 6px;">Libros y guías de campo descargables para tu tablet offline</p>
+        <!-- SECCIÓN 1: ESTANTE DE LIBROS KINDLE (PORTADAS GRANDES) -->
+        <h4 style="font-size: 0.92rem; font-weight: 900; margin-bottom: 2px;">Colección de Libros Educativos 📚</h4>
+        <p style="font-size: 0.74rem; color: #666; margin-bottom: 2px;">Elige tu libro (Desliza horizontalmente en el estante)</p>
 
-        <!-- Horizontal Storybook Editorial Carousel -->
-        <div class="book-carousel">
+        <div class="kindle-shelf-carousel">
           
           <!-- Book 1: La Leyenda del Rayo -->
-          <div class="book-card" onclick="openBookModal('La Leyenda del Rayo', 'Texto educativo sobre energía y electrónica básica. Mateo y su equipo descubren los secretos de los circuitos en los Andes.', 'Física / STEAM', '/images/comics/circuito.jpg')">
-            <img src="/images/comics/circuito.jpg" class="book-cover-img" alt="La Leyenda del Rayo">
-            <div style="font-weight: 800; font-size: 0.78rem; margin-top: 6px; line-height: 1.1;">La Leyenda del Rayo</div>
+          <div class="kindle-book-card" onclick="openBookModal('La Leyenda del Rayo', 'Texto educativo sobre energía y electrónica básica. Mateo y su equipo descubren los secretos de los circuitos en los Andes.', 'Física / STEAM', '/images/comics/circuito.jpg')">
+            <img src="/images/comics/circuito.jpg" class="kindle-cover-img" alt="La Leyenda del Rayo">
+            <div style="font-weight: 900; font-size: 0.8rem; margin-top: 8px; line-height: 1.1;">La Leyenda del Rayo</div>
             <div style="font-size: 0.65rem; color: #666; margin-top: 2px;">Física • 32 págs</div>
           </div>
 
           <!-- Book 2: Geometría de los Andes -->
-          <div class="book-card" onclick="openBookModal('Geometría de los Andes', 'Libro de matemáticas aplicadas. Descubre la simetría y las formas geométricas de las terrazas incas.', 'Matemáticas', '/images/comics/mate.jpg')">
-            <img src="/images/comics/mate.jpg" class="book-cover-img" alt="Geometría de los Andes">
-            <div style="font-weight: 800; font-size: 0.78rem; margin-top: 6px; line-height: 1.1;">Geometría Andina</div>
+          <div class="kindle-book-card" onclick="openBookModal('Geometría de los Andes', 'Libro de matemáticas aplicadas. Descubre la simetría y las formas geométricas de las terrazas incas.', 'Matemáticas', '/images/comics/mate.jpg')">
+            <img src="/images/comics/mate.jpg" class="kindle-cover-img" alt="Geometría de los Andes">
+            <div style="font-weight: 900; font-size: 0.8rem; margin-top: 8px; line-height: 1.1;">Geometría Andina</div>
             <div style="font-size: 0.65rem; color: #666; margin-top: 2px;">Matemáticas • 28 págs</div>
           </div>
 
           <!-- Book 3: El Huerto del Cuy -->
-          <div class="book-card" onclick="openBookModal('El Huerto del Cuy', 'Manual práctico de agronomía y automatización. Chancay diseña un invernadero inteligente en los Andes.', 'Robótica / Agronomía', '/images/comics/huerto.jpg')">
-            <img src="/images/comics/huerto.jpg" class="book-cover-img" alt="El Huerto del Cuy">
-            <div style="font-weight: 800; font-size: 0.78rem; margin-top: 6px; line-height: 1.1;">El Huerto del Cuy</div>
+          <div class="kindle-book-card" onclick="openBookModal('El Huerto del Cuy', 'Manual práctico de agronomía y automatización. Chancay diseña un invernadero inteligente en los Andes.', 'Robótica / Agronomía', '/images/comics/huerto.jpg')">
+            <img src="/images/comics/huerto.jpg" class="kindle-cover-img" alt="El Huerto del Cuy">
+            <div style="font-weight: 900; font-size: 0.8rem; margin-top: 8px; line-height: 1.1;">El Huerto del Cuy</div>
             <div style="font-size: 0.65rem; color: #666; margin-top: 2px;">Robótica • 24 págs</div>
           </div>
 
           <!-- Book 4: Código Secreto -->
-          <div class="book-card" onclick="openBookModal('Código Secreto: Aventuras en los Andes', 'Introducción al pensamiento computacional y algoritmos a través de misterios y acertijos en el campo.', 'Computación / Lógica', '/images/comics/algoritmo.jpg')">
-            <img src="/images/comics/algoritmo.jpg" class="book-cover-img" alt="Código Secreto">
-            <div style="font-weight: 800; font-size: 0.78rem; margin-top: 6px; line-height: 1.1;">Código Secreto</div>
+          <div class="kindle-book-card" onclick="openBookModal('Código Secreto: Aventuras en los Andes', 'Introducción al pensamiento computacional y algoritmos a través de misterios y acertijos en el campo.', 'Computación / Lógica', '/images/comics/algoritmo.jpg')">
+            <img src="/images/comics/algoritmo.jpg" class="kindle-cover-img" alt="Código Secreto">
+            <div style="font-weight: 900; font-size: 0.8rem; margin-top: 8px; line-height: 1.1;">Código Secreto</div>
             <div style="font-size: 0.65rem; color: #666; margin-top: 2px;">Algoritmos • 30 págs</div>
+          </div>
+
+          <!-- Book 5: El Enigma del Agua y los Ríos (Graphic Novel Art Cover) -->
+          <div class="kindle-book-card" onclick="openBookModal('El Enigma del Agua y los Ríos', 'Acompaña al equipo a explorar las cuencas de agua y la energía hidráulica en los valles peruanos.', 'Hidrología / Ciencias', '/images/comics/naturaleza.jpg')">
+            <img src="/images/comics/naturaleza.jpg" class="kindle-cover-img" alt="El Enigma del Agua">
+            <div style="font-weight: 900; font-size: 0.8rem; margin-top: 8px; line-height: 1.1;">El Enigma del Agua</div>
+            <div style="font-size: 0.65rem; color: #666; margin-top: 2px;">Ciencias • 34 págs</div>
+          </div>
+
+          <!-- Book 6: El Campamento de los Inventores (Inspired by Be Prepared) -->
+          <div class="kindle-book-card" onclick="openBookModal('El Campamento de los Inventores', 'Una guía de expedición estilo scout en el bosque andino construyendo inventos con energía limpia.', 'Tecnología / Campo', '/images/comics/huerto.jpg')">
+            <img src="/images/comics/huerto.jpg" class="kindle-cover-img" alt="Inventores en el Campo">
+            <div style="font-weight: 900; font-size: 0.8rem; margin-top: 8px; line-height: 1.1;">Inventores en el Campo</div>
+            <div style="font-size: 0.65rem; color: #666; margin-top: 2px;">Tecnología • 40 págs</div>
+          </div>
+
+          <!-- Book 7: Constelaciones Incaicas -->
+          <div class="kindle-book-card" onclick="openBookModal('La Constelación del Cóndor', 'Astronomía e historia antigua. Aprende a orientarte observando las estrellas en el cielo de los Andes.', 'Astronomía / STEAM', '/images/comics/circuito.jpg')">
+            <img src="/images/comics/circuito.jpg" class="kindle-cover-img" alt="El Cóndor Estelar">
+            <div style="font-weight: 900; font-size: 0.8rem; margin-top: 8px; line-height: 1.1;">El Cóndor Estelar</div>
+            <div style="font-size: 0.65rem; color: #666; margin-top: 2px;">Astronomía • 26 págs</div>
           </div>
 
         </div>
 
-        <!-- Extra Field Guides List (Institucionales pero amigables) -->
-        <h4 style="font-size: 0.85rem; font-weight: 800; margin: 10px 0 8px 0;">📜 Guías de Campo & Fichas Educativas</h4>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <div style="background: #fff; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; font-weight: 700;">
-            <span>📄 Ficha de Experimentos: El Rayo Casero</span>
-            <span style="color: var(--mondrian-blue); font-size: 0.7rem;">Guardar PDF</span>
+        <!-- SECCIÓN 2: CÓMICS Y HISTORIETAS DE CHANCAY -->
+        <div class="comics-section-container">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+            <h4 style="font-size: 0.92rem; font-weight: 900; color: var(--mondrian-black); display: flex; align-items: center; gap: 6px;">
+              <span>🐶</span> Cómics & Historietas: Chancay y sus Aventuras
+            </h4>
+            <span style="font-size: 0.65rem; font-weight: 800; background: rgba(229, 37, 33, 0.1); color: var(--mondrian-red); padding: 2px 8px; border-radius: 100px;">
+              MINEDU Oficial
+            </span>
           </div>
-          <div style="background: #fff; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; font-weight: 700;">
-            <span>📄 Guía Pedagógica: Geometría Inca</span>
-            <span style="color: var(--mondrian-blue); font-size: 0.7rem;">Guardar PDF</span>
+          <p style="font-size: 0.74rem; color: #666; margin-bottom: 12px;">Descubre las historietas oficiales de Chancay, el perrito educador del MINEDU</p>
+          
+          <div class="chancay-comics-grid">
+            
+            <!-- Episodio 1: Misión Circuitos -->
+            <div class="chancay-comic-card" onclick="openBookModal('Chancay: Misión Circuitos', 'Chancay aprende sobre resistores, LEDs y automatización construyendo su primer robot en el aula andina.', 'Robótica / STEAM', '/images/chancay/chancay-circuitos.png')">
+              <img src="/images/chancay/chancay-circuitos.png" class="chancay-comic-thumb" alt="Chancay Misión Circuitos">
+              <div style="font-size: 0.62rem; font-weight: 800; color: var(--mondrian-red); text-transform: uppercase; letter-spacing: 0.4px;">Episodio 1</div>
+              <div style="font-size: 0.78rem; font-weight: 900; margin: 2px 0; color: #111; line-height: 1.2;">Misión Circuitos</div>
+              <div style="font-size: 0.65rem; color: #666;">Robótica • 12 págs</div>
+            </div>
+
+            <!-- Episodio 2: El Acertijo Inca -->
+            <div class="chancay-comic-card" onclick="openBookModal('Chancay y el Acertijo de los Números', 'Chancay resuelve desafíos de quipus y aritmética andina guiando a Mateo en su tablet.', 'Matemáticas', '/images/chancay/chancay-matematico.png')">
+              <img src="/images/chancay/chancay-matematico.png" class="chancay-comic-thumb" alt="Chancay Matemático">
+              <div style="font-size: 0.62rem; font-weight: 800; color: var(--mondrian-blue); text-transform: uppercase; letter-spacing: 0.4px;">Episodio 2</div>
+              <div style="font-size: 0.78rem; font-weight: 900; margin: 2px 0; color: #111; line-height: 1.2;">El Acertijo Inca</div>
+              <div style="font-size: 0.65rem; color: #666;">Matemáticas • 16 págs</div>
+            </div>
+
+            <!-- Episodio 3: El Gran Salto Ta-Da -->
+            <div class="chancay-comic-card" onclick="openBookModal('El Gran Salto de Chancay', 'La aventura donde Chancay enseña la importancia de la perseverancia y resiliencia ante los ejercicios difíciles.', 'Socioemocional', '/images/chancay/chancay-tada.png')">
+              <img src="/images/chancay/chancay-tada.png" class="chancay-comic-thumb" alt="Chancay Pose Ta-Da">
+              <div style="font-size: 0.62rem; font-weight: 800; color: #8A6D00; text-transform: uppercase; letter-spacing: 0.4px;">Episodio 3</div>
+              <div style="font-size: 0.78rem; font-weight: 900; margin: 2px 0; color: #111; line-height: 1.2;">El Gran Salto Ta-Da</div>
+              <div style="font-size: 0.65rem; color: #666;">Valores • 10 págs</div>
+            </div>
+
+            <!-- Episodio 4: Mis 8 Emociones -->
+            <div class="chancay-comic-card" onclick="openBookModal('Las 8 Emociones de Chancay', 'Una guía interactiva ilustrada donde Chancay enseña a reconocer y gestionar las emociones durante el estudio.', 'Guía de Marca', '/images/chancay/chancay-expresiones.png')">
+              <img src="/images/chancay/chancay-expresiones.png" class="chancay-comic-thumb" alt="Chancay Expresiones">
+              <div style="font-size: 0.62rem; font-weight: 800; color: #2D8A4E; text-transform: uppercase; letter-spacing: 0.4px;">Episodio 4</div>
+              <div style="font-size: 0.78rem; font-weight: 900; margin: 2px 0; color: #111; line-height: 1.2;">Mis 8 Emociones</div>
+              <div style="font-size: 0.65rem; color: #666;">Empatía • 14 págs</div>
+            </div>
+
           </div>
         </div>
 
       </div>
 
-      <!-- TAB 2: PORTAL DE MISIONES ARCADE -->
+      <!-- TAB 2: APRENDE JUGANDO (PORTAL DE JUEGOS) -->
       <div class="tab-content" id="tab-games">
-        <h4 style="font-size: 0.85rem; font-weight: 800; margin-bottom: 2px;">Misiones Arcade STEAM 🕹️</h4>
-        <p style="font-size: 0.75rem; color: #666; margin-bottom: 8px;">Supera misiones y demuestra tu superpoder cognitivo</p>
+        <h4 style="font-size: 0.88rem; font-weight: 800; margin-bottom: 2px;">Aprende Jugando 🕹️</h4>
+        <p style="font-size: 0.74rem; color: #666; margin-bottom: 8px;">Misiones divertidas para poner a prueba tu conocimiento</p>
 
         <div class="arcade-grid">
           
           <!-- Playable Game 1 -->
-          <div class="arcade-card" style="border: 2px solid var(--mondrian-yellow); background: rgba(247, 208, 0, 0.05);">
-            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: var(--mondrian-yellow); padding: 2px 6px; border-radius: 4px;">¡ACTIVO!</span>
-            <div style="font-size: 2rem; text-align: center; margin: 8px 0;">⚡</div>
-            <div style="font-weight: 800; font-size: 0.8rem; text-align: center;">El Rayo de Chancay</div>
+          <div class="arcade-card" style="border: 2px solid var(--mondrian-yellow); background: rgba(247, 208, 0, 0.08);">
+            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: var(--mondrian-yellow); padding: 2px 6px; border-radius: 4px;">¡JUGAR!</span>
+            <div style="font-size: 2.2rem; text-align: center; margin: 8px 0;">⚡</div>
+            <div style="font-weight: 800; font-size: 0.82rem; text-align: center;">El Rayo de Chancay</div>
             <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Conecta los resistores y enciende el LED.</p>
             <button class="mondrian-btn mondrian-btn-yellow mondrian-btn-full" style="padding: 8px; font-size: 0.75rem;" onclick="openCircuitGame()">
               ¡JUGAR AHORA!
@@ -246,8 +444,8 @@
           <!-- Mockup Game 2 -->
           <div class="arcade-card">
             <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: #eee; color: #666; padding: 2px 6px; border-radius: 4px;">PRÓXIMAMENTE</span>
-            <div style="font-size: 2rem; text-align: center; margin: 8px 0;">🚀</div>
-            <div style="font-weight: 800; font-size: 0.8rem; text-align: center;">Cohete del Cóndor</div>
+            <div style="font-size: 2.2rem; text-align: center; margin: 8px 0;">🚀</div>
+            <div style="font-weight: 800; font-size: 0.82rem; text-align: center;">Cohete del Cóndor</div>
             <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Calcula la trayectoria exacta del vuelo.</p>
             <button class="mondrian-btn" style="padding: 8px; font-size: 0.75rem; background: #e0e0e0; color: #888; cursor: not-allowed;">
               Bloqueado 🔒
@@ -257,8 +455,8 @@
           <!-- Mockup Game 3 -->
           <div class="arcade-card">
             <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: #eee; color: #666; padding: 2px 6px; border-radius: 4px;">PRÓXIMAMENTE</span>
-            <div style="font-size: 2rem; text-align: center; margin: 8px 0;">🧪</div>
-            <div style="font-weight: 800; font-size: 0.8rem; text-align: center;">Papas Mágicas</div>
+            <div style="font-size: 2.2rem; text-align: center; margin: 8px 0;">🧪</div>
+            <div style="font-weight: 800; font-size: 0.82rem; text-align: center;">Papas Mágicas</div>
             <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Laboratorio de química andina lúdica.</p>
             <button class="mondrian-btn" style="padding: 8px; font-size: 0.75rem; background: #e0e0e0; color: #888; cursor: not-allowed;">
               Bloqueado 🔒
@@ -268,8 +466,8 @@
           <!-- Mockup Game 4 -->
           <div class="arcade-card">
             <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 800; background: #eee; color: #666; padding: 2px 6px; border-radius: 4px;">PRÓXIMAMENTE</span>
-            <div style="font-size: 2rem; text-align: center; margin: 8px 0;">🤖</div>
-            <div style="font-weight: 800; font-size: 0.8rem; text-align: center;">Alpaca Bot</div>
+            <div style="font-size: 2.2rem; text-align: center; margin: 8px 0;">🤖</div>
+            <div style="font-weight: 800; font-size: 0.82rem; text-align: center;">Alpaca Bot</div>
             <p style="font-size: 0.68rem; color: #666; text-align: center; margin: 4px 0 8px 0;">Guía al robot con bloques de código.</p>
             <button class="mondrian-btn" style="padding: 8px; font-size: 0.75rem; background: #e0e0e0; color: #888; cursor: not-allowed;">
               Bloqueado 🔒
@@ -287,7 +485,9 @@
             <button onclick="closeBookModal()" style="background: none; border: none; font-size: 1.4rem; font-weight: 800; cursor: pointer;">×</button>
           </div>
           
-          <img id="modal-book-img" src="" style="width: 100%; max-height: 220px; object-fit: cover; border-radius: 14px; margin-bottom: 12px; box-shadow: 0 6px 16px rgba(0,0,0,0.15);">
+          <div id="modal-book-img-container" style="margin-bottom: 12px;">
+            <img id="modal-book-img" src="" style="width: 100%; max-height: 220px; object-fit: cover; border-radius: 14px; box-shadow: 0 6px 16px rgba(0,0,0,0.15);">
+          </div>
 
           <h3 id="modal-book-title" style="font-size: 1.1rem; margin-bottom: 6px;">Título del Libro</h3>
           <p id="modal-book-desc" style="font-size: 0.8rem; color: #555; line-height: 1.4; margin-bottom: 16px;">Descripción completa del libro...</p>
@@ -339,17 +539,22 @@
 
   <script>
     function switchTab(tabName) {
-      document.getElementById('tab-books').classList.remove('active');
-      document.getElementById('tab-games').classList.remove('active');
-      document.getElementById('tab-btn-books').classList.remove('active');
-      document.getElementById('tab-btn-games').classList.remove('active');
+      const tabBooks = document.getElementById('tab-books');
+      const tabGames = document.getElementById('tab-games');
+      const btnBooks = document.getElementById('tab-btn-books');
+      const btnGames = document.getElementById('tab-btn-games');
+
+      btnBooks.classList.remove('active');
+      btnGames.classList.remove('active');
+      tabBooks.classList.remove('active');
+      tabGames.classList.remove('active');
 
       if (tabName === 'books') {
-        document.getElementById('tab-books').classList.add('active');
-        document.getElementById('tab-btn-books').classList.add('active');
+        tabBooks.classList.add('active');
+        btnBooks.classList.add('active');
       } else {
-        document.getElementById('tab-games').classList.add('active');
-        document.getElementById('tab-btn-games').classList.add('active');
+        tabGames.classList.add('active');
+        btnGames.classList.add('active');
       }
     }
 
@@ -357,7 +562,13 @@
       document.getElementById('modal-book-title').textContent = title;
       document.getElementById('modal-book-desc').textContent = desc;
       document.getElementById('modal-book-category').textContent = category;
-      document.getElementById('modal-book-img').src = imgSrc;
+      const imgEl = document.getElementById('modal-book-img');
+      if (imgSrc) {
+        imgEl.style.display = 'block';
+        imgEl.src = imgSrc;
+      } else {
+        imgEl.style.display = 'none';
+      }
       document.getElementById('book-modal').style.display = 'flex';
     }
 
