@@ -166,11 +166,12 @@ app.post('/api/chat', (req, res) => {
     badge = "HISTORIA";
     suggestedTopic = "¿Quiénes construyeron Caral?";
   } else if (query.includes('felic') || query.includes('gane') || query.includes('puntos') || query.includes('bien') || query.includes('logro') || query.includes('dab')) {
-    reply = "¡ESO ES TODO, CAMPEÓN! 🔥 ¡DAB PARA TI! Has demostrado una enorme concentración y curiosidad. ¡Sigue así y acumularás muchísimas semillas 🌱!";
+    reply = "¡ESO ES TODO, CAMPEÓN! 🔥 ¡DAB PARA TI! Has demostrado una enorme concentración y curiosidad. ¡Sigue así y acumularás muchísimos Intis 🪙!";
     pose = "dab";
     badge = "LOGRO";
-    suggestedTopic = "¿Cómo gano más semillas 🌱?";
+    suggestedTopic = "¿Cómo gano más Intis 🪙?";
     audioUrl = "/chancay/audio/felicitaciones.mp3";
+
   } else if (query.includes('triste') || query.includes('dificil') || query.includes('no puedo') || query.includes('error') || query.includes('mal')) {
     reply = "No te me desanimes, Mateo. 💙 En la ciencia y en la vida, los errores son solo los primeros pasos hacia un gran descubrimiento. ¡Respira profundo e inténtalo una vez más!";
     pose = "triste";

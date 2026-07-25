@@ -291,7 +291,7 @@ async function handleAIDrawerSubmit(e) {
                    "\"Estimados padres de Mateo, felicitamos su excelente desempeño en el módulo de Ciencia y Química. Para reforzar en casa, les sugerimos practicar juegos de división simple en geometría. ¡Sigue aprendiendo con NOMAD-IA!\"";
   } else {
     responseText = `💡 **Respuesta Asistencial de Chancay:**\n` +
-                   `He analizado la telemetría actual de Mateo respecto a "${userText}". Mateo mantiene una actitud altamente positiva y su semáforo de aprendizaje está en **🟢 VERDE**. ¡Te sugiero premiar su esfuerzo con una semilla YACHAY!`;
+                   `He analizado la telemetría actual de Mateo respecto a "${userText}". Mateo mantiene una actitud altamente positiva y su semáforo de aprendizaje está en **🟢 VERDE**. ¡Te sugiero premiar su esfuerzo con un Inti YACHAY 🪙!`;
   }
 
   setTimeout(() => {

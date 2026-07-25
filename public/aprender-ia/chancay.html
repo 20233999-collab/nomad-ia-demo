@@ -280,120 +280,145 @@
       color: #FFFFFF;
       box-shadow: 0 4px 12px rgba(229, 37, 33, 0.3);
     }
-
     /* --------------------------------------------------------------------------
-       TABLET MODE ( body.mode-tablet OR real tablet viewports )
-       2-Column Split: Chancay on Left, Speech Bubble & Input on Right
+       DEVICE & ORIENTATION RESPONSIVE MEDIA QUERIES
+       Auto-adapts to physical Phone, Tablet, and Laptop in Portrait & Landscape
        -------------------------------------------------------------------------- */
-    body.mode-tablet .talking-chancay-stage,
-    body.mode-fullscreen .talking-chancay-stage {
-      display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      grid-template-rows: 1fr auto;
-      gap: 16px 20px;
-      align-items: center;
-      padding: 20px;
+
+    /* 1. TABLET PORTRAIT (640px - 1024px in Vertical Orientation) */
+    @media (min-width: 640px) and (max-width: 1024px) and (orientation: portrait) {
+      .talking-chancay-stage {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 16px 24px 20px 24px !important;
+      }
+
+      .speech-bubble-wrapper {
+        max-width: 560px !important;
+        margin-top: 4px !important;
+      }
+
+      .clean-speech-card {
+        padding: 16px 20px !important;
+      }
+
+      .clean-speech-card::after {
+        bottom: -12px !important;
+        top: auto !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        border-left: 12px solid transparent !important;
+        border-right: 12px solid transparent !important;
+        border-top: 12px solid var(--mondrian-blue, #004586) !important;
+        border-bottom: none !important;
+      }
+
+      .chancay-character-img {
+        width: 260px !important;
+        height: 260px !important;
+        max-height: 35vh !important;
+      }
+
+      .bottom-controls-section {
+        max-width: 560px !important;
+      }
     }
 
-    body.mode-tablet .chancay-character-stage,
-    body.mode-fullscreen .chancay-character-stage {
-      grid-column: 1;
-      grid-row: 1 / span 2;
-      height: 100%;
-      margin: 0;
+    /* 2. TABLET LANDSCAPE (640px - 1024px in Horizontal Orientation) */
+    @media (min-width: 640px) and (max-width: 1024px) and (orientation: landscape),
+           body.mode-tablet .talking-chancay-stage {
+      display: grid !important;
+      grid-template-columns: 1fr 1.2fr !important;
+      grid-template-rows: 1fr auto !important;
+      gap: 16px 20px !important;
+      align-items: center !important;
+      padding: 20px !important;
     }
 
-    body.mode-tablet .chancay-character-img,
-    body.mode-fullscreen .chancay-character-img {
-      width: 270px;
-      height: 270px;
-      max-width: 100%;
-      max-height: 60vh;
+    @media (min-width: 640px) and (max-width: 1024px) and (orientation: landscape) .chancay-character-stage,
+    body.mode-tablet .chancay-character-stage {
+      grid-column: 1 !important;
+      grid-row: 1 / span 2 !important;
+      height: 100% !important;
+      margin: 0 !important;
     }
 
-    body.mode-tablet .speech-bubble-wrapper,
-    body.mode-fullscreen .speech-bubble-wrapper {
-      grid-column: 2;
-      grid-row: 1;
-      max-width: 100%;
-      margin: 0;
-      align-self: end;
+    @media (min-width: 640px) and (max-width: 1024px) and (orientation: landscape) .chancay-character-img,
+    body.mode-tablet .chancay-character-img {
+      width: 280px !important;
+      height: 280px !important;
+      max-width: 100% !important;
+      max-height: 60vh !important;
     }
 
-    /* Speech Tail points LEFT towards Chancay on Tablet & Fullscreen */
-    body.mode-tablet .clean-speech-card::after,
-    body.mode-fullscreen .clean-speech-card::after {
-      bottom: auto;
-      top: 36px;
-      left: -12px;
-      transform: none;
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      border-right: 12px solid var(--mondrian-blue, #004586);
-      border-left: none;
+    @media (min-width: 640px) and (max-width: 1024px) and (orientation: landscape) .speech-bubble-wrapper,
+    body.mode-tablet .speech-bubble-wrapper {
+      grid-column: 2 !important;
+      grid-row: 1 !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      align-self: end !important;
     }
 
-    body.mode-tablet .bottom-controls-section,
-    body.mode-fullscreen .bottom-controls-section {
-      grid-column: 2;
-      grid-row: 2;
-      max-width: 100%;
-      align-self: start;
+    @media (min-width: 640px) and (max-width: 1024px) and (orientation: landscape) .clean-speech-card::after,
+    body.mode-tablet .clean-speech-card::after {
+      bottom: auto !important;
+      top: 36px !important;
+      left: -12px !important;
+      transform: none !important;
+      border-top: 10px solid transparent !important;
+      border-bottom: 10px solid transparent !important;
+      border-right: 12px solid var(--mondrian-blue, #004586) !important;
+      border-left: none !important;
     }
 
-    /* --------------------------------------------------------------------------
-       REAL TABLET DEVICE OVERRIDE (@media min-width: 768px and max-width: 1024px)
-       -------------------------------------------------------------------------- */
-    @media (min-width: 768px) and (max-width: 1024px) {
+    @media (min-width: 640px) and (max-width: 1024px) and (orientation: landscape) .bottom-controls-section,
+    body.mode-tablet .bottom-controls-section {
+      grid-column: 2 !important;
+      grid-row: 2 !important;
+      max-width: 100% !important;
+      align-self: start !important;
+    }
+
+    /* 3. PHONE LANDSCAPE (Horizontal Small Screens <= 639px) */
+    @media (max-width: 639px) and (orientation: landscape) {
       .talking-chancay-stage {
         display: grid !important;
-        grid-template-columns: 1fr 1.2fr !important;
+        grid-template-columns: 1fr 1.3fr !important;
         grid-template-rows: 1fr auto !important;
-        gap: 16px 20px !important;
-        align-items: center !important;
-        padding: 20px !important;
+        gap: 8px 12px !important;
+        padding: 8px 12px !important;
       }
-      .chancay-character-stage {
-        grid-column: 1 !important;
-        grid-row: 1 / span 2 !important;
-        height: 100% !important;
-        margin: 0 !important;
-      }
+
       .chancay-character-img {
-        width: 280px !important;
-        height: 280px !important;
-        max-width: 100% !important;
-        max-height: 60vh !important;
+        width: 150px !important;
+        height: 150px !important;
+        max-height: 55vh !important;
       }
-      .speech-bubble-wrapper {
-        grid-column: 2 !important;
-        grid-row: 1 !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        align-self: end !important;
+
+      .clean-speech-card {
+        padding: 8px 12px !important;
       }
+
       .clean-speech-card::after {
         bottom: auto !important;
-        top: 36px !important;
-        left: -12px !important;
-        transform: none !important;
-        border-top: 10px solid transparent !important;
-        border-bottom: 10px solid transparent !important;
-        border-right: 12px solid var(--mondrian-blue, #004586) !important;
+        top: 24px !important;
+        left: -10px !important;
+        border-right: 10px solid var(--mondrian-blue, #004586) !important;
+        border-top: 8px solid transparent !important;
+        border-bottom: 8px solid transparent !important;
         border-left: none !important;
       }
-      .bottom-controls-section {
-        grid-column: 2 !important;
-        grid-row: 2 !important;
-        max-width: 100% !important;
-        align-self: start !important;
+
+      .speech-text-content {
+        font-size: 0.8rem !important;
+        min-height: 32px !important;
       }
     }
 
-    /* --------------------------------------------------------------------------
-       REAL LAPTOP / DESKTOP SCREEN ( >= 1025px )
-       Centered 2-Column Balanced Container so it looks super clean!
-       -------------------------------------------------------------------------- */
+    /* 4. REAL LAPTOP / DESKTOP SCREEN ( >= 1025px ) */
     @media (min-width: 1025px) {
       body.mode-fullscreen .talking-chancay-stage {
         display: grid !important;
@@ -408,13 +433,14 @@
       body.mode-fullscreen .chancay-character-img {
         width: 320px !important;
         height: 330px !important;
-        max-height: 65vh !important;
+        max-height: 68vh !important;
       }
 
       body.mode-fullscreen .speech-text-content {
         font-size: 0.96rem !important;
       }
     }
+
 
 
 
@@ -604,7 +630,8 @@
         "¡Jajaja! ¡Hola Mateo! ¡Estoy listo para aprender contigo! 🐹🔥",
         "¡Dab científico! ¿Sabías que los Gases Nobles son súper estables? 🧪✨",
         "¡Vamos con todo! Pregúntame sobre Ciencia, Matemática u Historia 🇵🇪🚀",
-        "¡Acumulemos muchas semillas 🌱 en la Ruta YACHAY!"
+        "¡Acumulemos muchos Intis 🪙 en la Ruta YACHAY!"
+
       ];
       const randomQuote = funQuotes[Math.floor(Math.random() * funQuotes.length)];
       typewriterDialogue("¡DAB!", randomQuote);
