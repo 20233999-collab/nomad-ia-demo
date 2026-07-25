@@ -241,7 +241,7 @@ function renderErrorState() {
 }
 
 /* --------------------------------------------------------------------------
-   FLOATING CHANCAY AI DIAGNOSTIC DRAWER LOGIC
+   FLOATING CHANCAY AI DIAGNOSTIC DRAWER LOGIC (SILENT EXECUTIVE MODE)
    -------------------------------------------------------------------------- */
 function toggleAIDiagnosticDrawer() {
   const drawer = document.getElementById('chancay-ai-drawer');
@@ -249,10 +249,6 @@ function toggleAIDiagnosticDrawer() {
 
   isDrawerOpen = !isDrawerOpen;
   drawer.style.display = isDrawerOpen ? 'flex' : 'none';
-
-  if (isDrawerOpen) {
-    speakMessage("¡Hola Profesora! Aquí tienes el informe de diagnóstico en tiempo real de Mateo Rossi.");
-  }
 }
 
 function sendAIDrawerQuery(text) {
@@ -296,7 +292,6 @@ async function handleAIDrawerSubmit(e) {
 
   setTimeout(() => {
     addAIDrawerMessage('Chancay IA', responseText);
-    speakMessage(responseText.replace(/[*#]/g, ''));
   }, 400);
 }
 
@@ -319,16 +314,6 @@ function addAIDrawerMessage(sender, text) {
   body.scrollTop = body.scrollHeight;
 }
 
-function speakMessage(text) {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const cleanText = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}*#]/gu, '');
-  const utterance = new SpeechSynthesisUtterance(cleanText);
-  utterance.lang = 'es-PE';
-  utterance.rate = 1.08;
-  utterance.pitch = 1.45;
-  window.speechSynthesis.speak(utterance);
-}
 
 function escapeHtml(str) {
   if (typeof str !== 'string') return str;
