@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EducarIA — Iniciar Sesión</title>
+  <link rel="stylesheet" href="/styles/mondrian-new.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .login-logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--mondrian-gray-dark);
+      margin-bottom: 8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: var(--border-radius-md);
+      background: rgba(255, 255, 255, 0.8);
+      font-family: var(--font-family);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--mondrian-blue);
+      box-shadow: 0 0 0 4px rgba(0, 69, 134, 0.1);
+      background: #fff;
+    }
+
+    .login-footer {
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: var(--mondrian-gray-dark);
+    }
+    
+    .login-footer a {
+      color: var(--mondrian-blue);
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mondrian-card login-container">
+    <div class="login-logo">
+      <div class="mondrian-logo-icon" style="height: 56px;">
+        <div class="shape-triangle" style="width: 32px; height: 32px;"></div>
+        <div class="shape-square" style="width: 32px; height: 32px;"></div>
+        <div class="shape-circle" style="width: 32px; height: 32px;"></div>
+      </div>
+    </div>
+    
+    <h2 style="margin-bottom: 8px;">Bienvenido Docente</h2>
+    <p style="color: #666; font-size: 0.95rem; margin-bottom: 32px;">Ingresa tus credenciales de SIAGIE</p>
+
+    <form action="/educar-ia/index.html" method="GET">
+      <div class="form-group">
+        <label for="username">Usuario / DNI</label>
+        <input type="text" id="username" placeholder="Escribe tu usuario" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="••••••••" required>
+      </div>
+
+      <button type="submit" class="mondrian-btn mondrian-btn-blue mondrian-btn-full" style="margin-top: 12px; font-size: 1.1rem; padding: 16px;">
+        Ingresar al Panel
+      </button>
+    </form>
+
+    <div class="login-footer">
+      ¿Problemas de acceso? <a href="#">Contactar soporte técnico</a>
+    </div>
+  </div>
+
+</body>
+</html>
