@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AprenderIA | Hablar con Chancay</title>
+  <link rel="stylesheet" href="/styles/mondrian-new.css">
+  <style>
+    /* --------------------------------------------------------------------------
+       MINIMALIST PASTEL LOWKEY CHANCAY INTERFACE (UI/UX PRO MAX MICRO-ADJUSTED)
+       Dual Layout: Mobile Vertical Stack vs Tablet & Laptop 2-Column Split
+       -------------------------------------------------------------------------- */
+    .talking-chancay-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(180deg, #E6F3F8 0%, #F4FAFC 100%);
+      padding: 10px 14px 12px 14px;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+      touch-action: manipulation;
+    }
+
+    /* Ambient Soft Radial Glow */
+    .soft-stage-glow {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(0, 69, 134, 0.06) 0%, rgba(247, 208, 0, 0.08) 55%, transparent 75%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Top Navigation Bar in Light Theme */
+    .clean-light-header {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      color: #1A1A1A;
+      border-bottom: 1.5px solid rgba(0, 69, 134, 0.08);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 20;
+    }
+
+    /* SPEECH BUBBLE (Globo de Diálogo de Chancay) */
+    .speech-bubble-wrapper {
+      width: 100%;
+      max-width: 420px;
+      z-index: 10;
+      position: relative;
+      margin-top: 2px;
+      margin-bottom: 4px;
+    }
+
+    .clean-speech-card {
+      background: #FFFFFF;
+      border: 2px solid var(--mondrian-blue, #004586);
+      border-radius: 20px;
+      padding: 12px 15px;
+      color: #1A1A1A;
+      box-shadow: 0 10px 28px rgba(0, 69, 134, 0.08);
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Speech Bubble Tail Pointing Down to Chancay (Mobile Default) */
+    .clean-speech-card::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 12px solid var(--mondrian-blue, #004586);
+    }
+
+    .speech-category-badge {
+      display: inline-block;
+      background: var(--mondrian-blue, #004586);
+      color: #FFFFFF;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .speech-text-content {
+      font-family: 'Fredoka', 'Comic Neue', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      line-height: 1.42;
+      color: #222222;
+      min-height: 42px;
+    }
+
+    .speech-action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(0, 69, 134, 0.08);
+      font-size: 0.72rem;
+    }
+
+    .speech-action-btn {
+      background: rgba(0, 69, 134, 0.06);
+      border: 1px solid rgba(0, 69, 134, 0.12);
+      color: var(--mondrian-blue, #004586);
+      padding: 5px 11px;
+      border-radius: 8px;
+      font-weight: 700;
+      min-height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .speech-action-btn:active {
+      background: rgba(0, 69, 134, 0.16);
+      transform: scale(0.96);
+    }
+
+    /* CENTER CHANCAY CHARACTER (MOBILE DEFAULT) */
+    .chancay-character-stage {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+      margin: 4px 0;
+      cursor: pointer;
+    }
+
+    .chancay-character-img {
+      width: 200px;
+      height: 200px;
+      max-width: 56vw;
+      max-height: 26vh;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 24px rgba(0, 69, 134, 0.14));
+      animation: chancayFloatBreath 3.6s ease-in-out infinite;
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes chancayFloatBreath {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-7px) scale(1.02); }
+    }
+
+    .chancay-character-img:active {
+      transform: scale(1.1) rotate(-3deg);
+    }
+
+    /* BOTTOM CONTROLS & CHIPS SECTION */
+    .bottom-controls-section {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    /* Dialogue Option Chips */
+    .dialogue-chips-row {
+      width: 100%;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 2px 4px 2px;
+      scrollbar-width: none;
+    }
+    .dialogue-chips-row::-webkit-scrollbar { display: none; }
+
+    .dialogue-chip-btn {
+      background: #FFFFFF;
+      border: 1.5px solid rgba(0, 69, 134, 0.15);
+      color: #004586;
+      padding: 8px 14px;
+      border-radius: 100px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      min-height: 36px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dialogue-chip-btn:hover, .dialogue-chip-btn:active {
+      background: var(--mondrian-yellow, #F7D000);
+      color: #000;
+      border-color: #F7D000;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(247, 208, 0, 0.3);
+    }
+
+    /* Minimalist User Input Bar */
+    .minimal-input-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(0, 69, 134, 0.2);
+      padding: 5px 8px;
+      border-radius: 100px;
+      box-shadow: 0 8px 24px rgba(0, 69, 134, 0.08);
+      box-sizing: border-box;
+    }
+
+    .minimal-text-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #1A1A1A;
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+      padding: 6px 10px;
+    }
+    .minimal-text-input::placeholder {
+      color: #888888;
+    }
+
+    .minimal-action-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.2s;
+      flex-shrink: 0;
+    }
+    .minimal-action-btn:active {
+      transform: scale(0.94);
+    }
+
+    .btn-mic-style {
+      background: rgba(229, 37, 33, 0.1);
+      color: var(--mondrian-red, #E52521);
+    }
+    .btn-mic-style.recording {
+      background: var(--mondrian-red, #E52521);
+      color: #fff;
+      animation: pulseMic 1.2s infinite;
+    }
+    @keyframes pulseMic {
+      0% { box-shadow: 0 0 0 0 rgba(229, 37, 33, 0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(229, 37, 33, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(229, 37, 33, 0); }
+    }
+
+    .btn-send-style {
+      background: linear-gradient(135deg, var(--mondrian-red, #E52521), #FF4B47);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(229, 37, 33, 0.3);
+    }
+
+    /* --------------------------------------------------------------------------
+       TABLET MODE ( body.mode-tablet OR real tablet viewports )
+       2-Column Split: Chancay on Left, Speech Bubble & Input on Right
+       -------------------------------------------------------------------------- */
+    body.mode-tablet .talking-chancay-stage,
+    body.mode-fullscreen .talking-chancay-stage {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      grid-template-rows: 1fr auto;
+      gap: 16px 20px;
+      align-items: center;
+      padding: 20px;
+    }
+
+    body.mode-tablet .chancay-character-stage,
+    body.mode-fullscreen .chancay-character-stage {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+      height: 100%;
+      margin: 0;
+    }
+
+    body.mode-tablet .chancay-character-img,
+    body.mode-fullscreen .chancay-character-img {
+      width: 270px;
+      height: 270px;
+      max-width: 100%;
+      max-height: 60vh;
+    }
+
+    body.mode-tablet .speech-bubble-wrapper,
+    body.mode-fullscreen .speech-bubble-wrapper {
+      grid-column: 2;
+      grid-row: 1;
+      max-width: 100%;
+      margin: 0;
+      align-self: end;
+    }
+
+    /* Speech Tail points LEFT towards Chancay on Tablet & Fullscreen */
+    body.mode-tablet .clean-speech-card::after,
+    body.mode-fullscreen .clean-speech-card::after {
+      bottom: auto;
+      top: 36px;
+      left: -12px;
+      transform: none;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 12px solid var(--mondrian-blue, #004586);
+      border-left: none;
+    }
+
+    body.mode-tablet .bottom-controls-section,
+    body.mode-fullscreen .bottom-controls-section {
+      grid-column: 2;
+      grid-row: 2;
+      max-width: 100%;
+      align-self: start;
+    }
+
+    /* --------------------------------------------------------------------------
+       REAL TABLET DEVICE OVERRIDE (@media min-width: 768px and max-width: 1024px)
+       -------------------------------------------------------------------------- */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .talking-chancay-stage {
+        display: grid !important;
+        grid-template-columns: 1fr 1.2fr !important;
+        grid-template-rows: 1fr auto !important;
+        gap: 16px 20px !important;
+        align-items: center !important;
+        padding: 20px !important;
+      }
+      .chancay-character-stage {
+        grid-column: 1 !important;
+        grid-row: 1 / span 2 !important;
+        height: 100% !important;
+        margin: 0 !important;
+      }
+      .chancay-character-img {
+        width: 280px !important;
+        height: 280px !important;
+        max-width: 100% !important;
+        max-height: 60vh !important;
+      }
+      .speech-bubble-wrapper {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        align-self: end !important;
+      }
+      .clean-speech-card::after {
+        bottom: auto !important;
+        top: 36px !important;
+        left: -12px !important;
+        transform: none !important;
+        border-top: 10px solid transparent !important;
+        border-bottom: 10px solid transparent !important;
+        border-right: 12px solid var(--mondrian-blue, #004586) !important;
+        border-left: none !important;
+      }
+      .bottom-controls-section {
+        grid-column: 2 !important;
+        grid-row: 2 !important;
+        max-width: 100% !important;
+        align-self: start !important;
+      }
+    }
+
+    /* --------------------------------------------------------------------------
+       REAL LAPTOP / DESKTOP SCREEN ( >= 1025px )
+       Centered 2-Column Balanced Container so it looks super clean!
+       -------------------------------------------------------------------------- */
+    @media (min-width: 1025px) {
+      body.mode-fullscreen .talking-chancay-stage {
+        display: grid !important;
+        grid-template-columns: 1fr 1.3fr !important;
+        gap: 24px 36px !important;
+        padding: 32px 48px !important;
+        max-width: 960px !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+      }
+
+      body.mode-fullscreen .chancay-character-img {
+        width: 320px !important;
+        height: 330px !important;
+        max-height: 65vh !important;
+      }
+
+      body.mode-fullscreen .speech-text-content {
+        font-size: 0.96rem !important;
+      }
+    }
+
+
+
+    /* History Drawer Modal */
+    .history-drawer-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(20px);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      padding: 16px;
+      box-sizing: border-box;
+      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .history-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-right: 4px;
+    }
+    .history-item-chancay {
+      background: rgba(0, 69, 134, 0.06);
+      border: 1px solid rgba(0, 69, 134, 0.12);
+      border-radius: 14px;
+      padding: 10px 12px;
+      color: #1A1A1A;
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .history-item-user {
+      background: var(--mondrian-blue, #004586);
+      color: #FFFFFF;
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 0.82rem;
+      align-self: flex-end;
+      width: 85%;
+    }
+  </style>
+</head>
+<body>
+  <div class="mobile-frame-wrapper">
+    <div class="mobile-frame" id="app-container">
+      
+      <!-- Minimalist Light Top Header -->
+      <header class="clean-light-header">
+        <a href="/aprender-ia/index.html" style="text-decoration: none; font-weight: 800; font-size: 0.85rem; color: var(--mondrian-blue, #004586); display: flex; align-items: center; gap: 4px;">
+          ← Volver
+        </a>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <select id="voice-profile-select" onchange="changeVoiceProfile()" style="background: rgba(0, 69, 134, 0.08); border: 1px solid rgba(0, 69, 134, 0.18); color: var(--mondrian-blue, #004586); font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 100px; cursor: pointer; outline: none;">
+            <option value="cartoon">🐹 Mascota Tierna</option>
+            <option value="nino">👦 Joven Amigable</option>
+            <option value="profesor">🎓 Profesor Didáctico</option>
+            <option value="gamer">🚀 Gamer Entusiasta</option>
+            <option value="robot">🤖 Robot Científico</option>
+          </select>
+          <button id="voice-toggle-btn" onclick="toggleVoiceOutput()" style="background: rgba(0, 69, 134, 0.08); border: 1px solid rgba(0, 69, 134, 0.15); color: var(--mondrian-blue, #004586); font-size: 0.7rem; font-weight: 700; padding: 4px 8px; border-radius: 100px; cursor: pointer;">
+            🔊 Voz
+          </button>
+        </div>
+      </header>
+
+
+      <!-- Main Stage Container with Soft Pastel Cyan Gradient -->
+      <main class="talking-chancay-stage">
+        <div class="soft-stage-glow"></div>
+
+        <!-- 1. SPEECH BUBBLE (TOP ON MOBILE, TOP-RIGHT ON TABLET) -->
+        <div class="speech-bubble-wrapper">
+          <div class="clean-speech-card">
+            <span class="speech-category-badge" id="rpg-category-badge">¡HOLA MATEO!</span>
+            
+            <div class="speech-text-content" id="chancay-dialogue-text">
+              ¡Hola Mateo! 🐹🇵🇪 Soy Chancay, tu tutor virtual. Tócame para hacerme una pregunta o escríbeme abajo. ¡Estoy para ayudarte!
+            </div>
+
+            <div class="speech-action-bar">
+              <button class="speech-action-btn" onclick="speakCurrentDialogue()">
+                🔊 Escuchar
+              </button>
+              <button class="speech-action-btn" onclick="copyCurrentDialogue(this)">
+                📋 Copiar
+              </button>
+              <button class="speech-action-btn" onclick="openHistoryDrawer()">
+                📜 Historial (<span id="chat-count-badge">1</span>)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. CHANCAY CHARACTER (CENTER ON MOBILE, ENTIRE LEFT SIDE ON TABLET) -->
+        <div class="chancay-character-stage" onclick="reactToChancayTap()">
+          <img id="chancay-hero-large" class="chancay-character-img" src="/images/chancay/chancay-coqueto.png" alt="Chancay Character Mascot">
+        </div>
+
+        <!-- 3. BOTTOM CONTROLS (BOTTOM ON MOBILE, BOTTOM-RIGHT ON TABLET) -->
+        <div class="bottom-controls-section">
+          
+          <!-- Dialogue Option Chips -->
+          <div class="dialogue-chips-row">
+            <div class="dialogue-chip-btn" onclick="sendQuickMessage('¿Qué son los Gases Nobles?')">
+              🧪 Gases Nobles
+            </div>
+            <div class="dialogue-chip-btn" onclick="sendQuickMessage('¿Qué es NOMAD-IA?')">
+              🤖 NOMAD-IA
+            </div>
+            <div class="dialogue-chip-btn" onclick="sendQuickMessage('¿Cómo calculo el área de un triángulo?')">
+              📐 Matemática
+            </div>
+            <div class="dialogue-chip-btn" onclick="sendQuickMessage('Cuéntame una historia del Perú')">
+              🇵🇪 Historia
+            </div>
+          </div>
+
+          <!-- Minimalist Input Bar -->
+          <form class="minimal-input-bar" id="chat-form" onsubmit="handleChatSubmit(event)">
+            <button type="button" class="minimal-action-btn btn-mic-style" id="mic-btn" onclick="toggleVoiceInput()" title="Usar Micrófono">
+              🎙️
+            </button>
+            <input type="text" id="chat-input" class="minimal-text-input" placeholder="Pregúntale algo a Chancay..." autocomplete="off">
+            <button type="submit" class="minimal-action-btn btn-send-style" title="Enviar Mensaje">
+              🚀
+            </button>
+          </form>
+
+        </div>
+
+      </main>
+
+      <!-- Expandable Full Conversation History Drawer -->
+      <div class="history-drawer-overlay" id="history-drawer">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1.5px solid rgba(0,0,0,0.08); padding-bottom: 8px;">
+          <span style="font-weight: 800; font-size: 0.95rem; color: #1A1A1A;">📜 Historial de Conversación</span>
+          <button onclick="closeHistoryDrawer()" style="background: rgba(0,0,0,0.08); border: none; color: #1A1A1A; width: 28px; height: 28px; border-radius: 50%; font-weight: 700; cursor: pointer;">×</button>
+        </div>
+        <div class="history-list" id="history-list">
+          <div class="history-item-chancay">
+            <strong style="color: var(--mondrian-blue, #004586);">Chancay:</strong> ¡Hola Mateo! 🐹🇵🇪 Soy Chancay, tu tutor virtual. Tócame para hacerme una pregunta o escríbeme abajo.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Floating Responsive View Mode Toggle Button -->
+  <button class="view-toggle-btn" id="toggle-view-btn" onclick="toggleScreenMode()">
+    <span>📱 Modo: Teléfono</span>
+  </button>
+
+  <script src="/js/responsive-mode.js"></script>
+  <script>
+    let isVoiceOutputEnabled = true;
+    let isRecording = false;
+    let recognition = null;
+    let chatHistory = [];
+    let currentSpeechText = "¡Hola Mateo! 🐹🇵🇪 Soy Chancay, tu tutor virtual. Tócame para hacerme una pregunta o escríbeme abajo.";
+
+    const poseImageMap = {
+      'default': '/images/chancay/chancay-default.png',
+      'thinking': '/images/chancay/chancay-thinking.png',
+      'vaso': '/images/chancay/chancay-vaso.png',
+      'emocionado': '/images/chancay/chancay-emocionado.png',
+      'coqueto': '/images/chancay/chancay-coqueto.png',
+      'dab': '/images/chancay/chancay-dab.png',
+      'alegria': '/images/chancay/chancay-alegria.png',
+      'triste': '/images/chancay/chancay-triste.png',
+      'enamorado': '/images/chancay/chancay-enamorado.png',
+      'furioso': '/images/chancay/chancay-furioso.png'
+    };
+
+    function reactToChancayTap() {
+      const poses = ['dab', 'coqueto', 'alegria', 'emocionado', 'vaso'];
+      const randomPose = poses[Math.floor(Math.random() * poses.length)];
+      setChancayHeroPose(randomPose, '¡CHISPA!');
+      
+      const funQuotes = [
+        "¡Jajaja! ¡Hola Mateo! ¡Estoy listo para aprender contigo! 🐹🔥",
+        "¡Dab científico! ¿Sabías que los Gases Nobles son súper estables? 🧪✨",
+        "¡Vamos con todo! Pregúntame sobre Ciencia, Matemática u Historia 🇵🇪🚀",
+        "¡Acumulemos muchas semillas 🌱 en la Ruta YACHAY!"
+      ];
+      const randomQuote = funQuotes[Math.floor(Math.random() * funQuotes.length)];
+      typewriterDialogue("¡DAB!", randomQuote);
+      if (isVoiceOutputEnabled) speakMessage(randomQuote);
+    }
+
+    function typewriterDialogue(category, text) {
+      currentSpeechText = text;
+      const categoryBadge = document.getElementById('rpg-category-badge');
+      const textEl = document.getElementById('chancay-dialogue-text');
+      if (categoryBadge) categoryBadge.textContent = category || 'TUTOR';
+
+      if (!textEl) return;
+      textEl.textContent = '';
+      let i = 0;
+      const speed = 16;
+
+      function type() {
+        if (i < text.length) {
+          textEl.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        }
+      }
+      type();
+    }
+
+    let currentVoiceProfile = 'cartoon';
+
+    const voiceProfiles = {
+      cartoon:  { pitch: 1.50, rate: 1.08, desc: 'Mascota Tierna & Aguda' },
+      nino:     { pitch: 1.28, rate: 1.04, desc: 'Joven Amigable & Natural' },
+      profesor: { pitch: 1.02, rate: 0.92, desc: 'Profesor Pausado & Didáctico' },
+      gamer:    { pitch: 1.38, rate: 1.22, desc: 'Gamer Entusiasta & Rápido' },
+      robot:    { pitch: 0.85, rate: 1.10, desc: 'Robot Científico' }
+    };
+
+    function changeVoiceProfile() {
+      const sel = document.getElementById('voice-profile-select');
+      if (sel) {
+        currentVoiceProfile = sel.value;
+        const prof = voiceProfiles[currentVoiceProfile] || voiceProfiles['cartoon'];
+        const label = sel.options[sel.selectedIndex].text;
+        const previewMsg = `¡Hola Mateo! Probando el tono de ${label} 🐹✨`;
+        typewriterDialogue('VOZ MODIFICADA', previewMsg);
+        if (isVoiceOutputEnabled) speakMessage(previewMsg);
+      }
+    }
+
+    function toggleVoiceOutput() {
+      isVoiceOutputEnabled = !isVoiceOutputEnabled;
+      const btn = document.getElementById('voice-toggle-btn');
+      if (btn) {
+        btn.innerHTML = isVoiceOutputEnabled ? '🔊 Voz' : '🔇 Silencio';
+        btn.style.background = isVoiceOutputEnabled ? 'rgba(0, 69, 134, 0.08)' : 'rgba(229,37,33,0.15)';
+      }
+      if (!isVoiceOutputEnabled && window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    let activeAudioPlayer = null;
+
+    function playCustomAudioFile(audioPath) {
+      if (activeAudioPlayer) {
+        activeAudioPlayer.pause();
+        activeAudioPlayer = null;
+      }
+      activeAudioPlayer = new Audio(audioPath);
+      activeAudioPlayer.play().catch(err => {
+        console.log('Fallback to TTS synthesis as custom audio was not found or autoplay blocked:', err);
+        speakMessage(currentSpeechText);
+      });
+    }
+
+    function speakMessage(text, customAudioPath) {
+      if (customAudioPath) {
+        playCustomAudioFile(customAudioPath);
+        return;
+      }
+
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      const cleanText = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}]/gu, '');
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+
+      // Select sweet, friendly Spanish voice
+      const voices = window.speechSynthesis.getVoices();
+      const friendlyVoice = voices.find(v => 
+        v.lang.startsWith('es') && (
+          v.name.includes('Google') || 
+          v.name.includes('Paulina') || 
+          v.name.includes('Monica') || 
+          v.name.includes('Sabina') || 
+          v.name.includes('Mia') || 
+          v.name.includes('Natural')
+        )
+      ) || voices.find(v => v.lang.startsWith('es'));
+
+      if (friendlyVoice) {
+        utterance.voice = friendlyVoice;
+      }
+
+      const prof = voiceProfiles[currentVoiceProfile] || voiceProfiles['cartoon'];
+      utterance.lang = 'es-PE';
+      utterance.rate = prof.rate;
+      utterance.pitch = prof.pitch;
+      window.speechSynthesis.speak(utterance);
+    }
+
+
+    if (window.speechSynthesis) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+
+
+
+    function speakCurrentDialogue() {
+      speakMessage(currentSpeechText);
+    }
+
+    function copyCurrentDialogue(btn) {
+      navigator.clipboard.writeText(currentSpeechText).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '✅ Copiado';
+        setTimeout(() => { btn.innerHTML = orig; }, 1800);
+      });
+    }
+
+    function openHistoryDrawer() {
+      const drawer = document.getElementById('history-drawer');
+      if (drawer) drawer.style.display = 'flex';
+    }
+    function closeHistoryDrawer() {
+      const drawer = document.getElementById('history-drawer');
+      if (drawer) drawer.style.display = 'none';
+    }
+
+    function addHistoryItem(sender, text) {
+      chatHistory.push({ sender, text });
+      const badge = document.getElementById('chat-count-badge');
+      if (badge) badge.textContent = chatHistory.length + 1;
+
+      const list = document.getElementById('history-list');
+      if (list) {
+        const div = document.createElement('div');
+        div.className = sender === 'Mateo' ? 'history-item-user' : 'history-item-chancay';
+        div.innerHTML = `<strong>${sender}:</strong> ${escapeHTML(text)}`;
+        list.appendChild(div);
+      }
+    }
+
+    function sendQuickMessage(text) {
+      const input = document.getElementById('chat-input');
+      if (input) {
+        input.value = text;
+        handleChatSubmit(new Event('submit'));
+      }
+    }
+
+    async function handleChatSubmit(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('chat-input');
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      input.value = '';
+      addHistoryItem('Mateo', userText);
+
+      setChancayHeroPose('thinking', 'PENSANDO...');
+      typewriterDialogue('PENSANDO', 'Un momento, Mateo... Estoy procesando tu duda en NOMAD-IA... 💡');
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: userText, student_name: 'Mateo Rossi' })
+        });
+        const json = await res.json();
+
+        if (json.success && json.data) {
+          const { reply, pose, badge, audioUrl } = json.data;
+
+          setChancayHeroPose(pose, badge || 'TUTOR');
+          typewriterDialogue(badge || 'SABIDURÍA', reply);
+          addHistoryItem('Chancay', reply);
+
+          if (isVoiceOutputEnabled) {
+            speakMessage(reply, audioUrl);
+          }
+        }
+
+      } catch (err) {
+        console.error('Chat error:', err);
+        setChancayHeroPose('triste', 'OFFLINE');
+        const errReply = "¡Opps! Hubo un detalle con la red local, ¡pero sigues disfrutando de NOMAD-IA offline! 💙";
+        typewriterDialogue('OFFLINE', errReply);
+        addHistoryItem('Chancay', errReply);
+      }
+    }
+
+    function setChancayHeroPose(pose, badgeText) {
+      const heroImg = document.getElementById('chancay-hero-large');
+      if (heroImg && poseImageMap[pose]) {
+        heroImg.style.transform = 'scale(0.88) rotate(-4deg)';
+        setTimeout(() => {
+          heroImg.src = poseImageMap[pose];
+          heroImg.style.transform = 'scale(1) rotate(0deg)';
+        }, 120);
+      }
+    }
+
+    function toggleVoiceInput() {
+      const micBtn = document.getElementById('mic-btn');
+      const input = document.getElementById('chat-input');
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert('El reconocimiento de voz no está disponible en este navegador. ¡Puedes escribir tu duda en el teclado!');
+        return;
+      }
+
+      if (isRecording) {
+        if (recognition) recognition.stop();
+        isRecording = false;
+        if (micBtn) micBtn.classList.remove('recording');
+        return;
+      }
+
+      recognition = new SpeechRecognition();
+      recognition.lang = 'es-PE';
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        isRecording = true;
+        if (micBtn) micBtn.classList.add('recording');
+        typewriterDialogue('ESCUCHANDO', 'Te escucho atentamente, Mateo... 🎙️');
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        if (input) input.value = transcript;
+        handleChatSubmit(new Event('submit'));
+      };
+
+      recognition.onerror = () => {
+        isRecording = false;
+        if (micBtn) micBtn.classList.remove('recording');
+      };
+
+      recognition.onend = () => {
+        isRecording = false;
+        if (micBtn) micBtn.classList.remove('recording');
+      };
+
+      recognition.start();
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+  </script>
+</body>
+</html>

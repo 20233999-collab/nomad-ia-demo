@@ -3,9 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AprenderIA | Biblioteca & Cómics</title>
+  <title>AprenderIA | Biblioteca & Juegos Arcade</title>
   <link rel="stylesheet" href="/styles/mondrian-new.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@400;600;700;800;900&family=Luckiest+Guy&display=swap" rel="stylesheet">
   <style>
+
     /* Tab System & Motion Animations */
     .tab-navigation {
       display: flex;
@@ -224,39 +228,55 @@
       border: 1px solid rgba(0,0,0,0.06);
     }
 
-    /* CLUB PENGUIN / CARTOON NETWORK STYLE GAME ARCADE */
+    /* NOMAD-IA ARCADE GAMER STYLES (Mondrian Brand Tokens + Modern Playful Gaming) */
+    .cartoon-font {
+      font-family: 'Fredoka', var(--font-family), cursive, sans-serif !important;
+    }
+    
+    .cartoon-title-font {
+      font-family: 'Fredoka', var(--font-family), sans-serif !important;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
     .arcade-hero-card {
-      background: linear-gradient(135deg, #111, #1a1a24);
-      border-radius: 20px;
+      background: linear-gradient(135deg, #002D59 0%, #004586 50%, #7B1FA2 100%);
+      border-radius: 22px;
       overflow: hidden;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.2);
-      margin-bottom: 16px;
-      border: 2px solid var(--mondrian-yellow);
+      box-shadow: 0 12px 32px rgba(0, 69, 134, 0.28), 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 18px;
+      border: 1.5px solid rgba(247, 208, 0, 0.4);
       position: relative;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .arcade-hero-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0, 69, 134, 0.38);
     }
 
     .arcade-hero-banner {
       width: 100%;
-      height: 175px;
+      height: 185px;
       object-fit: cover;
       object-position: center;
       display: block;
     }
 
     .arcade-hero-body {
-      padding: 12px 14px;
+      padding: 14px 16px;
       color: #fff;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      background: rgba(17, 17, 24, 0.95);
-      backdrop-filter: blur(10px);
+      gap: 8px;
+      background: linear-gradient(180deg, rgba(0, 45, 89, 0.94) 0%, rgba(0, 20, 45, 0.98) 100%);
+      backdrop-filter: blur(14px);
     }
 
     .arcade-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 14px;
       margin-top: 10px;
     }
 
@@ -271,35 +291,102 @@
     }
 
     .arcade-card {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 10px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border: 2px solid rgba(0,0,0,0.08);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1.5px solid rgba(0, 69, 134, 0.12);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.02);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
     }
 
     .arcade-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 16px 36px rgba(0,0,0,0.18);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(0, 69, 134, 0.15), 0 4px 12px rgba(0, 0, 0, 0.06);
       border-color: var(--mondrian-blue);
     }
 
     .arcade-banner-img {
       width: 100%;
-      height: 120px;
+      height: 125px;
       object-fit: cover;
       object-position: center;
-      border-radius: 12px;
+      border-radius: 14px;
       margin-bottom: 8px;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 1px solid rgba(0,0,0,0.06);
     }
+
+    /* MONDRIAN BRAND INTEGRATED ARCADE BUTTONS */
+    .cartoon-btn-play {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 10px 14px;
+      font-family: 'Fredoka', var(--font-family), sans-serif;
+      font-weight: 800;
+      font-size: 0.82rem;
+      color: var(--mondrian-black);
+      background: linear-gradient(135deg, var(--mondrian-yellow) 0%, #E5B800 100%);
+      border: none;
+      border-radius: 14px;
+      box-shadow: 0 5px 14px rgba(247, 208, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.7);
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+
+    .cartoon-btn-play:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(247, 208, 0, 0.55);
+      filter: brightness(1.05);
+    }
+
+    .cartoon-btn-play:active {
+      transform: translateY(2px);
+      box-shadow: 0 3px 8px rgba(247, 208, 0, 0.35);
+    }
+
+    /* Mondrian Red Button */
+    .cartoon-btn-red {
+      background: linear-gradient(135deg, var(--mondrian-red) 0%, #B71C1C 100%);
+      color: #FFF;
+      box-shadow: 0 5px 14px rgba(229, 37, 33, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .cartoon-btn-red:hover {
+      box-shadow: 0 8px 20px rgba(229, 37, 33, 0.5);
+    }
+
+    /* Mondrian Blue Button */
+    .cartoon-btn-blue {
+      background: linear-gradient(135deg, var(--mondrian-blue) 0%, #002D59 100%);
+      color: #FFF;
+      box-shadow: 0 5px 14px rgba(0, 69, 134, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .cartoon-btn-blue:hover {
+      box-shadow: 0 8px 20px rgba(0, 69, 134, 0.5);
+    }
+
+    /* Mondrian Green / Logro Button */
+    .cartoon-btn-green {
+      background: linear-gradient(135deg, #00875A 0%, #005A3C 100%);
+      color: #FFF;
+      box-shadow: 0 5px 14px rgba(0, 135, 90, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .cartoon-btn-green:hover {
+      box-shadow: 0 8px 20px rgba(0, 135, 90, 0.5);
+    }
+
+
+
 
     /* Modals with Spring Animation */
     .modal-overlay {
@@ -472,88 +559,102 @@
 
       </div>
 
-      <!-- TAB 2: APRENDE JUGANDO (PORTAL DE JUEGOS ESTILO CLUB PENGUIN / CARTOON NETWORK) -->
+      <!-- TAB 2: APRENDE JUGANDO (PORTAL DE JUEGOS ESTILO CLUB PENGUIN / CARTOON NETWORK CLEAN) -->
       <div class="tab-content" id="tab-games">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <div>
-            <h4 style="font-size: 0.95rem; font-weight: 900; color: var(--mondrian-black); display: flex; align-items: center; gap: 6px;">
-              <span>🕹️</span> Arcade Chancay: Aprende Jugando
-            </h4>
-            <p style="font-size: 0.72rem; color: #666;">Selecciona una misión y acumula Semillas de Conocimiento ☀️</p>
+        
+        <!-- CARTOON HEADER STATS BAR -->
+        <div style="background: linear-gradient(135deg, #FFF8E1 0%, #FFE082 100%); border: 1.5px solid rgba(255, 179, 0, 0.4); border-radius: 18px; padding: 10px 14px; margin-bottom: 14px; box-shadow: 0 6px 18px rgba(255, 179, 0, 0.18); display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.5rem;">🎮</span>
+            <div>
+              <h4 class="cartoon-title-font" style="font-size: 0.95rem; color: #3E2723; margin: 0; line-height: 1.1;">ARCADE CHANCAY</h4>
+              <p class="cartoon-font" style="font-size: 0.72rem; color: #5D4037; margin: 0; font-weight: 700;">¡Zona de Juegos STEAM!</p>
+            </div>
           </div>
-          <span style="font-size: 0.65rem; font-weight: 800; background: var(--mondrian-yellow); padding: 4px 10px; border-radius: 100px; color: #000; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            NIVEL 1 • MATEO
-          </span>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span class="cartoon-title-font" style="font-size: 0.65rem; background: #FF6F00; color: #FFF; padding: 5px 12px; border-radius: 100px; box-shadow: 0 3px 10px rgba(255, 111, 0, 0.3);">
+              ⚡ NIVEL 1 • MATEO GAMER
+            </span>
+          </div>
         </div>
 
-        <!-- HERO FEATURED GAME BANNER (Cartoon Network / Club Penguin Style) -->
+        <!-- CHANCAY MASCOT BANNER -->
+        <div style="background: #FFFFFF; border: 1.5px solid rgba(0,0,0,0.06); border-radius: 18px; padding: 10px 14px; margin-bottom: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.04); display: flex; align-items: center; gap: 12px; position: relative;">
+          <img src="/images/chancay/chancay-tada.png" style="width: 48px; height: 48px; object-fit: contain; flex-shrink: 0;" alt="Chancay Gamer">
+          <div class="cartoon-font" style="font-size: 0.78rem; font-weight: 700; color: #222; line-height: 1.35;">
+            <span style="color: var(--mondrian-red); font-weight: 900;">🐶 Chancay dice:</span> "¡Oye Mateo! ¡Completa los desafíos del laboratorio arcade y acumula Semillas ☀️⚡!"
+          </div>
+        </div>
+
+        <!-- HERO FEATURED GAME BANNER (Clean Playful Style) -->
         <div class="arcade-hero-card">
-          <span style="position: absolute; top: 10px; left: 10px; background: var(--mondrian-red); color: #fff; font-size: 0.65rem; font-weight: 900; padding: 4px 10px; border-radius: 100px; z-index: 5; box-shadow: 0 4px 12px rgba(229,37,33,0.4);">
-            🔥 DESTACADO DEL AULA
+          <span class="cartoon-title-font" style="position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #FF2A85 0%, #FF1744 100%); color: #fff; font-size: 0.65rem; padding: 5px 14px; border-radius: 100px; z-index: 5; box-shadow: 0 4px 12px rgba(255, 23, 68, 0.4);">
+            🔥 MISIÓN DESTACADA
           </span>
           <img src="/images/games/banner-circuitos.png" class="arcade-hero-banner" alt="Chancay Misión Circuitos">
           <div class="arcade-hero-body">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <h3 style="font-size: 1.02rem; font-weight: 900; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">CHANCAY: MISIÓN CIRCUITOS ⚡</h3>
-              <span style="font-size: 0.7rem; font-weight: 800; color: #FFE55C;">+100 PTS ☀️</span>
+              <h3 class="cartoon-title-font" style="font-size: 1.05rem; color: #FFE082;">CHANCAY: MISIÓN CIRCUITOS ⚡</h3>
+              <span class="cartoon-title-font" style="font-size: 0.72rem; color: #80DEEA;">+100 PTS ☀️</span>
             </div>
-            <p style="font-size: 0.74rem; color: #ddd; line-height: 1.3;">
-              ¡Acompaña a Chancay en su taller de robótica! Conecta los resistores para encender el LED sin quemar la batería de 9V.
+            <p class="cartoon-font" style="font-size: 0.76rem; color: #E0E0E0; line-height: 1.35; font-weight: 600;">
+              ¡Taller de robótica en vivo! Conecta resistores para encender el LED de Chancay sin volar la batería de 9V.
             </p>
-            <button class="mondrian-btn mondrian-btn-yellow" onclick="openCircuitGame()" style="padding: 10px 16px; font-size: 0.82rem; margin-top: 4px; align-self: flex-start;">
-              🎮 ¡INICIAR MISIÓN CIRCUITOS!
+            <button class="cartoon-btn-play" onclick="openCircuitGame()" style="margin-top: 4px;">
+              🎮 ¡JUGAR MISIÓN CIRCUITOS YA! ⚡
             </button>
           </div>
         </div>
 
-        <!-- GAME GRID 4 BANNERS -->
+        <!-- GAME GRID 4 BANNERS (Clean Modern Playful Style) -->
         <div class="arcade-grid">
           
           <!-- Game 1: Misión Circuitos -->
           <div class="arcade-card">
-            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 900; background: var(--mondrian-red); color: #fff; padding: 2px 8px; border-radius: 100px; z-index: 2;">¡DISPONIBLE!</span>
+            <span class="cartoon-title-font" style="position: absolute; top: 8px; right: 8px; font-size: 0.58rem; background: #E8F5E9; color: #2E7D32; padding: 3px 9px; border-radius: 100px; font-weight: 800; z-index: 2;">⭐ FÁCIL</span>
             <img src="/images/games/banner-circuitos.png" class="arcade-banner-img" alt="Misión Circuitos">
-            <div style="font-size: 0.62rem; font-weight: 800; color: var(--mondrian-red); text-transform: uppercase; letter-spacing: 0.4px;">⚡ ELECTRÓNICA & ROBÓTICA</div>
-            <div style="font-weight: 900; font-size: 0.85rem; margin: 2px 0; color: #111;">Misión Circuitos</div>
-            <p style="font-size: 0.68rem; color: #666; margin-bottom: 8px; line-height: 1.2;">Conecta componentes y salva el prototipo de Chancay.</p>
-            <button class="mondrian-btn mondrian-btn-yellow mondrian-btn-full" style="padding: 8px; font-size: 0.75rem;" onclick="openCircuitGame()">
-              ¡JUGAR AHORA! ⚡
+            <div class="cartoon-title-font" style="font-size: 0.62rem; color: var(--mondrian-red); text-transform: uppercase;">⚡ ROBÓTICA</div>
+            <div class="cartoon-font" style="font-weight: 900; font-size: 0.88rem; margin: 2px 0; color: #111;">Misión Circuitos</div>
+            <p class="cartoon-font" style="font-size: 0.7rem; color: #666; margin-bottom: 8px; line-height: 1.25; font-weight: 600;">Conecta componentes y salva el prototipo de Chancay.</p>
+            <button class="cartoon-btn-play" onclick="openCircuitGame()">
+              ¡JUGAR! ⚡
             </button>
           </div>
 
           <!-- Game 2: Misión Hacker -->
           <div class="arcade-card">
-            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 900; background: var(--mondrian-blue); color: #fff; padding: 2px 8px; border-radius: 100px; z-index: 2;">¡DISPONIBLE!</span>
+            <span class="cartoon-title-font" style="position: absolute; top: 8px; right: 8px; font-size: 0.58rem; background: #E0F7FA; color: #00838F; padding: 3px 9px; border-radius: 100px; font-weight: 800; z-index: 2;">💻 CÓDIGO</span>
             <img src="/images/games/banner-hacker.png" class="arcade-banner-img" alt="Misión Hacker">
-            <div style="font-size: 0.62rem; font-weight: 800; color: var(--mondrian-blue); text-transform: uppercase; letter-spacing: 0.4px;">💻 PROGRAMACIÓN</div>
-            <div style="font-weight: 900; font-size: 0.85rem; margin: 2px 0; color: #111;">Misión Hacker</div>
-            <p style="font-size: 0.68rem; color: #666; margin-bottom: 8px; line-height: 1.2;">Ayuda a Chancay a corregir errores de sintaxis en Python.</p>
-            <button class="mondrian-btn mondrian-btn-blue mondrian-btn-full" style="padding: 8px; font-size: 0.75rem;" onclick="openHackerGame()">
-              ¡JUGAR AHORA! 💻
+            <div class="cartoon-title-font" style="font-size: 0.62rem; color: var(--mondrian-blue); text-transform: uppercase;">💻 PYTHON HACK</div>
+            <div class="cartoon-font" style="font-weight: 900; font-size: 0.88rem; margin: 2px 0; color: #111;">Misión Hacker</div>
+            <p class="cartoon-font" style="font-size: 0.7rem; color: #666; margin-bottom: 8px; line-height: 1.25; font-weight: 600;">Ayuda a Chancay a reparar bucles y código de control.</p>
+            <button class="cartoon-btn-play cartoon-btn-blue" onclick="openHackerGame()">
+              ¡JUGAR! 💻
             </button>
           </div>
 
-          <!-- Game 3: El Laboratorio Mágico -->
+          <!-- Game 3: Chancay: Lluvia Química -->
           <div class="arcade-card">
-            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 900; background: #2D8A4E; color: #fff; padding: 2px 8px; border-radius: 100px; z-index: 2;">¡DISPONIBLE!</span>
-            <img src="/images/games/banner-laboratorio.png" class="arcade-banner-img" alt="Laboratorio Mágico">
-            <div style="font-size: 0.62rem; font-weight: 800; color: #2D8A4E; text-transform: uppercase; letter-spacing: 0.4px;">🧪 CIENCIAS & QUÍMICA</div>
-            <div style="font-weight: 900; font-size: 0.85rem; margin: 2px 0; color: #111;">Laboratorio Mágico</div>
-            <p style="font-size: 0.68rem; color: #666; margin-bottom: 8px; line-height: 1.2;">Mezcla elementos en el laboratorio de Chancay.</p>
-            <button class="mondrian-btn mondrian-btn-red mondrian-btn-full" style="padding: 8px; font-size: 0.75rem;" onclick="openLabGame()">
-              ¡JUGAR AHORA! 🧪
+            <span class="cartoon-title-font" style="position: absolute; top: 8px; right: 8px; font-size: 0.58rem; background: #FFEBE6; color: var(--mondrian-red); padding: 3px 9px; border-radius: 100px; font-weight: 800; z-index: 2;">🧪 QUÍMICA</span>
+            <img src="/images/games/banner-lluvia-quimica.png" class="arcade-banner-img" alt="Lluvia Química">
+            <div class="cartoon-title-font" style="font-size: 0.62rem; color: var(--mondrian-red); text-transform: uppercase;">🧪 TABLA PERIÓDICA</div>
+            <div class="cartoon-font" style="font-weight: 900; font-size: 0.88rem; margin: 2px 0; color: #111;">Lluvia Química</div>
+            <p class="cartoon-font" style="font-size: 0.7rem; color: #666; margin-bottom: 8px; line-height: 1.25; font-weight: 600;">Atrapa los elementos químicos pedidos con el vaso de Chancay.</p>
+            <button class="cartoon-btn-play cartoon-btn-red" onclick="openChemCatchGame()">
+              ¡JUGAR YA! 🧪
             </button>
           </div>
+
 
           <!-- Game 4: Integrando Ecuaciones -->
           <div class="arcade-card">
-            <span style="position: absolute; top: 8px; right: 8px; font-size: 0.6rem; font-weight: 900; background: #8A6D00; color: #fff; padding: 2px 8px; border-radius: 100px; z-index: 2;">¡DISPONIBLE!</span>
+            <span class="cartoon-title-font" style="position: absolute; top: 8px; right: 8px; font-size: 0.58rem; background: #FFF8E1; color: #F57F17; padding: 3px 9px; border-radius: 100px; font-weight: 800; z-index: 2;">🧮 MATES</span>
             <img src="/images/games/banner-ecuaciones.png" class="arcade-banner-img" alt="Integrando Ecuaciones">
-            <div style="font-size: 0.62rem; font-weight: 800; color: #8A6D00; text-transform: uppercase; letter-spacing: 0.4px;">🧮 MATEMÁTICAS</div>
-            <div style="font-weight: 900; font-size: 0.85rem; margin: 2px 0; color: #111;">Integrando Ecuaciones</div>
-            <p style="font-size: 0.68rem; color: #666; margin-bottom: 8px; line-height: 1.2;">Resuelve ecuaciones en la pizarra con Chancay.</p>
-            <button class="mondrian-btn mondrian-btn-yellow mondrian-btn-full" style="padding: 8px; font-size: 0.75rem;" onclick="openMathGame()">
-              ¡JUGAR AHORA! 🧮
+            <div class="cartoon-title-font" style="font-size: 0.62rem; color: #8A6D00; text-transform: uppercase;">🧮 ECUACIONES</div>
+            <div class="cartoon-font" style="font-weight: 900; font-size: 0.88rem; margin: 2px 0; color: #111;">Ecuaciones Pro</div>
+            <p class="cartoon-font" style="font-size: 0.7rem; color: #666; margin-bottom: 8px; line-height: 1.25; font-weight: 600;">Despeja incógnitas y supera el reto matemático.</p>
+            <button class="cartoon-btn-play cartoon-btn-green" onclick="openMathGame()">
+              ¡JUGAR! 🧮
             </button>
           </div>
 
@@ -616,6 +717,67 @@
           </button>
         </div>
       </div>
+
+      <!-- MODAL MINIJUEGO LLUVIA QUÍMICA (FRAME-COMPATIBLE ADAPTIVE ARCADE) -->
+      <div class="modal-overlay" id="chem-catch-modal" style="padding: 0; align-items: stretch; justify-content: stretch; overflow: hidden; z-index: 500;">
+        <div class="modal-content" style="padding: 12px; background: #0C0A1E; color: #fff; width: 100%; height: 100%; max-width: 100%; max-height: 100%; border-radius: 0; border: none; display: flex; flex-direction: column; justify-content: space-between; box-shadow: none; box-sizing: border-box; overflow: hidden; touch-action: none;">
+          
+          <!-- Top HUD Header Bar -->
+          <div style="flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.06); border-radius: 14px; padding: 6px 12px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); gap: 6px;">
+            <div style="display: flex; align-items: center; gap: 6px; overflow: hidden;">
+              <span class="cartoon-title-font" style="font-size: 0.82rem; color: #FFE082; white-space: nowrap;">🧪 LLUVIA</span>
+              <strong id="chem-target-badge" class="cartoon-title-font" style="background: var(--mondrian-red); padding: 3px 8px; border-radius: 6px; color: #fff; font-size: 0.65rem; white-space: nowrap;">GASES NOBLES</strong>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span id="chem-lives-val" style="font-size: 0.85rem; letter-spacing: 1px;">❤️❤️❤️</span>
+              <span class="cartoon-font" style="font-weight: 800; font-size: 0.8rem; color: #FFE082; white-space: nowrap;">☀️ <strong id="chem-score-val">0</strong></span>
+              <button onclick="closeChemCatchGame()" aria-label="Cerrar juego" style="background: rgba(255,255,255,0.14); border: none; color: #fff; width: 30px; height: 30px; border-radius: 50%; font-size: 1.1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; shrink: 0;">×</button>
+            </div>
+          </div>
+
+          <!-- Adaptive Canvas Viewport Container -->
+          <div id="chem-canvas-container" style="flex: 1 1 auto; position: relative; width: 100%; height: 100%; min-height: 180px; margin: 6px 0; border-radius: 16px; overflow: hidden; border: 1.5px solid rgba(255,255,255,0.14); box-shadow: inset 0 0 30px rgba(0,0,0,0.8); touch-action: none;">
+            <canvas id="chem-canvas" style="background: #121026; display: block; width: 100%; height: 100%; touch-action: none;"></canvas>
+
+            <!-- MINIMALIST CENTERED ONBOARDING OVERLAY -->
+            <div id="chem-onboarding" style="position: absolute; inset: 0; background: rgba(12, 10, 30, 0.94); backdrop-filter: blur(16px); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; z-index: 10; box-sizing: border-box; overflow-y: auto;">
+              <img src="/images/chancay/chancay-vaso.png" style="width: 90px; height: 90px; max-height: 25vh; object-fit: contain; margin: 0 auto 10px auto; display: block; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.6));" alt="Chancay Vaso">
+              <h2 class="cartoon-title-font" style="font-size: 1.15rem; color: #FFE082; margin: 0 0 4px 0; width: 100%;">MISIÓN: GASES NOBLES 🧪</h2>
+              <p class="cartoon-font" style="font-size: 0.8rem; color: #E0E0E0; line-height: 1.35; margin: 0 auto 12px auto; font-weight: 500; max-width: 320px;">
+                ¡Mueve a Chancay en la pantalla para atrapar los elementos requeridos y evitar los erróneos!
+              </p>
+
+              <!-- Minimalist Feature Badges -->
+              <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; font-size: 0.7rem; font-family: 'Fredoka', sans-serif; width: 100%;">
+                <span style="background: rgba(255,255,255,0.08); padding: 5px 12px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.12); color: #80DEEA;">❤️ 3 Vidas</span>
+                <span style="background: rgba(255,255,255,0.08); padding: 5px 12px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.12); color: #FFE082;">🚀 Progresivo</span>
+              </div>
+
+              <button class="cartoon-btn-play cartoon-btn-red" onclick="startInfiniteChemGame()" style="width: auto; min-width: 200px; max-width: 280px; margin: 0 auto; font-size: 0.95rem; padding: 12px 28px; border-radius: 14px;">
+                🎮 ¡JUGAR AHORA! 🧪
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Touch Controls Bar -->
+          <div style="flex: 0 0 auto; display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; gap: 10px; width: 100%;">
+              <button class="cartoon-btn-play cartoon-btn-blue" id="btn-move-left" style="flex: 1; padding: 12px; font-size: 0.85rem; border-radius: 12px;">◀ IZQUIERDA</button>
+              <button class="cartoon-btn-play cartoon-btn-blue" id="btn-move-right" style="flex: 1; padding: 10px; font-size: 0.85rem; border-radius: 12px;">DERECHA ▶</button>
+            </div>
+            <div class="cartoon-font" style="text-align: center; font-size: 0.65rem; color: #888; margin-top: 1px;">
+              💡 Arrastra sobre la pantalla, usa los botones táctiles o las flechas ◀ ▶ del teclado
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
 
     </div>
   </div>
@@ -731,6 +893,429 @@
         sendGameTelemetry('math-1', false, 'Integrando Ecuaciones');
       }
     }
+
+    /* ==========================================================================
+       CANVAS 2D ENGINE: CHANCAY LLUVIA QUÍMICA (INFINITE PROGRESSIVE GAMEDEV)
+       ========================================================================== */
+    let chemGameActive = false;
+    let chemScore = 0;
+    let chemLives = 3;
+    let chemErrors = 0;
+    let chemTargetIdx = 0;
+    let chemFrameCount = 0;
+    let chemComboStreak = 0;
+    let chemToastMsg = "";
+    let chemToastTimer = 0;
+    let chemRedFlash = 0;
+
+    const chemTargets = [
+      { name: 'GASES NOBLES', color: '#9C27B0', match: ['He', 'Ne', 'Ar', 'Kr'] },
+      { name: 'METALES ALCALINOS', color: '#E52521', match: ['Li', 'Na', 'K', 'Rb'] },
+      { name: 'NO METALES', color: '#00875A', match: ['O', 'N', 'C', 'H', 'P'] }
+    ];
+
+    const chemElementsPool = [
+      { symbol: 'He', name: 'Helio', category: 'GASES NOBLES' },
+      { symbol: 'Ne', name: 'Neón', category: 'GASES NOBLES' },
+      { symbol: 'Ar', name: 'Argón', category: 'GASES NOBLES' },
+      { symbol: 'Kr', name: 'Kriptón', category: 'GASES NOBLES' },
+      { symbol: 'Na', name: 'Sodio', category: 'METALES ALCALINOS' },
+      { symbol: 'K', name: 'Potasio', category: 'METALES ALCALINOS' },
+      { symbol: 'Li', name: 'Litio', category: 'METALES ALCALINOS' },
+      { symbol: 'O', name: 'Oxígeno', category: 'NO METALES' },
+      { symbol: 'N', name: 'Nitrógeno', category: 'NO METALES' },
+      { symbol: 'C', name: 'Carbono', category: 'NO METALES' },
+      { symbol: 'H', name: 'Hidrógeno', category: 'NO METALES' },
+      { symbol: 'Fe', name: 'Hierro', category: 'METALES ALCALINOS' }
+    ];
+
+    let chemPlayer = { x: 135, y: 222, w: 72, h: 84, speed: 9.0 };
+    let chemFallingItems = [];
+    let chemParticles = [];
+    let chemKeys = { left: false, right: false };
+    let chemAnimId = null;
+
+    let chancaySprite = new Image();
+    chancaySprite.src = '/images/chancay/chancay-vaso.png';
+
+
+    let labBgImage = new Image();
+    labBgImage.src = '/images/games/lab-background.png';
+
+    function resizeChemCanvas() {
+      const canvas = document.getElementById('chem-canvas');
+      if (!canvas) return;
+      const container = document.getElementById('chem-canvas-container');
+      if (container && container.clientWidth > 0 && container.clientHeight > 0) {
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
+
+        // Dynamic Proportional Player & Beaker Scaling
+        chemPlayer.w = Math.min(90, Math.max(54, canvas.width * 0.16));
+        chemPlayer.h = chemPlayer.w * 1.15;
+        chemPlayer.y = canvas.height - chemPlayer.h - 8;
+        chemPlayer.speed = Math.max(7.5, canvas.width * 0.022);
+      }
+    }
+    window.addEventListener('resize', resizeChemCanvas);
+    window.addEventListener('orientationchange', () => { setTimeout(resizeChemCanvas, 150); });
+
+    function openChemCatchGame() {
+      document.getElementById('chem-catch-modal').style.display = 'flex';
+      document.getElementById('chem-onboarding').style.display = 'flex';
+      setTimeout(resizeChemCanvas, 50);
+      chemGameActive = false;
+      if (chemAnimId) cancelAnimationFrame(chemAnimId);
+    }
+
+    function closeChemCatchGame() {
+      chemGameActive = false;
+      if (chemAnimId) cancelAnimationFrame(chemAnimId);
+      document.getElementById('chem-catch-modal').style.display = 'none';
+    }
+
+    function startInfiniteChemGame() {
+      document.getElementById('chem-onboarding').style.display = 'none';
+      resizeChemCanvas();
+      chemGameActive = true;
+
+      const canvas = document.getElementById('chem-canvas');
+      if (canvas) {
+        chemPlayer.x = canvas.width / 2 - chemPlayer.w / 2;
+        chemPlayer.y = canvas.height - chemPlayer.h - 8;
+      } else {
+        chemPlayer.x = 135;
+        chemPlayer.y = 220;
+      }
+
+      chemScore = 0;
+      chemLives = 3;
+      chemErrors = 0;
+      chemTargetIdx = 0;
+      chemFrameCount = 0;
+      chemComboStreak = 0;
+      chemToastMsg = "¡MISIÓN: ATRAPA GASES NOBLES! 🔥";
+      chemToastTimer = 110;
+      chemFallingItems = [];
+      chemParticles = [];
+      updateChemHUD();
+
+      if (canvas) {
+        // Direct Touch Dragging on Mobile/Tablet
+        canvas.ontouchmove = (e) => {
+          if (e.touches && e.touches[0]) {
+            const rect = canvas.getBoundingClientRect();
+            const touchX = e.touches[0].clientX - rect.left;
+            chemPlayer.x = Math.max(5, Math.min(canvas.width - chemPlayer.w - 5, touchX - chemPlayer.w / 2));
+          }
+        };
+        // Mouse Dragging on PC
+        canvas.onmousemove = (e) => {
+          if (e.buttons === 1) {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            chemPlayer.x = Math.max(5, Math.min(canvas.width - chemPlayer.w - 5, mouseX - chemPlayer.w / 2));
+          }
+        };
+      }
+
+
+      // Keyboard Listeners
+      window.onkeydown = (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'a') chemKeys.left = true;
+        if (e.key === 'ArrowRight' || e.key === 'd') chemKeys.right = true;
+      };
+      window.onkeyup = (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'a') chemKeys.left = false;
+        if (e.key === 'ArrowRight' || e.key === 'd') chemKeys.right = false;
+      };
+
+      // Touch Buttons
+      const btnL = document.getElementById('btn-move-left');
+      const btnR = document.getElementById('btn-move-right');
+      if (btnL && btnR) {
+        btnL.onmousedown = btnL.ontouchstart = (e) => { if (e.cancelable) e.preventDefault(); chemKeys.left = true; };
+        btnL.onmouseup = btnL.ontouchend = (e) => { if (e.cancelable) e.preventDefault(); chemKeys.left = false; };
+        btnR.onmousedown = btnR.ontouchstart = (e) => { if (e.cancelable) e.preventDefault(); chemKeys.right = true; };
+        btnR.onmouseup = btnR.ontouchend = (e) => { if (e.cancelable) e.preventDefault(); chemKeys.right = false; };
+      }
+
+      chemGameLoop();
+    }
+
+    function updateChemHUD() {
+      const target = chemTargets[chemTargetIdx];
+      const badge = document.getElementById('chem-target-badge');
+      if (badge) {
+        badge.textContent = target.name;
+        badge.style.background = target.color;
+      }
+      const scoreEl = document.getElementById('chem-score-val');
+      if (scoreEl) scoreEl.textContent = chemScore;
+
+      const livesEl = document.getElementById('chem-lives-val');
+      if (livesEl) {
+        let hearts = '';
+        for (let i = 0; i < 3; i++) {
+          hearts += (i < chemLives) ? '❤️' : '💔';
+        }
+        livesEl.textContent = hearts;
+      }
+    }
+
+    function addSparkles(x, y, color) {
+      for (let p = 0; p < 12; p++) {
+        chemParticles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 6,
+          vy: (Math.random() - 0.5) * 6 - 2,
+          radius: Math.random() * 3.5 + 2,
+          life: 1.0,
+          color: color || '#FFD700'
+        });
+      }
+    }
+
+    function chemGameLoop() {
+      if (!chemGameActive) return;
+      const canvas = document.getElementById('chem-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      // 1. Render Realistic Lab Background Image
+      if (labBgImage.complete && labBgImage.naturalWidth > 0) {
+        ctx.drawImage(labBgImage, 0, 0, canvas.width, canvas.height);
+        // Subtle dark ambient glass overlay
+        ctx.fillStyle = 'rgba(15, 12, 35, 0.45)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.fillStyle = '#14122b';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      // Red Damage Flash Tint
+      if (chemRedFlash > 0) {
+        chemRedFlash--;
+        ctx.fillStyle = `rgba(229, 37, 33, ${chemRedFlash / 25})`;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      // 2. Keyboard Movement Physics
+      if (chemKeys.left && chemPlayer.x > 4) chemPlayer.x -= chemPlayer.speed;
+      if (chemKeys.right && chemPlayer.x < canvas.width - chemPlayer.w - 4) chemPlayer.x += chemPlayer.speed;
+
+      // 3. Beaker Target Box Coordinates (Proportional to Player Sprite)
+      const beakerX = chemPlayer.x + (chemPlayer.w * 0.32);
+      const beakerY = chemPlayer.y + (chemPlayer.h * 0.05);
+      const beakerW = chemPlayer.w * 0.44;
+      const beakerH = chemPlayer.h * 0.22;
+
+      // 4. Render Chancay Chemist Mascot
+      if (chancaySprite.complete && chancaySprite.naturalWidth > 0) {
+        ctx.drawImage(chancaySprite, chemPlayer.x, chemPlayer.y, chemPlayer.w, chemPlayer.h);
+      } else {
+        ctx.fillStyle = '#E52521';
+        ctx.beginPath();
+        ctx.arc(chemPlayer.x + chemPlayer.w / 2, chemPlayer.y + chemPlayer.h / 2, chemPlayer.w / 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '800 16px Fredoka, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('🐹🧪', chemPlayer.x + chemPlayer.w / 2, chemPlayer.y + chemPlayer.h / 2);
+      }
+
+
+      // 5. Draw Chancay Live Speech Bubble (Cartoon Arcade Floating Capsule)
+      if (chemToastTimer > 0) {
+        chemToastTimer--;
+        ctx.save();
+
+        // Gentle Floating Bobbing Animation (Sine Wave)
+        const floatOffset = Math.sin(chemFrameCount * 0.12) * 3;
+        const bubbleW = Math.max(chemPlayer.w + 46, 125);
+        const bubbleH = 24;
+        let bubbleX = chemPlayer.x + (chemPlayer.w / 2) - (bubbleW / 2);
+        let bubbleY = chemPlayer.y - 30 + floatOffset;
+
+        // Clamp bubble inside canvas boundaries
+        bubbleX = Math.max(6, Math.min(canvas.width - bubbleW - 6, bubbleX));
+        bubbleY = Math.max(6, bubbleY);
+
+        // Glass Capsule Background with Gold Border
+        ctx.fillStyle = 'rgba(10, 8, 26, 0.92)';
+        ctx.strokeStyle = '#FFE082';
+        ctx.lineWidth = 2.0;
+
+        ctx.beginPath();
+        if (ctx.roundRect) {
+          ctx.roundRect(bubbleX, bubbleY, bubbleW, bubbleH, 10);
+        } else {
+          ctx.rect(bubbleX, bubbleY, bubbleW, bubbleH);
+        }
+        ctx.fill();
+        ctx.stroke();
+
+        // Pointer Triangle Pointing to Chancay
+        ctx.fillStyle = '#FFE082';
+        ctx.beginPath();
+        ctx.moveTo(chemPlayer.x + chemPlayer.w / 2 - 5, bubbleY + bubbleH);
+        ctx.lineTo(chemPlayer.x + chemPlayer.w / 2 + 5, bubbleY + bubbleH);
+        ctx.lineTo(chemPlayer.x + chemPlayer.w / 2, bubbleY + bubbleH + 5);
+        ctx.closePath();
+        ctx.fill();
+
+        // Vibrant Yellow Arcade Typography with Black Stroke Outline
+        ctx.font = '800 11px Fredoka, "Comic Neue", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // Black Text Outline
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 3.2;
+        ctx.strokeText(chemToastMsg, bubbleX + bubbleW / 2, bubbleY + bubbleH / 2 + 1);
+
+        // Bright Yellow Text Fill
+        ctx.fillStyle = '#FFE082';
+        ctx.fillText(chemToastMsg, bubbleX + bubbleW / 2, bubbleY + bubbleH / 2 + 1);
+
+        ctx.restore();
+      }
+
+
+      // 6. Progressive Speed Acceleration Calculation
+      chemFrameCount++;
+      const currentSpeed = 1.8 + Math.floor(chemScore / 20) * 0.35;
+      const spawnFrequency = Math.max(18, 42 - Math.floor(chemScore / 25) * 4);
+
+      if (chemFrameCount % spawnFrequency === 0) {
+        const item = chemElementsPool[Math.floor(Math.random() * chemElementsPool.length)];
+        const elemRadius = Math.min(22, Math.max(14, canvas.width * 0.042));
+        chemFallingItems.push({
+          x: Math.random() * (canvas.width - elemRadius * 3) + elemRadius * 1.5,
+          y: -elemRadius * 2,
+          radius: elemRadius,
+          speed: currentSpeed + (Math.random() * 0.6),
+          symbol: item.symbol,
+          name: item.name,
+          category: item.category
+        });
+      }
+
+
+      // Dynamic Goal Rotation Every 350 Frames (~8.5 sec)
+      if (chemFrameCount % 350 === 0) {
+        chemTargetIdx = (chemTargetIdx + 1) % chemTargets.length;
+        updateChemHUD();
+        chemToastMsg = "¡NUEVO OBJETIVO: " + chemTargets[chemTargetIdx].name + "! 🔥";
+        chemToastTimer = 90;
+      }
+
+      // 7. Render Sparkle Particles
+      for (let p = chemParticles.length - 1; p >= 0; p--) {
+        let pt = chemParticles[p];
+        pt.x += pt.vx;
+        pt.y += pt.vy;
+        pt.life -= 0.04;
+        if (pt.life <= 0) {
+          chemParticles.splice(p, 1);
+          continue;
+        }
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, pt.radius, 0, Math.PI * 2);
+        ctx.fillStyle = pt.color;
+        ctx.globalAlpha = pt.life;
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+      }
+
+      // 8. Update & Collision Check for Falling Elements
+      for (let i = chemFallingItems.length - 1; i >= 0; i--) {
+        let elem = chemFallingItems[i];
+        elem.y += elem.speed;
+
+        // Draw Element Bubble
+        ctx.beginPath();
+        ctx.arc(elem.x, elem.y, elem.radius, 0, Math.PI * 2);
+        const isTarget = (elem.category === chemTargets[chemTargetIdx].name);
+        ctx.fillStyle = isTarget ? 'rgba(255, 234, 0, 0.95)' : 'rgba(255, 255, 255, 0.95)';
+        ctx.fill();
+        ctx.strokeStyle = isTarget ? '#FF6F00' : '#111111';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        // Draw Symbol Text
+        ctx.fillStyle = '#000000';
+        ctx.font = '800 12px Fredoka, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(elem.symbol, elem.x, elem.y);
+
+        // Collision Check with Beaker Container
+        if (
+          elem.y + elem.radius >= beakerY &&
+          elem.y - elem.radius <= beakerY + beakerH + 12 &&
+          elem.x >= beakerX - 10 &&
+          elem.x <= beakerX + beakerW + 10
+        ) {
+          if (isTarget) {
+            chemComboStreak++;
+            const pointsGained = (chemComboStreak >= 3) ? 20 : 10;
+            chemScore += pointsGained;
+            updateChemHUD();
+            addSparkles(elem.x, elem.y, '#FFD700');
+            chemToastMsg = `¡${elem.name}! +${pointsGained}☀️ ${chemComboStreak >= 3 ? '🔥 COMBO' : ''}`;
+            chemToastTimer = 70;
+          } else {
+            chemComboStreak = 0;
+            chemErrors++;
+            chemLives--;
+            chemRedFlash = 14;
+            updateChemHUD();
+            addSparkles(elem.x, elem.y, '#FF2A85');
+            chemToastMsg = `¡Opps! ${elem.name} es ${elem.category} 💔`;
+            chemToastTimer = 85;
+
+            // Check Game Over Condition (3 Lives Depleted)
+            if (chemLives <= 0) {
+              finishChemGame(false);
+              return;
+            }
+          }
+          chemFallingItems.splice(i, 1);
+        } else if (elem.y > canvas.height + 25) {
+          chemFallingItems.splice(i, 1);
+        }
+      }
+
+      chemAnimId = requestAnimationFrame(chemGameLoop);
+    }
+
+    function finishChemGame(won) {
+      chemGameActive = false;
+      if (chemAnimId) cancelAnimationFrame(chemAnimId);
+
+      const statusBadge = (chemScore >= 80) ? 'VERDE' : 'AMARILLO';
+
+      fetch('/api/telemetry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          studentName: 'Mateo Rossi',
+          gameId: 'quimica-1',
+          timeSpentSec: Math.floor(chemFrameCount / 60),
+          errorsCount: chemErrors,
+          rageClicks: 0,
+          score: chemScore,
+          statusBadge: statusBadge
+        })
+      }).then(() => {
+        alert(`💔 FIN DE LA MISIÓN: MATEO LOGRÓ ${chemScore} SEMILLAS ☀️.\n\nTelemetría de desempeño registrada en EducarIA.`);
+      }).catch(() => {
+        alert(`Misión terminada offline: ${chemScore} Semillas ☀️ registradas.`);
+      });
+    }
   </script>
 
   <!-- Floating Responsive View Mode Toggle Button -->
@@ -741,3 +1326,4 @@
   <script src="/js/responsive-mode.js"></script>
 </body>
 </html>
+

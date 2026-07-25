@@ -3,107 +3,605 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EducarIA — Panel Docente NOMAD-IA</title>
+  <title>EducarIA — Panel Docente Corporativo NOMAD-IA</title>
   <link rel="stylesheet" href="/styles/mondrian-new.css">
   <style>
-    .filter-btn.active {
-      background-color: var(--mondrian-yellow);
-      color: var(--mondrian-black);
-      box-shadow: 1px 1px 0px var(--mondrian-black);
-      transform: translate(2px, 2px);
+    /* --------------------------------------------------------------------------
+       EDUCAR-IA CORPORATE EXECUTIVE DASHBOARD STYLES
+       -------------------------------------------------------------------------- */
+    body {
+      background-color: #F4F7FA;
+      color: #1E293B;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Executive Navbar Header */
+    .executive-navbar {
+      background: linear-gradient(135deg, #002B5B 0%, #004586 100%);
+      color: #FFFFFF;
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 43, 91, 0.15);
+    }
+
+    .brand-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-tagline {
+      font-size: 0.75rem;
+      color: #93C5FD;
+      font-weight: 600;
+      margin: 2px 0 0 0;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Executive Main Wrapper */
+    .executive-container {
+      max-width: 1280px;
+      margin: 24px auto;
+      padding: 0 20px 80px 20px;
+    }
+
+    /* Corporate Hero Banner */
+    .corporate-hero-block {
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(0, 69, 134, 0.1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .student-focus-badge {
+      background: #EFF6FF;
+      border: 1.5px solid #BFDBFE;
+      border-radius: 12px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .student-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--mondrian-blue, #004586);
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    /* Corporate KPI Grid */
+    .corp-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .corp-kpi-card {
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 18px 20px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .corp-kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 69, 134, 0.06);
+    }
+
+    .corp-kpi-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .corp-kpi-val {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #0F172A;
+      line-height: 1;
+    }
+
+    /* Filter & Table Container */
+    .corp-card-block {
+      background: #FFFFFF;
+      border-radius: 16px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    .corp-card-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid #E2E8F0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #FAFBFD;
+    }
+
+    .filter-btn-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .corp-filter-btn {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      color: #475569;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .corp-filter-btn.active {
+      background: var(--mondrian-blue, #004586);
+      color: #FFFFFF;
+      border-color: var(--mondrian-blue, #004586);
+    }
+
+    /* Executive Telemetry Table */
+    .corp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .corp-table th {
+      background: #F8FAFC;
+      color: #475569;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.5px;
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .corp-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid #F1F5F9;
+      color: #334155;
+    }
+
+    .corp-table tr.highlight-row {
+      background: #F0F9FF;
+    }
+
+    /* Status Badges */
+    .corp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .corp-badge-green { background: #DCFCE7; color: #15803D; }
+    .corp-badge-yellow { background: #FEF9C3; color: #A16207; }
+    .corp-badge-red { background: #FEE2E2; color: #B91C1C; }
+
+    /* --------------------------------------------------------------------------
+       FLOATING CHANCAY AI DIAGNOSTIC WIDGET (BOTTOM-RIGHT)
+       -------------------------------------------------------------------------- */
+    .chancay-fab-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #004586 0%, #002B5B 100%);
+      border: 3px solid #F7D000;
+      box-shadow: 0 10px 25px rgba(0, 69, 134, 0.35);
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s;
+      animation: fabFloatBreath 3.2s ease-in-out infinite;
+    }
+
+    @keyframes fabFloatBreath {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-5px) scale(1.04); }
+    }
+
+    .chancay-fab-btn:hover {
+      transform: scale(1.12);
+      box-shadow: 0 14px 32px rgba(0, 69, 134, 0.45);
+    }
+
+    .chancay-fab-img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+    }
+
+    .chancay-fab-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #E52521;
+      color: #FFFFFF;
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 3px 7px;
+      border-radius: 100px;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    /* SLIDE-UP AI DIAGNOSTIC CHAT DRAWER */
+    .ai-chat-drawer {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      width: 400px;
+      max-width: calc(100vw - 32px);
+      height: 560px;
+      max-height: calc(100vh - 120px);
+      background: #FFFFFF;
+      border-radius: 20px;
+      border: 2px solid rgba(0, 69, 134, 0.15);
+      box-shadow: 0 20px 50px rgba(0, 30, 60, 0.22);
+      z-index: 1001;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      animation: drawerSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes drawerSlideUp {
+      from { transform: translateY(40px) scale(0.95); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    .ai-drawer-header {
+      background: linear-gradient(135deg, #004586 0%, #002B5B 100%);
+      color: #FFFFFF;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ai-mascot-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ai-mascot-avatar-small {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #F7D000;
+      padding: 2px;
+      object-fit: contain;
+    }
+
+    .ai-drawer-body {
+      flex: 1;
+      padding: 14px;
+      overflow-y: auto;
+      background: #F8FAFC;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Diagnostic Report Card Bubble */
+    .diagnostic-report-card {
+      background: #FFFFFF;
+      border: 1.5px solid #BFDBFE;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      color: #1E293B;
+      box-shadow: 0 4px 12px rgba(0, 69, 134, 0.05);
+    }
+
+    .report-title-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 800;
+      color: #004586;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+    }
+
+    .report-stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      font-size: 0.8rem;
+    }
+
+    .ai-drawer-chips {
+      padding: 8px 12px;
+      background: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .ai-drawer-chips::-webkit-scrollbar { display: none; }
+
+    .ai-chip-btn {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      color: #004586;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .ai-chip-btn:hover {
+      background: #F7D000;
+      color: #000;
+      border-color: #F7D000;
+    }
+
+    .ai-drawer-footer {
+      padding: 10px 12px;
+      background: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      display: flex;
+      gap: 8px;
+    }
+
+    .ai-input-field {
+      flex: 1;
+      border: 1px solid #CBD5E1;
+      border-radius: 100px;
+      padding: 8px 14px;
+      font-size: 0.82rem;
+      outline: none;
+    }
+
+    .ai-send-btn {
+      background: #004586;
+      color: #FFF;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   </style>
 </head>
 <body>
-  <!-- Header / Navigation Bar -->
-  <header class="mondrian-navbar">
-    <div class="mondrian-logo">
-      <div class="mondrian-logo-icon">
-        <div class="shape-triangle"></div>
-        <div class="shape-square"></div>
-        <div class="shape-circle"></div>
+
+  <!-- Executive Corporate Navbar Header -->
+  <header class="executive-navbar">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <div style="width: 38px; height: 38px; background: #F7D000; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 1.2rem;">
+        E
       </div>
       <div>
-        <h1 style="font-size: 1.4rem; margin: 0;">EducarIA — Panel Docente NOMAD-IA</h1>
-        <p style="font-size: 0.75rem; margin: 0; font-weight: 700;">Monitoreo Cognitivo & Alerta Temprana Off-Grid</p>
+        <h1 class="brand-title">EducarIA <span style="font-size: 0.75rem; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 6px; font-weight: 700;">PANEL DOCENTE</span></h1>
+        <p class="brand-tagline">Sistema de Monitoreo Cognitivo & Diagnóstico Temprano • MINEDU NOMAD-IA</p>
       </div>
     </div>
-    <div>
-      <a href="/" class="mondrian-btn mondrian-btn-yellow" style="font-size: 0.85rem; padding: 6px 16px;">🏠 Volver al Hub</a>
+    <div class="header-actions">
+      <a href="/" class="mondrian-btn mondrian-btn-yellow" style="font-size: 0.82rem; padding: 6px 14px; text-decoration: none; border-radius: 8px; font-weight: 700;">
+        🏠 Volver al Hub
+      </a>
     </div>
   </header>
 
-  <!-- Main Dashboard Container -->
-  <main class="dashboard-container">
-    <div class="mondrian-block bg-blue" style="margin-bottom: 24px;">
-      <h2 style="font-size: 1.6rem; margin-bottom: 6px;">Panel de Monitoreo Docente</h2>
-      <p style="font-size: 0.95rem;">Visualización de telemetría de aprendizaje, nivel de frustración y clasificación de riesgo predictivo en tiempo real.</p>
-    </div>
+  <!-- Executive Main Wrapper -->
+  <main class="executive-container">
 
-    <!-- KPI Summary Cards Container -->
-    <div class="kpi-grid">
-      <div class="kpi-card" style="border-left: 6px solid var(--mondrian-black);">
-        <div class="kpi-title">Total Estudiantes</div>
-        <div class="kpi-value" id="kpi-total-students">0</div>
+    <!-- Student Focus Banner (Mateo Rossi) -->
+    <div class="corporate-hero-block">
+      <div>
+        <span style="font-size: 0.75rem; font-weight: 800; color: #004586; text-transform: uppercase; letter-spacing: 0.5px;">ESTUDIANTE DESTACADO EN SESIÓN</span>
+        <h2 style="font-size: 1.45rem; font-weight: 800; margin: 4px 0 2px 0; color: #0F172A;">Mateo Rossi — 6to Grado de Primaria</h2>
+        <p style="font-size: 0.85rem; color: #64748B; margin: 0;">Supervisión en tiempo real de avance en la maleta tecnológica off-grid.</p>
       </div>
-      <div class="kpi-card" style="border-left: 6px solid var(--status-green-border);">
-        <div class="kpi-title">Riesgo Bajo (Verde)</div>
-        <div class="kpi-value" id="kpi-low-risk" style="color: var(--status-green-text);">0</div>
-      </div>
-      <div class="kpi-card" style="border-left: 6px solid var(--status-yellow-border);">
-        <div class="kpi-title">Riesgo Medio (Amarillo)</div>
-        <div class="kpi-value" id="kpi-medium-risk" style="color: var(--status-yellow-text);">0</div>
-      </div>
-      <div class="kpi-card" style="border-left: 6px solid var(--status-red-border);">
-        <div class="kpi-title">Riesgo Alto (Rojo)</div>
-        <div class="kpi-value" id="kpi-high-risk" style="color: var(--status-red-text);">0</div>
-      </div>
-      <div class="kpi-card" style="border-left: 6px solid var(--mondrian-blue);">
-        <div class="kpi-title">Tiempo Promedio (s)</div>
-        <div class="kpi-value" id="kpi-avg-time" style="color: var(--mondrian-blue);">0.0s</div>
+      <div class="student-focus-badge">
+        <div class="student-avatar">M</div>
+        <div>
+          <div style="font-size: 0.72rem; font-weight: 700; color: #475569; text-transform: uppercase;">Estado Semáforo:</div>
+          <div style="font-size: 0.95rem; font-weight: 800; color: #15803D; display: flex; align-items: center; gap: 4px;">
+            🟢 Excelente Rendimiento en Química
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Filter & Action Bar -->
-    <div class="mondrian-card" style="padding: 16px; margin-bottom: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;">
-      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;" id="filter-bar">
-        <span style="font-weight: 800; font-size: 0.9rem; text-transform: uppercase; margin-right: 4px;">Filtrar Riesgo:</span>
-        <button class="mondrian-btn filter-btn active" data-filter="TODOS">Todos</button>
-        <button class="mondrian-btn filter-btn" data-filter="VERDE">Verde</button>
-        <button class="mondrian-btn filter-btn" data-filter="AMARILLO">Amarillo</button>
-        <button class="mondrian-btn filter-btn" data-filter="ROJO">Rojo</button>
+    <!-- Corporate KPI Grid -->
+    <div class="corp-kpi-grid">
+      <div class="corp-kpi-card" style="border-left: 4px solid #004586;">
+        <div class="corp-kpi-label">Total Estudiantes</div>
+        <div class="corp-kpi-val" id="kpi-total-students">1</div>
       </div>
-      <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
-        <button id="btn-refresh" class="mondrian-btn mondrian-btn-blue">Actualizar Data</button>
-        <span id="last-updated" style="font-size: 0.85rem; font-weight: 700; color: var(--mondrian-gray-dark);">
-          Última actualización: --:--:--
-        </span>
+      <div class="corp-kpi-card" style="border-left: 4px solid #16A34A;">
+        <div class="corp-kpi-label">Riesgo Bajo (Verde)</div>
+        <div class="corp-kpi-val" id="kpi-low-risk" style="color: #16A34A;">1</div>
+      </div>
+      <div class="corp-kpi-card" style="border-left: 4px solid #CA8A04;">
+        <div class="corp-kpi-label">Riesgo Medio (Amarillo)</div>
+        <div class="corp-kpi-val" id="kpi-medium-risk" style="color: #CA8A04;">0</div>
+      </div>
+      <div class="corp-kpi-card" style="border-left: 4px solid #DC2626;">
+        <div class="corp-kpi-label">Riesgo Alto (Rojo)</div>
+        <div class="corp-kpi-val" id="kpi-high-risk" style="color: #DC2626;">0</div>
+      </div>
+      <div class="corp-kpi-card" style="border-left: 4px solid #2563EB;">
+        <div class="corp-kpi-label">Tiempo Promedio</div>
+        <div class="corp-kpi-val" id="kpi-avg-time" style="color: #2563EB;">1.2s</div>
       </div>
     </div>
 
-    <!-- Telemetry Data Table -->
-    <div class="mondrian-table-container">
-      <table class="mondrian-table">
+    <!-- Telemetry Table Card -->
+    <div class="corp-card-block">
+      <div class="corp-card-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-weight: 800; font-size: 0.95rem; color: #0F172A;">📊 Telemetría Cognitiva en Tiempo Real</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div class="filter-btn-group" id="filter-bar">
+            <button class="corp-filter-btn active filter-btn" data-filter="TODOS">Todos</button>
+            <button class="corp-filter-btn filter-btn" data-filter="VERDE">🟢 Verde</button>
+            <button class="corp-filter-btn filter-btn" data-filter="AMARILLO">🟡 Amarillo</button>
+            <button class="corp-filter-btn filter-btn" data-filter="ROJO">🔴 Rojo</button>
+          </div>
+          <button id="btn-refresh" class="corp-filter-btn" style="background: #004586; color: #FFF; border: none;">Actualizar</button>
+          <span id="last-updated" style="font-size: 0.78rem; font-weight: 600; color: #64748B;">--:--:--</span>
+        </div>
+      </div>
+
+      <table class="corp-table">
         <thead>
           <tr>
             <th>Estudiante</th>
             <th>ID</th>
-            <th>Juego</th>
-            <th>Tiempo (s)</th>
+            <th>Módulo / Juego</th>
+            <th>Tiempo</th>
             <th>Errores</th>
-            <th>Clics Frustración</th>
+            <th>Frustración</th>
             <th>Semáforo</th>
-            <th>Fecha/Hora</th>
+            <th>Hora</th>
           </tr>
         </thead>
         <tbody id="telemetry-table-body">
           <tr>
-            <td colspan="8" style="text-align: center; padding: 24px; font-weight: 700;">Cargando telemetría...</td>
+            <td colspan="8" style="text-align: center; padding: 24px; font-weight: 600; color: #64748B;">Cargando registro de telemetría...</td>
           </tr>
         </tbody>
       </table>
     </div>
+
   </main>
+
+  <!-- FLOATING CHANCAY AI DIAGNOSTIC WIDGET (BOTTOM RIGHT) -->
+  <button class="chancay-fab-btn" id="chancay-fab-btn" onclick="toggleAIDiagnosticDrawer()" title="Abrir Asistente Diagnóstico Chancay">
+    <img src="/images/chancay/chancay-vaso.png" alt="Chancay AI Assistant" class="chancay-fab-img">
+    <span class="chancay-fab-badge">IA</span>
+  </button>
+
+  <!-- SLIDE-UP AI DIAGNOSTIC CHAT DRAWER -->
+  <div class="ai-chat-drawer" id="chancay-ai-drawer">
+    
+    <!-- Drawer Header -->
+    <div class="ai-drawer-header">
+      <div class="ai-mascot-head">
+        <img src="/images/chancay/chancay-vaso.png" class="ai-mascot-avatar-small" alt="Chancay Mascot Avatar">
+        <div>
+          <strong style="font-size: 0.9rem; display: block; line-height: 1.2;">Chancay — Asistente IA</strong>
+          <span style="font-size: 0.7rem; color: #93C5FD;">Diagnóstico Cognitivo en Vivo</span>
+        </div>
+      </div>
+      <button onclick="toggleAIDiagnosticDrawer()" style="background: rgba(255,255,255,0.15); border: none; color: #FFF; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: 800;">×</button>
+    </div>
+
+    <!-- Drawer Body with Automated Report -->
+    <div class="ai-drawer-body" id="ai-drawer-body">
+      
+      <!-- Automated Mateo Rossi Diagnostic Card -->
+      <div class="diagnostic-report-card">
+        <div class="report-title-tag">
+          <span>📋 REPORTE DE MATEO ROSSI</span>
+          <span style="font-size: 0.7rem; background: #DCFCE7; color: #15803D; padding: 2px 6px; border-radius: 4px;">VERDE</span>
+        </div>
+        <p style="margin: 4px 0 8px 0; font-size: 0.82rem;">
+          ¡Hola Profesora! 🐹🇵🇪 Analicé la telemetría actual de <strong>Mateo Rossi</strong> y aquí tienes su diagnóstico en tiempo real:
+        </p>
+
+        <div style="background: #F8FAFC; border-radius: 8px; padding: 8px; margin-bottom: 8px;">
+          <div class="report-stat-row">
+            <span>🧪 <strong>Química / Gases Nobles:</strong></span>
+            <span style="color: #16A34A; font-weight: 800;">100% Precisión</span>
+          </div>
+          <div class="report-stat-row">
+            <span>📐 <strong>Matemática (Triángulos):</strong></span>
+            <span style="color: #CA8A04; font-weight: 800;">3 Clics Frustración</span>
+          </div>
+          <div class="report-stat-row">
+            <span>⏱️ <strong>Tiempo Promedio:</strong></span>
+            <span>1.2s por respuesta</span>
+          </div>
+        </div>
+
+        <div style="font-size: 0.8rem; color: #1E293B;">
+          <strong>💡 Recomendación Pedagógica:</strong><br>
+          Mateo domina los conceptos de Química a la perfección, pero muestra leve duda en fórmulas geométricas. Se sugiere asignar la <em>Ficha #4 de Geometría Interactiva</em>.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Quick Dialogue Chips -->
+    <div class="ai-drawer-chips">
+      <button class="ai-chip-btn" onclick="sendAIDrawerQuery('¿En qué está fallando Mateo?')">⚠️ ¿En qué falla?</button>
+      <button class="ai-chip-btn" onclick="sendAIDrawerQuery('¿Cuáles son sus mejores materias?')">🌟 Fortalezas</button>
+      <button class="ai-chip-btn" onclick="sendAIDrawerQuery('Genera un reporte para sus padres')">✉️ Reporte Padres</button>
+    </div>
+
+    <!-- Footer Input Bar -->
+    <form class="ai-drawer-footer" onsubmit="handleAIDrawerSubmit(event)">
+      <input type="text" id="ai-drawer-input" class="ai-input-field" placeholder="Pregúntale a Chancay sobre Mateo..." autocomplete="off">
+      <button type="submit" class="ai-send-btn" title="Enviar Consulta">🚀</button>
+    </form>
+
+  </div>
 
   <script src="dashboard.js"></script>
 </body>
