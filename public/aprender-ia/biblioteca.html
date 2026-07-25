@@ -410,5 +410,29 @@
       });
     }
   </script>
+
+  <!-- Floating Responsive View Mode Toggle Button -->
+  <button class="view-toggle-btn" id="toggle-view-btn" onclick="toggleScreenMode()">
+    <span>📱 Modo: Teléfono</span>
+  </button>
+
+  <script>
+    function toggleScreenMode() {
+      const body = document.body;
+      const btn = document.getElementById('toggle-view-btn');
+      
+      if (!body.classList.contains('mode-tablet') && !body.classList.contains('mode-fullscreen')) {
+        body.classList.add('mode-tablet');
+        btn.innerHTML = '<span>📟 Modo: Tablet Mateo</span>';
+      } else if (body.classList.contains('mode-tablet')) {
+        body.classList.remove('mode-tablet');
+        body.classList.add('mode-fullscreen');
+        btn.innerHTML = '<span>🖥️ Pantalla Completa</span>';
+      } else {
+        body.classList.remove('mode-fullscreen');
+        btn.innerHTML = '<span>📱 Modo: Teléfono</span>';
+      }
+    }
+  </script>
 </body>
 </html>
