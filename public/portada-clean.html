@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AprenderIA & EducarIA — Portada Oficial Minimalista</title>
+  <title>AprenderIA & EducarIA — Portada Oficial Minimalista (MINICLUB)</title>
 
-  <!-- Google Fonts for Modern Clean Aesthetic -->
+  <!-- Google Fonts for Modern Minimalist Aesthetic -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     /* --------------------------------------------------------------------------
-       PRISTINE WHITE MINIMALIST MONDRIAN-NEW STYLES
+       PRISTINE WHITE MINIMALIST MODERN FUTURISTIC TOKENS
        -------------------------------------------------------------------------- */
     :root {
       --mondrian-red: #E52521;
@@ -32,7 +32,7 @@
       width: 100%;
       min-height: 100dvh;
       background: #FFFFFF;
-      color: #1E293B;
+      color: #0F172A;
       font-family: var(--font-body);
       overflow-x: hidden;
       overflow-y: auto;
@@ -48,7 +48,7 @@
       z-index: 90;
     }
 
-    /* Top Subtle Accent Bar */
+    /* Top Accent Stripe */
     .top-accent-bar {
       position: fixed;
       top: 0;
@@ -71,58 +71,58 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 24px;
+      padding: 30px 20px;
       box-sizing: border-box;
       text-align: center;
     }
 
-    /* Top MINEDU Tagline Pill */
+    /* Top National MINEDU Pill Tagline */
     .minedu-tag-pill {
       background: #F8FAFC;
-      border: 1.5px solid #E2E8F0;
-      padding: 8px 24px;
+      border: 1px solid #E2E8F0;
+      padding: 8px 26px;
       border-radius: 100px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 800;
       color: #334155;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
     }
 
     /* --------------------------------------------------------------------------
-       HERO STAGE: CHANCAY IN CENTER, LOGOS AT SHOULDERS (NO CARDS, NO BOXES)
+       HERO STAGE: CHANCAY LARGER IN CENTER & LOGOS CLOSER AT SHOULDERS
        -------------------------------------------------------------------------- */
     .hero-shoulder-composition {
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      gap: clamp(20px, 4vw, 60px);
-      max-width: 1200px;
+      gap: clamp(10px, 2vw, 25px); /* Logos closer to Chancay */
+      max-width: 1280px;
       width: 100%;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
 
-    /* Left & Right Raw Logo Wrapper (Positioned higher at shoulder height) */
+    /* Left & Right Raw Logo Wrapper (Positioned at shoulder height & closer) */
     .shoulder-logo-side {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: 15px; /* Positioned slightly higher at shoulder level */
+      margin-top: 10px; /* Positioned at shoulder height */
     }
 
     .raw-logo-img {
       width: 100%;
-      max-width: 320px;
+      max-width: 380px; /* Slightly larger logos */
       height: auto;
       object-fit: contain;
-      filter: drop-shadow(0 10px 22px rgba(0, 69, 134, 0.12));
+      filter: drop-shadow(0 12px 28px rgba(0, 69, 134, 0.12));
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
@@ -131,7 +131,7 @@
     }
 
     .logo-subtitle-tag {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 800;
       color: #64748B;
       text-transform: uppercase;
@@ -139,7 +139,7 @@
       margin-top: 8px;
     }
 
-    /* Center: Chancay Default Hero Mascot */
+    /* Center: Chancay Default Hero Mascot (Larger) */
     .chancay-center-hero {
       flex: 0 0 auto;
       display: flex;
@@ -150,17 +150,17 @@
     }
 
     .chancay-default-img {
-      width: clamp(230px, 28vw, 340px);
+      width: clamp(260px, 32vw, 400px); /* Larger Chancay mascot */
       height: auto;
       object-fit: contain;
-      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.16));
-      animation: chancayFloatSubtle 4s ease-in-out infinite alternate;
+      filter: drop-shadow(0 22px 45px rgba(0, 0, 0, 0.18));
+      animation: chancayFloatSubtle 4.2s ease-in-out infinite alternate;
       cursor: pointer;
       transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .chancay-default-img:hover {
-      transform: scale(1.06) rotate(1.5deg);
+      transform: scale(1.05) rotate(1.5deg);
     }
 
     @keyframes chancayFloatSubtle {
@@ -168,74 +168,86 @@
       100% { transform: translateY(-10px); }
     }
 
-    /* Minimalist Speech Bubble Capsule */
+    /* Minimalist Speech Bubble Capsule with Tail Pointer */
     .speech-bubble-clean {
       background: #FFFFFF;
       border: 2px solid #E2E8F0;
-      box-shadow: 0 10px 30px rgba(0, 69, 134, 0.08);
-      border-radius: 20px;
-      padding: 12px 24px;
-      max-width: 340px;
-      margin-top: 12px;
-      font-size: 0.92rem;
+      box-shadow: 0 12px 32px rgba(0, 69, 134, 0.08);
+      border-radius: 22px;
+      padding: 14px 28px;
+      max-width: 360px;
+      margin-top: 14px;
+      font-size: 0.95rem;
       font-weight: 700;
-      color: #1E293B;
-      line-height: 1.4;
+      color: #0F172A;
+      line-height: 1.45;
       position: relative;
       text-align: center;
     }
 
+    /* Speech Bubble Tail Arrow pointing UP towards Chancay */
     .speech-bubble-clean::before {
       content: '';
       position: absolute;
-      top: -12px;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-right: 12px solid transparent;
+      border-left: 12px solid transparent;
+      border-bottom: 14px solid #E2E8F0;
+    }
+
+    .speech-bubble-clean::after {
+      content: '';
+      position: absolute;
+      top: -11px;
       left: 50%;
       transform: translateX(-50%);
       border-right: 10px solid transparent;
       border-left: 10px solid transparent;
-      border-bottom: 12px solid #E2E8F0;
+      border-bottom: 12px solid #FFFFFF;
     }
 
     /* --------------------------------------------------------------------------
-       MODERN MINIMALIST INTIS REWARD BUTTON
+       MODERN FUTURISTIC MINIMALIST INTIS REWARD BUTTON
        -------------------------------------------------------------------------- */
-    .intis-action-btn {
-      background: var(--mondrian-yellow);
-      color: #000000;
-      border: 2px solid #000000;
-      box-shadow: 0 6px 0 #000000, 0 10px 25px rgba(247, 208, 0, 0.35);
+    .intis-action-btn-futuristic {
+      background: linear-gradient(135deg, #F7D000 0%, #FFB300 100%);
+      color: #0F172A;
+      border: 1.5px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 10px 30px rgba(247, 208, 0, 0.38), 0 4px 12px rgba(0, 0, 0, 0.06);
       font-family: var(--font-body);
-      font-weight: 900;
+      font-weight: 800;
       font-size: 1.1rem;
-      padding: 16px 40px;
+      padding: 16px 42px;
       border-radius: 100px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-top: 10px;
+      letter-spacing: 0.6px;
+      margin-top: 18px;
     }
 
-    .intis-action-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 9px 0 #000000, 0 14px 30px rgba(247, 208, 0, 0.45);
-      background: #FFE082;
+    .intis-action-btn-futuristic:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 16px 40px rgba(247, 208, 0, 0.55), 0 6px 16px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(135deg, #FFE082 0%, #FFC107 100%);
     }
 
-    .intis-action-btn:active {
-      transform: translateY(3px);
-      box-shadow: 0 1px 0 #000000;
+    .intis-action-btn-futuristic:active {
+      transform: translateY(2px) scale(0.98);
+      box-shadow: 0 4px 14px rgba(247, 208, 0, 0.3);
     }
 
-    /* Clean Recording Mode Hint */
+    /* Clean Video Recording Mode Hint */
     .clean-hint-text {
       font-size: 0.78rem;
       color: #94A3B8;
       font-weight: 700;
-      margin-top: 24px;
+      margin-top: 22px;
       transition: opacity 0.3s;
     }
 
@@ -249,13 +261,13 @@
       .hero-shoulder-composition {
         flex-direction: column;
         align-items: center;
-        gap: 32px;
+        gap: 28px;
       }
       .shoulder-logo-side {
         margin-top: 0;
       }
       .raw-logo-img {
-        max-width: 270px;
+        max-width: 290px;
       }
     }
   </style>
@@ -275,10 +287,10 @@
     <div class="minedu-tag-pill">
       <span>🇵🇪 MINEDU PERÚ</span>
       <span>•</span>
-      <span style="color: var(--mondrian-blue);">ECOSISTEMA NOMAD-IA OFF-GRID</span>
+      <span style="color: var(--mondrian-blue);">HACKATHON 2026 - MINICLUB</span>
     </div>
 
-    <!-- HERO COMPOSITION: CHANCAY CENTER & SHOULDER LOGOS (NO BOXES, NO CARDS) -->
+    <!-- HERO COMPOSITION: CHANCAY LARGER IN CENTER & LOGOS CLOSER AT SHOULDERS -->
     <div class="hero-shoulder-composition">
 
       <!-- LEFT SHOULDER: LOGO APRENDERIA -->
@@ -287,10 +299,11 @@
         <div class="logo-subtitle-tag">🎓 Módulo Estudiante</div>
       </div>
 
-      <!-- CENTER: CHANCAY DEFAULT MASCOT -->
+      <!-- CENTER: CHANCAY DEFAULT MASCOT (LARGER) -->
       <div class="chancay-center-hero">
         <img src="/images/chancay/chancay-default.png" alt="Chancay Mascot Default" class="chancay-default-img" onclick="launchConfettiIntis()">
         
+        <!-- Speech Bubble with Tail Arrow Pointer -->
         <div class="speech-bubble-clean">
           ¡Hola! 🐹🇵🇪 Soy Chancay, tu tutor virtual de la maleta tecnológica.
         </div>
@@ -304,8 +317,8 @@
 
     </div>
 
-    <!-- PROMINENT INTIS REWARD BUTTON -->
-    <button class="intis-action-btn" onclick="launchConfettiIntis()" id="intis-btn">
+    <!-- PROMINENT MODERN FUTURISTIC INTIS REWARD BUTTON -->
+    <button class="intis-action-btn-futuristic" onclick="launchConfettiIntis()" id="intis-btn">
       🪙 ¡LANZAR INTIS DE LA VICTORIA! 💥
     </button>
 
@@ -336,9 +349,9 @@
       const audio = new Audio('/chancay/audio/felicitaciones.mp3');
       audio.play().catch(e => console.log('Audio info:', e));
 
-      for (let i = 0; i < 65; i++) {
+      for (let i = 0; i < 70; i++) {
         confettiItems.push({
-          x: window.innerWidth / 2 + (Math.random() - 0.5) * 260,
+          x: window.innerWidth / 2 + (Math.random() - 0.5) * 280,
           y: window.innerHeight / 2 + 20,
           vx: (Math.random() - 0.5) * 16,
           vy: Math.random() * -15 - 5,
