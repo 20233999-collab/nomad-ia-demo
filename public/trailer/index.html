@@ -12,11 +12,11 @@
 
   <style>
     /* --------------------------------------------------------------------------
-       GLOBAL DESIGN SYSTEM TOKENS (UI-UX-PRO-MAX & GOODTASTE)
+       GLOBAL DESIGN SYSTEM TOKENS (DESIGN-TASTE-FRONTEND-V1 & GOODTASTE)
        -------------------------------------------------------------------------- */
     :root {
       --bg-dark: #0A081D;
-      --bg-dark-card: rgba(18, 14, 42, 0.85);
+      --bg-dark-card: rgba(18, 14, 42, 0.88);
       --mondrian-blue: #004586;
       --mondrian-red: #E52521;
       --mondrian-yellow: #F7D000;
@@ -38,8 +38,9 @@
 
     html, body {
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      overflow-y: auto;
       background: var(--bg-dark);
       color: var(--text-light);
       font-family: var(--font-body);
@@ -48,7 +49,7 @@
 
     /* Animated Particle Glow Background Canvas */
     #bg-canvas, #confetti-canvas {
-      position: absolute;
+      position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
@@ -59,124 +60,59 @@
     #confetti-canvas { z-index: 90; }
 
     /* Radial Ambient Background Glows */
-    .ambient-glow-1 {
-      position: absolute;
-      top: -15%;
+    .ambient-glow-center {
+      position: fixed;
+      top: 40%;
       left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba(0, 69, 134, 0.45) 0%, rgba(229, 37, 33, 0.15) 50%, transparent 70%);
-      filter: blur(80px);
-      z-index: 2;
-      pointer-events: none;
-      animation: pulseGlow 6s ease-in-out infinite alternate;
-    }
-
-    .ambient-glow-2 {
-      position: absolute;
-      bottom: -20%;
-      right: 10%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(247, 208, 0, 0.25) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      width: 750px;
+      height: 750px;
+      background: radial-gradient(circle, rgba(0, 69, 134, 0.5) 0%, rgba(247, 208, 0, 0.18) 40%, rgba(229, 37, 33, 0.1) 65%, transparent 75%);
       filter: blur(90px);
       z-index: 2;
       pointer-events: none;
+      animation: pulseGlowCenter 7s ease-in-out infinite alternate;
     }
 
-    @keyframes pulseGlow {
-      0% { opacity: 0.7; transform: translateX(-50%) scale(0.95); }
-      100% { opacity: 1; transform: translateX(-50%) scale(1.08); }
-    }
-
-    /* --------------------------------------------------------------------------
-       TOP CONTROL BAR FOR VIDEO TRAILER RECORDING (HIDEABLE WITH H KEY)
-       -------------------------------------------------------------------------- */
-    .trailer-controls-bar {
-      position: fixed;
-      top: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      background: rgba(15, 12, 35, 0.88);
-      backdrop-filter: blur(16px);
-      border: 1.5px solid rgba(255, 255, 255, 0.15);
-      border-radius: 100px;
-      padding: 8px 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .trailer-controls-bar.hidden-ui {
-      opacity: 0;
-      transform: translate(-50%, -60px);
-      pointer-events: none;
-    }
-
-    .control-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: var(--text-light);
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 6px 14px;
-      border-radius: 100px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .control-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-    }
-
-    .control-btn.active {
-      background: var(--mondrian-yellow);
-      color: #000;
-      border-color: var(--mondrian-yellow);
-      box-shadow: 0 4px 12px rgba(247, 208, 0, 0.4);
+    @keyframes pulseGlowCenter {
+      0% { opacity: 0.7; transform: translate(-50%, -50%) scale(0.95); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
     }
 
     /* --------------------------------------------------------------------------
-       MAIN TRAILER COVER STAGE CONTAINER
+       MAIN TRAILER COVER STAGE CONTAINER (CENTERED ALIGNMENT)
        -------------------------------------------------------------------------- */
     .trailer-stage {
       position: relative;
       z-index: 10;
       width: 100%;
-      height: 100%;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 30px;
+      padding: 40px 24px;
       box-sizing: border-box;
+      text-align: center;
     }
 
-    /* Subtitle Top Tagline Badge */
+    /* Top Badge Tagline */
     .hero-badge-tag {
-      background: linear-gradient(135deg, rgba(0, 69, 134, 0.4) 0%, rgba(229, 37, 33, 0.4) 100%);
-      border: 1.5px solid rgba(255, 224, 130, 0.4);
-      padding: 6px 18px;
+      background: linear-gradient(135deg, rgba(0, 69, 134, 0.5) 0%, rgba(229, 37, 33, 0.5) 100%);
+      border: 1.5px solid rgba(255, 224, 130, 0.45);
+      padding: 8px 24px;
       border-radius: 100px;
       font-family: var(--font-badge);
       font-size: 0.85rem;
       color: var(--gold-intis);
-      letter-spacing: 1.5px;
+      letter-spacing: 1.8px;
       text-transform: uppercase;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+      margin-bottom: 24px;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      animation: floatBadge 3.5s ease-in-out infinite alternate;
+      gap: 10px;
+      animation: floatBadge 4s ease-in-out infinite alternate;
     }
 
     @keyframes floatBadge {
@@ -193,16 +129,15 @@
 
     .logo-main-title {
       font-family: var(--font-title);
-      font-size: clamp(3.2rem, 8vw, 6.2rem);
-      line-height: 0.95;
+      font-size: clamp(3.4rem, 8.5vw, 6.5rem);
+      line-height: 0.92;
       text-transform: uppercase;
       letter-spacing: 2px;
       background: linear-gradient(180deg, #FFFFFF 0%, #FFE082 45%, #F7D000 80%, #FFB300 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 35px rgba(247, 208, 0, 0.4));
+      filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 40px rgba(247, 208, 0, 0.45));
       margin: 0;
-      position: relative;
     }
 
     .logo-sub-badge {
@@ -211,35 +146,35 @@
       font-size: clamp(1.4rem, 3.5vw, 2.6rem);
       color: #FFFFFF;
       background: var(--mondrian-red);
-      padding: 4px 24px;
+      padding: 5px 28px;
       border-radius: 16px;
-      border: 3px solid #FFFFFF;
-      box-shadow: 0 8px 24px rgba(229, 37, 33, 0.6), inset 0 2px 0 rgba(255,255,255,0.4);
+      border: 3.5px solid #FFFFFF;
+      box-shadow: 0 10px 28px rgba(229, 37, 33, 0.65), inset 0 2px 0 rgba(255,255,255,0.4);
       transform: rotate(-2deg);
-      margin-top: -12px;
-      letter-spacing: 1px;
+      margin-top: -10px;
+      letter-spacing: 1.5px;
     }
 
     .hero-tagline-text {
       font-size: clamp(1rem, 2.2vw, 1.35rem);
       font-weight: 600;
       color: #E2E8F0;
-      max-width: 680px;
-      margin: 20px auto 0 auto;
+      max-width: 660px;
+      margin: 22px auto 0 auto;
       line-height: 1.45;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+      text-shadow: 0 4px 14px rgba(0,0,0,0.85);
     }
 
     /* --------------------------------------------------------------------------
-       CHANCAY MASCOT SPOTLIGHT & FLOATING SPEECH BUBBLE
+       CENTERED CHANCAY MASCOT STAGE & SPEECH BUBBLE
        -------------------------------------------------------------------------- */
-    .chancay-spotlight-stage {
-      position: relative;
+    .chancay-centered-stage {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 20px;
-      margin-top: 10px;
+      margin-top: 16px;
+      position: relative;
     }
 
     .chancay-avatar-wrapper {
@@ -253,61 +188,64 @@
     }
 
     .chancay-avatar-img {
-      width: clamp(180px, 26vw, 290px);
+      width: clamp(200px, 28vw, 310px);
       height: auto;
-      filter: drop-shadow(0 16px 30px rgba(0,0,0,0.8)) drop-shadow(0 0 20px rgba(0, 69, 134, 0.5));
-      animation: chancayFloat 3.8s ease-in-out infinite alternate;
+      filter: drop-shadow(0 18px 36px rgba(0,0,0,0.85)) drop-shadow(0 0 25px rgba(0, 69, 134, 0.55));
+      animation: chancayFloatCentered 4s ease-in-out infinite alternate;
     }
 
-    @keyframes chancayFloat {
-      0% { transform: translateY(0) rotate(-1deg); }
-      50% { transform: translateY(-10px) rotate(1deg); }
-      100% { transform: translateY(-4px) rotate(-1deg); }
+    @keyframes chancayFloatCentered {
+      0% { transform: translateY(0) rotate(-1.5deg); }
+      50% { transform: translateY(-12px) rotate(1.5deg); }
+      100% { transform: translateY(-4px) rotate(-1.5deg); }
     }
 
-    /* Speech Bubble Capsule */
+    /* Floating Centered Speech Bubble Capsule */
     .speech-bubble-capsule {
       background: rgba(15, 12, 35, 0.94);
-      border: 2px solid var(--gold-intis);
+      border: 2.5px solid var(--gold-intis);
       border-radius: 20px;
-      padding: 14px 22px;
-      max-width: 320px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.7), inset 0 0 15px rgba(255, 224, 130, 0.15);
+      padding: 14px 26px;
+      max-width: 360px;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.75), inset 0 0 18px rgba(255, 224, 130, 0.18);
       position: relative;
-      backdrop-filter: blur(14px);
-      animation: bubblePulse 4s ease-in-out infinite alternate;
+      backdrop-filter: blur(16px);
+      margin-top: -10px;
+      margin-bottom: 24px;
+      animation: bubblePulse 4.5s ease-in-out infinite alternate;
     }
 
     @keyframes bubblePulse {
       0% { transform: scale(1); }
-      100% { transform: scale(1.02); }
+      100% { transform: scale(1.03); }
     }
 
     .speech-bubble-capsule::before {
       content: '';
       position: absolute;
-      left: -12px;
-      top: 50%;
-      transform: translateY(-50%);
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      border-right: 12px solid var(--gold-intis);
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      border-bottom: 12px solid var(--gold-intis);
     }
 
     .bubble-speaker-tag {
       font-family: var(--font-badge);
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       color: var(--mondrian-yellow);
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
       margin-bottom: 4px;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
     }
 
     .bubble-text {
-      font-size: 0.92rem;
-      line-height: 1.4;
+      font-size: 0.95rem;
+      line-height: 1.42;
       color: #FFFFFF;
       font-weight: 600;
     }
@@ -320,15 +258,15 @@
       justify-content: center;
       align-items: center;
       gap: 14px;
-      margin-top: 28px;
+      margin-bottom: 28px;
       flex-wrap: wrap;
     }
 
     .feature-badge-card {
       background: var(--bg-dark-card);
-      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
       border-radius: 16px;
-      padding: 10px 18px;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -362,99 +300,52 @@
     }
 
     /* --------------------------------------------------------------------------
-       SCENE QUICK CONTROLS OVERLAY (BOTTOM ACTION BAR)
+       PROMINENT INTIS REWARD BUTTON (MAIN CTA)
        -------------------------------------------------------------------------- */
-    .scene-action-bar {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      display: flex;
-      gap: 12px;
-      background: rgba(10, 8, 29, 0.92);
-      border: 1.5px solid rgba(255, 255, 255, 0.15);
-      border-radius: 100px;
-      padding: 8px 18px;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(16px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .scene-action-bar.hidden-ui {
-      opacity: 0;
-      transform: translate(-50%, 60px);
-      pointer-events: none;
-    }
-
-    .action-pill-btn {
-      background: linear-gradient(135deg, var(--mondrian-red) 0%, #C62828 100%);
-      color: #FFFFFF;
-      border: none;
-      font-family: var(--font-body);
-      font-weight: 800;
-      font-size: 0.85rem;
-      padding: 10px 20px;
-      border-radius: 100px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 6px 16px rgba(229, 37, 33, 0.4);
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .action-pill-btn:hover {
-      transform: translateY(-3px) scale(1.04);
-      box-shadow: 0 10px 24px rgba(229, 37, 33, 0.6);
-    }
-
-    .action-pill-btn:active {
-      transform: translateY(1px);
-    }
-
-    .action-pill-yellow {
+    .intis-main-action-btn {
       background: linear-gradient(135deg, var(--mondrian-yellow) 0%, #F57F17 100%);
       color: #000000;
-      box-shadow: 0 6px 16px rgba(247, 208, 0, 0.4);
+      border: none;
+      font-family: var(--font-body);
+      font-weight: 900;
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      padding: 16px 36px;
+      border-radius: 100px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 28px rgba(247, 208, 0, 0.5), 0 4px 0 #C76A00;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    /* Recording Clean Mode Notification Toast */
-    .record-toast-tip {
-      position: fixed;
-      top: 70px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 69, 134, 0.9);
-      color: #FFFFFF;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 6px 16px;
-      border-radius: 100px;
-      border: 1px solid rgba(255,255,255,0.2);
-      z-index: 99;
-      pointer-events: none;
+    .intis-main-action-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 16px 36px rgba(247, 208, 0, 0.7), 0 6px 0 #C76A00;
+    }
+
+    .intis-main-action-btn:active {
+      transform: translateY(2px) scale(0.98);
+      box-shadow: 0 4px 12px rgba(247, 208, 0, 0.4), 0 0 0 #C76A00;
+    }
+
+    /* Clean Recording Mode Hint Indicator */
+    .recording-hint-tag {
+      font-size: 0.75rem;
+      color: #94A3B8;
+      font-weight: 600;
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       transition: opacity 0.3s;
     }
 
-    /* Responsive Adaptation for Laptop, Tablet, Mobile Recording */
-    @media (max-width: 768px) {
-      .chancay-spotlight-stage {
-        flex-direction: column;
-        gap: 10px;
-      }
-      .speech-bubble-capsule::before {
-        left: 50%;
-        top: -12px;
-        transform: translateX(-50%);
-        border-right: 10px solid transparent;
-        border-left: 10px solid transparent;
-        border-bottom: 12px solid var(--gold-intis);
-        border-top: none;
-      }
-      .feature-badges-row {
-        gap: 8px;
-      }
+    .recording-hint-tag.hidden-ui {
+      opacity: 0;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -463,39 +354,13 @@
   <!-- Background Animated Canvas Glow -->
   <canvas id="bg-canvas"></canvas>
   <canvas id="confetti-canvas"></canvas>
-  <div class="ambient-glow-1"></div>
-  <div class="ambient-glow-2"></div>
+  <div class="ambient-glow-center"></div>
 
-  <!-- TOP CONTROL BAR FOR VIDEO TRAILER RECORDING -->
-  <div class="trailer-controls-bar" id="top-controls-bar">
-    <button class="control-btn active" onclick="switchScene('scene-logo')">
-      🎬 Escena 1: Logo
-    </button>
-    <button class="control-btn" onclick="switchScene('scene-chancay')">
-      🐹 Escena 2: Chancay
-    </button>
-    <button class="control-btn" onclick="switchScene('scene-arcade')">
-      🧪 Escena 3: Minijuegos
-    </button>
-    <button class="control-btn" onclick="switchScene('scene-telemetry')">
-      📊 Escena 4: EducarIA
-    </button>
-    <div style="width: 1px; height: 18px; background: rgba(255,255,255,0.2); margin: 0 4px;"></div>
-    <button class="control-btn" onclick="toggleCleanRecordingMode()" title="Ocultar interfaz para capturar pantalla (Tecla H)">
-      🎥 Modo Grabación (Tecla H)
-    </button>
-  </div>
-
-  <!-- Recording Clean Mode Hint -->
-  <div class="record-toast-tip" id="record-tip">
-    💡 Presiona la tecla <strong>H</strong> para ocultar/mostrar la interfaz durante la grabación del trailer.
-  </div>
-
-  <!-- MAIN TRAILER STAGE -->
+  <!-- MAIN TRAILER STAGE (CENTERED ALIGNMENT) -->
   <main class="trailer-stage" id="trailer-stage">
 
     <!-- Top Badge Tagline -->
-    <div class="hero-badge-tag" id="scene-badge">
+    <div class="hero-badge-tag">
       <span>🇵🇪 ECOSISTEMA OFFLINE MINEDU</span>
       <span>•</span>
       <span style="color: #FFF;">MALETA TECNOLÓGICA</span>
@@ -505,30 +370,30 @@
     <div class="main-logo-container">
       <h1 class="logo-main-title">APRENDER IA</h1>
       <div class="logo-sub-badge">NOMAD-IA</div>
-      <p class="hero-tagline-text" id="scene-tagline">
+      <p class="hero-tagline-text">
         Inteligencia Artificial offline y minijuegos educativos sin conexión a internet al servicio de los estudiantes del Perú.
       </p>
     </div>
 
-    <!-- CHANCAY MASCOT SPOTLIGHT & SPEECH BUBBLE -->
-    <div class="chancay-spotlight-stage">
+    <!-- CENTERED CHANCAY MASCOT STAGE & SPEECH BUBBLE -->
+    <div class="chancay-centered-stage">
       <div class="chancay-avatar-wrapper" onclick="triggerChancayVoice()">
         <img id="chancay-trailer-hero" class="chancay-avatar-img" src="/images/chancay/chancay-emocionado.png" alt="Chancay Mascot Trailer Hero">
       </div>
 
-      <div class="speech-bubble-capsule" id="chancay-bubble">
+      <div class="speech-bubble-capsule">
         <div class="bubble-speaker-tag">
           <span>🐹 CHANCAY IA</span>
           <span style="font-size: 0.6rem; color: #A5D6A7; background: rgba(76,175,80,0.2); padding: 1px 6px; border-radius: 4px;">TUTOR VIRTUAL</span>
         </div>
-        <div class="bubble-text" id="chancay-speech-text">
-          ¡Hola Mateo! 🐹🇵🇪 ¡Estoy listo para aprender contigo sobre Ciencia, Matemática e Historia en la Ruta YACHAY!
+        <div class="bubble-text">
+          ¡Hola Mateo! 🐹🇵🇪 ¡Bienvenido a AprenderIA! Tu tutor virtual y tus minijuegos sin conexión a internet.
         </div>
       </div>
     </div>
 
     <!-- GAMIFIED FEATURE BADGES ROW -->
-    <div class="feature-badges-row" id="feature-badges">
+    <div class="feature-badges-row">
       <div class="feature-badge-card">
         <span class="badge-icon">🪙</span>
         <div>
@@ -562,22 +427,19 @@
       </div>
     </div>
 
-  </main>
-
-  <!-- BOTTOM ACTION BAR -->
-  <div class="scene-action-bar" id="bottom-action-bar">
-    <button class="action-pill-btn action-pill-yellow" onclick="launchConfettiIntis()">
+    <!-- PROMINENT RESTART / INTIS ACTION BUTTON -->
+    <button class="intis-main-action-btn" onclick="launchConfettiIntis()" id="intis-action-btn">
       🪙 ¡LANZAR INTIS DE LA VICTORIA! 💥
     </button>
-    <button class="action-pill-btn" onclick="triggerChancayVoice()">
-      🔊 HABLAR CON CHANCAY
-    </button>
-    <a href="/aprender-ia/index.html" class="action-pill-btn" style="background: var(--mondrian-blue); text-decoration: none;">
-      🚀 INGRESAR AL HUB APRENDER-IA
-    </a>
-  </div>
 
-  <!-- JAVASCRIPT ANIMATIONS & TRAILER SCENE ENGINE -->
+    <!-- Clean Recording Hint -->
+    <div class="recording-hint-tag" id="recording-hint">
+      🎥 Presiona la tecla <strong>H</strong> para ocultar/mostrar este texto durante la grabación del trailer.
+    </div>
+
+  </main>
+
+  <!-- JAVASCRIPT ANIMATIONS & INTIS BURST ENGINE -->
   <script>
     // --------------------------------------------------------------------------
     // 1. PARTICLES & STARLIGHT CANVAS SYSTEM
@@ -593,7 +455,7 @@
     window.addEventListener('resize', resizeBgCanvas);
     resizeBgCanvas();
 
-    for (let i = 0; i < 65; i++) {
+    for (let i = 0; i < 70; i++) {
       particles.push({
         x: Math.random() * bgCanvas.width,
         y: Math.random() * bgCanvas.height,
@@ -645,16 +507,20 @@
     resizeConfettiCanvas();
 
     function launchConfettiIntis() {
-      for (let i = 0; i < 45; i++) {
+      // Play Audio on click
+      const audio = new Audio('/chancay/audio/felicitaciones.mp3');
+      audio.play().catch(e => console.log('Audio info:', e));
+
+      for (let i = 0; i < 55; i++) {
         confettiItems.push({
-          x: window.innerWidth / 2 + (Math.random() - 0.5) * 200,
-          y: window.innerHeight / 2,
-          vx: (Math.random() - 0.5) * 14,
-          vy: Math.random() * -12 - 4,
-          gravity: 0.35,
+          x: window.innerWidth / 2 + (Math.random() - 0.5) * 220,
+          y: window.innerHeight / 2 + 60,
+          vx: (Math.random() - 0.5) * 16,
+          vy: Math.random() * -14 - 5,
+          gravity: 0.38,
           rot: Math.random() * Math.PI * 2,
-          vRot: (Math.random() - 0.5) * 0.2,
-          size: Math.random() * 14 + 18,
+          vRot: (Math.random() - 0.5) * 0.25,
+          size: Math.random() * 16 + 20,
           symbol: Math.random() > 0.3 ? '🪙' : '✨',
           alpha: 1.0
         });
@@ -692,100 +558,27 @@
     }
     renderConfetti();
 
-    // --------------------------------------------------------------------------
-    // 3. INTERACTIVE SCENE SWITCHER FOR TRAILER RECORDING
-    // --------------------------------------------------------------------------
-    const scenes = {
-      'scene-logo': {
-        badge: '🇵🇪 ECOSISTEMA OFFLINE MINEDU • MALETA TECNOLÓGICA',
-        pose: '/images/chancay/chancay-emocionado.png',
-        speech: '¡Hola Mateo! 🐹🇵🇪 ¡Bienvenido a AprenderIA! Tu tutor virtual y tus minijuegos sin conexión a internet.',
-        tagline: 'Inteligencia Artificial offline y minijuegos educativos sin conexión a internet al servicio de los estudiantes del Perú.',
-        audio: '/chancay/audio/saludo.mp3'
-      },
-      'scene-chancay': {
-        badge: '🐹 TUTOR VIRTUAL INTERACTIVO CON VOZ ELEVENLABS',
-        pose: '/images/chancay/chancay-quimico.png',
-        speech: '¡Dab científico! 🧪 ¿Sabías que los Gases Nobles son los elementos más estables de la tabla periódica?',
-        tagline: 'Conversa con Chancay mediante reconocimiento de voz y respuestas habladas en tiempo real.',
-        audio: '/chancay/audio/gases-nobles.mp3'
-      },
-      'scene-arcade': {
-        badge: '🎮 MINIJUEGOS ARCADE EDUCATIVOS CON GAMIFICACIÓN',
-        pose: '/images/chancay/chancay-dab.png',
-        speech: '¡ESO ES TODO, CAMPEÓN! 🔥 ¡DAB PARA TI! ¡Ganaste 150 Intis 🪙 en el Laboratorio de Química!',
-        tagline: 'Democratizando el aprendizaje interactivo con juegos adaptativos de 60fps.',
-        audio: '/chancay/audio/felicitaciones.mp3'
-      },
-      'scene-telemetry': {
-        badge: '📊 EDUCAR-IA • PANEL DOCENTE CON TELEMETRÍA COGNITIVA',
-        pose: '/images/chancay/chancay-vaso.png',
-        speech: '¡Diagnóstico en tiempo real! 💡 Semáforo de aprendizaje en VERDE y telemetría registrada en la maleta off-grid.',
-        tagline: 'Supervisión en tiempo real del progreso del estudiante mediante alertas tempranas y asistencia inteligente.',
-        audio: '/chancay/audio/inteligencia-artificial.mp3'
-      }
-    };
-
-    function switchScene(sceneKey) {
-      const data = scenes[sceneKey];
-      if (!data) return;
-
-      // Update Active Control Button
-      document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-
-      // Update Stage Elements
-      document.getElementById('scene-badge').innerHTML = data.badge;
-      document.getElementById('scene-tagline').textContent = data.tagline;
-      document.getElementById('chancay-speech-text').textContent = data.speech;
-
-      const heroImg = document.getElementById('chancay-trailer-hero');
-      heroImg.style.transform = 'scale(0.8) rotate(-5deg)';
-      setTimeout(() => {
-        heroImg.src = data.pose;
-        heroImg.style.transform = 'scale(1) rotate(0deg)';
-      }, 120);
-
-      // Play HD ElevenLabs Audio
-      if (data.audio) {
-        const audio = new Audio(data.audio);
-        audio.play().catch(e => console.log('Audio autoplay info:', e));
-      }
-
-      launchConfettiIntis();
-    }
-
     function triggerChancayVoice() {
       launchConfettiIntis();
-      const currentAudio = '/chancay/audio/saludo.mp3';
-      const audio = new Audio(currentAudio);
-      audio.play().catch(e => console.log('Audio info:', e));
     }
 
     // --------------------------------------------------------------------------
-    // 4. CLEAN VIDEO RECORDING MODE TOGGLE (KEY H)
+    // 3. CLEAN VIDEO RECORDING MODE TOGGLE (KEY H)
     // --------------------------------------------------------------------------
     let isCleanMode = false;
-    function toggleCleanRecordingMode() {
-      isCleanMode = !isCleanMode;
-      const topBar = document.getElementById('top-controls-bar');
-      const bottomBar = document.getElementById('bottom-action-bar');
-      const recordTip = document.getElementById('record-tip');
-
-      if (isCleanMode) {
-        topBar.classList.add('hidden-ui');
-        bottomBar.classList.add('hidden-ui');
-        recordTip.style.opacity = '0';
-      } else {
-        topBar.classList.remove('hidden-ui');
-        bottomBar.classList.remove('hidden-ui');
-        recordTip.style.opacity = '1';
-      }
-    }
-
     document.addEventListener('keydown', (e) => {
       if (e.key === 'h' || e.key === 'H') {
-        toggleCleanRecordingMode();
+        isCleanMode = !isCleanMode;
+        const hint = document.getElementById('recording-hint');
+        const btn = document.getElementById('intis-action-btn');
+
+        if (isCleanMode) {
+          if (hint) hint.classList.add('hidden-ui');
+          if (btn) btn.style.opacity = '0';
+        } else {
+          if (hint) hint.classList.remove('hidden-ui');
+          if (btn) btn.style.opacity = '1';
+        }
       }
     });
   </script>
