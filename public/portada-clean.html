@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOMAD-IA — Portada Minimalista Mondrian (AprenderIA & EducarIA)</title>
+
+  <!-- Google Fonts for Mondrian & Modern Futuristic Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@400;600;700;800;900&family=Luckiest+Guy&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* --------------------------------------------------------------------------
+       MONDRIAN DESIGN SYSTEM TOKENS (docs/DESIGN.md & MINIMALIST FUTURISTIC)
+       -------------------------------------------------------------------------- */
+    :root {
+      --mondrian-red: #E52521;
+      --mondrian-blue: #004586;
+      --mondrian-yellow: #F7D000;
+      --mondrian-beige: #F6F4EE;
+      --mondrian-white: #FFFFFF;
+      --mondrian-black: #000000;
+      --gold-intis: #FFE082;
+      --status-green: #00875A;
+
+      --border-black-thick: 4px solid var(--mondrian-black);
+      --font-title: 'Luckiest Guy', 'Bungee', cursive, sans-serif;
+      --font-badge: 'Bungee', cursive, sans-serif;
+      --font-body: 'Fredoka', 'Nunito', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100dvh;
+      background: var(--mondrian-beige);
+      color: var(--mondrian-black);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* Minimalist Background Subtle Grid Lines (Mondrian Architecture) */
+    .mondrian-grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.04) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 2px, transparent 2px);
+      background-size: 80px 80px;
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 90;
+    }
+
+    /* Decorative Floating Mondrian Rectangles */
+    .mondrian-block-float-1 {
+      position: fixed;
+      top: 5%;
+      left: 3%;
+      width: 80px;
+      height: 140px;
+      background: var(--mondrian-red);
+      border: var(--border-black-thick);
+      box-shadow: 6px 6px 0 var(--mondrian-black);
+      z-index: 2;
+      opacity: 0.9;
+      animation: floatMondrian 6s ease-in-out infinite alternate;
+    }
+
+    .mondrian-block-float-2 {
+      position: fixed;
+      bottom: 6%;
+      right: 4%;
+      width: 120px;
+      height: 70px;
+      background: var(--mondrian-yellow);
+      border: var(--border-black-thick);
+      box-shadow: 6px 6px 0 var(--mondrian-black);
+      z-index: 2;
+      opacity: 0.9;
+      animation: floatMondrian 7s ease-in-out infinite alternate-reverse;
+    }
+
+    .mondrian-block-float-3 {
+      position: fixed;
+      bottom: 8%;
+      left: 4%;
+      width: 90px;
+      height: 90px;
+      background: var(--mondrian-blue);
+      border: var(--border-black-thick);
+      box-shadow: 6px 6px 0 var(--mondrian-black);
+      z-index: 2;
+      opacity: 0.95;
+    }
+
+    @keyframes floatMondrian {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+
+    /* --------------------------------------------------------------------------
+       MAIN STAGE CONTAINER (CLEAN & MINIMALIST)
+       -------------------------------------------------------------------------- */
+    .cover-main-stage {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* Top National Header Tag */
+    .minedu-national-tag {
+      background: var(--mondrian-white);
+      border: var(--border-black-thick);
+      box-shadow: 4px 4px 0 var(--mondrian-black);
+      padding: 8px 22px;
+      border-radius: 100px;
+      font-family: var(--font-badge);
+      font-size: 0.8rem;
+      color: var(--mondrian-black);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* CENTRAL BRAND LOGOS GRID (APRENDER-IA & EDUCAR-IA) */
+    .brand-logos-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      max-width: 980px;
+      width: 100%;
+    }
+
+    /* AprenderIA Brand Box */
+    .brand-card-box {
+      background: var(--mondrian-white);
+      border: var(--border-black-thick);
+      border-radius: 24px;
+      padding: 24px 32px;
+      box-shadow: 8px 8px 0 var(--mondrian-black);
+      flex: 1 1 380px;
+      max-width: 440px;
+      text-align: center;
+      position: relative;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s;
+    }
+
+    .brand-card-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 12px 12px 0 var(--mondrian-black);
+    }
+
+    .brand-card-header-badge {
+      display: inline-block;
+      font-family: var(--font-badge);
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 100px;
+      border: 2px solid var(--mondrian-black);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .brand-logo-title-aprender {
+      font-family: var(--font-title);
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      line-height: 1;
+      color: var(--mondrian-blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0 0 4px 0;
+    }
+
+    .brand-logo-title-educar {
+      font-family: var(--font-title);
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      line-height: 1;
+      color: var(--mondrian-red);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0 0 4px 0;
+    }
+
+    .brand-desc-text {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    /* Central Interlocking NOMAD-IA Emblem Badge */
+    .nomad-central-emblem {
+      background: var(--mondrian-yellow);
+      border: var(--border-black-thick);
+      box-shadow: 6px 6px 0 var(--mondrian-black);
+      border-radius: 18px;
+      padding: 10px 24px;
+      font-family: var(--font-title);
+      font-size: 1.6rem;
+      color: var(--mondrian-black);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: -10px 0 24px 0;
+      display: inline-block;
+      transform: rotate(-1.5deg);
+    }
+
+    /* --------------------------------------------------------------------------
+       CENTERED CHANCAY MASCOT SPOTLIGHT
+       -------------------------------------------------------------------------- */
+    .chancay-spotlight-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .chancay-img-hero {
+      width: clamp(170px, 22vw, 240px);
+      height: auto;
+      filter: drop-shadow(0 14px 28px rgba(0,0,0,0.3));
+      animation: chancayGentleFloat 4s ease-in-out infinite alternate;
+      cursor: pointer;
+    }
+
+    @keyframes chancayGentleFloat {
+      0% { transform: translateY(0) rotate(-1deg); }
+      100% { transform: translateY(-10px) rotate(1deg); }
+    }
+
+    /* Speech Bubble Minimalist Capsule */
+    .speech-capsule-minimal {
+      background: var(--mondrian-white);
+      border: var(--border-black-thick);
+      box-shadow: 6px 6px 0 var(--mondrian-black);
+      border-radius: 16px;
+      padding: 12px 22px;
+      max-width: 380px;
+      margin-top: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--mondrian-black);
+      line-height: 1.4;
+      position: relative;
+    }
+
+    .speech-capsule-minimal::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      border-bottom: 12px solid var(--mondrian-black);
+    }
+
+    /* --------------------------------------------------------------------------
+       TACTILE 3D INTIS REWARD BUTTON (MINIMALIST)
+       -------------------------------------------------------------------------- */
+    .intis-action-btn-clean {
+      background: var(--mondrian-yellow);
+      color: var(--mondrian-black);
+      border: var(--border-black-thick);
+      box-shadow: 6px 6px 0 var(--mondrian-black);
+      font-family: var(--font-body);
+      font-weight: 900;
+      font-size: 1.1rem;
+      padding: 14px 34px;
+      border-radius: 100px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .intis-action-btn-clean:hover {
+      transform: translateY(-3px);
+      box-shadow: 9px 9px 0 var(--mondrian-black);
+      background: #FFE082;
+    }
+
+    .intis-action-btn-clean:active {
+      transform: translateY(3px);
+      box-shadow: 2px 2px 0 var(--mondrian-black);
+    }
+
+    /* Clean Recording Hint Tag */
+    .clean-recording-hint {
+      font-size: 0.76rem;
+      color: #64748B;
+      font-weight: 700;
+      margin-top: 20px;
+      transition: opacity 0.3s;
+    }
+
+    .clean-recording-hint.hidden-ui {
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Grid Lines & Canvas -->
+  <div class="mondrian-grid-bg"></div>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Decorative Floating Mondrian Rectangles -->
+  <div class="mondrian-block-float-1"></div>
+  <div class="mondrian-block-float-2"></div>
+  <div class="mondrian-block-float-3"></div>
+
+  <!-- MAIN COVER STAGE -->
+  <main class="cover-main-stage">
+
+    <!-- Top National MINEDU Tag -->
+    <div class="minedu-national-tag">
+      <span>🇵🇪 MINEDU PERÚ</span>
+      <span>•</span>
+      <span style="color: var(--mondrian-blue);">MALETA TECNOLÓGICA OFF-GRID</span>
+    </div>
+
+    <!-- BRAND LOGOS SHOWCASE (APRENDER-IA & EDUCAR-IA) -->
+    <div class="brand-logos-wrapper">
+      
+      <!-- APRENDER-IA (Estudiantes) -->
+      <div class="brand-card-box" style="border-top: 8px solid var(--mondrian-blue);">
+        <div class="brand-card-header-badge" style="background: #E0F2FE; color: #0369A1;">
+          🎓 MÓDULO ESTUDIANTE
+        </div>
+        <h1 class="brand-logo-title-aprender">APRENDER IA</h1>
+        <p class="brand-desc-text">
+          Tutor virtual interactivo con voz, minijuegos arcade y gamificación con Intis 🪙 sin internet.
+        </p>
+      </div>
+
+      <!-- EDUCAR-IA (Docentes) -->
+      <div class="brand-card-box" style="border-top: 8px solid var(--mondrian-red);">
+        <div class="brand-card-header-badge" style="background: #FEE2E2; color: #B91C1C;">
+          💼 MÓDULO DOCENTE
+        </div>
+        <h1 class="brand-logo-title-educar">EDUCAR IA</h1>
+        <p class="brand-desc-text">
+          Monitoreo de telemetría cognitiva en tiempo real, semáforo pedagógico y asistencia IA.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- CENTRAL EMBLEM -->
+    <div class="nomad-central-emblem">
+      NOMAD-IA
+    </div>
+
+    <!-- CENTERED CHANCAY MASCOT SPOTLIGHT -->
+    <div class="chancay-spotlight-container">
+      <img src="/images/chancay/chancay-emocionado.png" alt="Chancay Mascot" class="chancay-img-hero" onclick="launchConfettiIntis()">
+      
+      <div class="speech-capsule-minimal">
+        ¡Hola! 🐹🇵🇪 Soy Chancay, tu tutor virtual de la maleta tecnológica NOMAD-IA.
+      </div>
+    </div>
+
+    <!-- PROMINENT INTIS REWARD BUTTON -->
+    <button class="intis-action-btn-clean" onclick="launchConfettiIntis()" id="intis-btn">
+      🪙 ¡LANZAR INTIS DE LA VICTORIA! 💥
+    </button>
+
+    <!-- Clean Video Recording Hint -->
+    <div class="clean-recording-hint" id="clean-hint">
+      🎥 Presiona la tecla <strong>H</strong> para ocultar/mostrar la interfaz durante la grabación del trailer.
+    </div>
+
+  </main>
+
+  <!-- JAVASCRIPT ANIMATIONS & CONFETTI ENGINE -->
+  <script>
+    // --------------------------------------------------------------------------
+    // CONFETTI INTIS COIN BURST SYSTEM
+    // --------------------------------------------------------------------------
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiItems = [];
+
+    function resizeConfettiCanvas() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeConfettiCanvas);
+    resizeConfettiCanvas();
+
+    function launchConfettiIntis() {
+      const audio = new Audio('/chancay/audio/felicitaciones.mp3');
+      audio.play().catch(e => console.log('Audio info:', e));
+
+      for (let i = 0; i < 60; i++) {
+        confettiItems.push({
+          x: window.innerWidth / 2 + (Math.random() - 0.5) * 240,
+          y: window.innerHeight / 2 + 50,
+          vx: (Math.random() - 0.5) * 16,
+          vy: Math.random() * -14 - 5,
+          gravity: 0.38,
+          rot: Math.random() * Math.PI * 2,
+          vRot: (Math.random() - 0.5) * 0.25,
+          size: Math.random() * 16 + 20,
+          symbol: Math.random() > 0.3 ? '🪙' : '✨',
+          alpha: 1.0
+        });
+      }
+    }
+
+    function renderConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+      for (let i = confettiItems.length - 1; i >= 0; i--) {
+        let c = confettiItems[i];
+        c.x += c.vx;
+        c.y += c.vy;
+        c.vy += c.gravity;
+        c.rot += c.vRot;
+        c.alpha -= 0.012;
+
+        if (c.alpha <= 0 || c.y > confettiCanvas.height + 50) {
+          confettiItems.splice(i, 1);
+          continue;
+        }
+
+        confettiCtx.save();
+        confettiCtx.translate(c.x, c.y);
+        confettiCtx.rotate(c.rot);
+        confettiCtx.globalAlpha = c.alpha;
+        confettiCtx.font = `${c.size}px sans-serif`;
+        confettiCtx.textAlign = 'center';
+        confettiCtx.textBaseline = 'middle';
+        confettiCtx.fillText(c.symbol, 0, 0);
+        confettiCtx.restore();
+      }
+
+      requestAnimationFrame(renderConfetti);
+    }
+    renderConfetti();
+
+    // --------------------------------------------------------------------------
+    // CLEAN VIDEO RECORDING MODE TOGGLE (KEY H)
+    // --------------------------------------------------------------------------
+    let isCleanMode = false;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'h' || e.key === 'H') {
+        isCleanMode = !isCleanMode;
+        const hint = document.getElementById('clean-hint');
+        const btn = document.getElementById('intis-btn');
+
+        if (isCleanMode) {
+          if (hint) hint.classList.add('hidden-ui');
+          if (btn) btn.style.opacity = '0';
+        } else {
+          if (hint) hint.classList.remove('hidden-ui');
+          if (btn) btn.style.opacity = '1';
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
