@@ -763,7 +763,47 @@
                 🎮 ¡JUGAR AHORA! 🧪
               </button>
             </div>
+
+            <!-- FLUID ARCADE REPLAY GAME-OVER OVERLAY -->
+            <div id="chem-gameover-overlay" style="position: absolute; inset: 0; background: rgba(12, 10, 30, 0.96); backdrop-filter: blur(18px); display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; z-index: 20; box-sizing: border-box; overflow-y: auto;">
+              
+              <div style="font-size: 3rem; margin-bottom: 4px; filter: drop-shadow(0 6px 12px rgba(229,37,33,0.5));">
+                💔🧪
+              </div>
+
+              <h2 class="cartoon-title-font" style="font-size: 1.35rem; color: #FFE082; margin: 0 0 4px 0; width: 100%;">
+                ¡FIN DE LA MISIÓN!
+              </h2>
+
+              <p class="cartoon-font" style="font-size: 0.85rem; color: #E0E0E0; margin: 0 0 14px 0; font-weight: 500;">
+                ¡Gran intento! Se agotaron las 3 vidas de Chancay.
+              </p>
+
+              <!-- Final Score Stats Card -->
+              <div style="display: flex; align-items: center; justify-content: space-around; background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255, 224, 130, 0.3); padding: 10px 16px; border-radius: 16px; width: 100%; max-width: 320px; margin-bottom: 14px; box-sizing: border-box;">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                  <span style="font-size: 0.68rem; color: #B0BEC5; font-weight: 700; text-transform: uppercase;">PUNTAJE</span>
+                  <span style="font-size: 1.25rem; font-weight: 900; color: #FFE082; font-family: 'Fredoka', sans-serif;">🪙 <span id="gameover-score-val">0</span> Intis</span>
+                </div>
+                <div style="width: 1px; height: 32px; background: rgba(255,255,255,0.15);"></div>
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                  <span style="font-size: 0.68rem; color: #B0BEC5; font-weight: 700; text-transform: uppercase;">TIEMPO</span>
+                  <span style="font-size: 1.25rem; font-weight: 900; color: #80DEEA; font-family: 'Fredoka', sans-serif;">⏱️ <span id="gameover-time-val">0</span>s</span>
+                </div>
+              </div>
+
+              <!-- Telemetry Sync Notification Badge -->
+              <div style="font-size: 0.72rem; color: #A5D6A7; font-weight: 600; margin-bottom: 16px; background: rgba(76, 175, 80, 0.12); padding: 5px 12px; border-radius: 100px; border: 1px solid rgba(76, 175, 80, 0.3);">
+                ✅ Telemetría registrada en EducarIA
+              </div>
+
+              <!-- PROMINENT RESTART BUTTON -->
+              <button class="cartoon-btn-play cartoon-btn-red" onclick="startInfiniteChemGame()" style="width: 100%; max-width: 300px; font-size: 1.1rem; padding: 14px 28px; border-radius: 16px; box-shadow: 0 8px 24px rgba(229, 37, 33, 0.5); cursor: pointer;">
+                🎮 ¡REINICIAR MISIÓN AHORA! 🔄
+              </button>
+            </div>
           </div>
+
 
           <!-- Bottom Touch Controls Bar -->
           <div style="flex: 0 0 auto; display: flex; flex-direction: column; gap: 4px;">
@@ -981,8 +1021,12 @@
 
     function startInfiniteChemGame() {
       document.getElementById('chem-onboarding').style.display = 'none';
+      const gameoverOverlay = document.getElementById('chem-gameover-overlay');
+      if (gameoverOverlay) gameoverOverlay.style.display = 'none';
+
       resizeChemCanvas();
       chemGameActive = true;
+
 
       const canvas = document.getElementById('chem-canvas');
       if (canvas) {
@@ -1301,6 +1345,23 @@
       chemGameActive = false;
       if (chemAnimId) cancelAnimationFrame(chemAnimId);
 
+      const finalTimeSec = Math.max(1, Math.floor(chemFrameCount / 60));
+      const scoreVal = document.getElementById('gameover-score-val');
+      const timeVal = document.getElementById('gameover-time-val');
+      if (scoreVal) scoreVal.textContent = chemScore;
+      if (timeVal) timeVal.textContent = finalTimeSec;
+
+      const gameoverOverlay = document.getElementById('chem-gameover-overlay');
+      if (gameoverOverlay) gameoverOverlay.style.display = 'flex';
+
+      // Allow pressing Enter or Space to restart instantly
+      window.onkeydown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          startInfiniteChemGame();
+        }
+      };
+
       const statusBadge = (chemScore >= 80) ? 'VERDE' : 'AMARILLO';
 
       fetch('/api/telemetry', {
@@ -1309,18 +1370,15 @@
         body: JSON.stringify({
           studentName: 'Mateo Rossi',
           gameId: 'quimica-1',
-          timeSpentSec: Math.floor(chemFrameCount / 60),
+          timeSpentSec: finalTimeSec,
           errorsCount: chemErrors,
           rageClicks: 0,
           score: chemScore,
           statusBadge: statusBadge
         })
-      }).then(() => {
-        alert(`💔 FIN DE LA MISIÓN: MATEO LOGRÓ ${chemScore} SEMILLAS ☀️.\n\nTelemetría de desempeño registrada en EducarIA.`);
-      }).catch(() => {
-        alert(`Misión terminada offline: ${chemScore} Semillas ☀️ registradas.`);
-      });
+      }).catch(err => console.log('Silent telemetry sync:', err));
     }
+
   </script>
 
   <!-- Floating Responsive View Mode Toggle Button -->
