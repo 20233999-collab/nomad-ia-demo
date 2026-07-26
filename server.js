@@ -246,11 +246,32 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server if executed directly
+// Start Server if executed directly (Bound to 0.0.0.0 for Intranet Wi-Fi Access)
 if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`🚀 NOMAD-IA Demo Hub server listening on http://localhost:${PORT}`);
+  const os = require('os');
+  function getLocalIpAddress() {
+    const interfaces = os.networkInterfaces();
+    for (const name of Object.keys(interfaces)) {
+      for (const net of interfaces[name]) {
+        if (net.family === 'IPv4' && !net.internal) {
+          return net.address;
+        }
+      }
+    }
+    return '127.0.0.1';
+  }
+
+  app.listen(PORT, '0.0.0.0', () => {
+    const localIp = getLocalIpAddress();
+    console.log('\n==================================================================');
+    console.log('📡 SERVIDOR INTRANET NOMAD-IA (MALETA TECNOLÓGICA OFFLINE)');
+    console.log('==================================================================');
+    console.log(` 💻 Servidor Laptop:  http://localhost:${PORT}`);
+    console.log(` 📱 Acceso desde Tablet en la Intranet Wi-Fi (Sin Internet):`);
+    console.log(`    👉 http://${localIp}:${PORT}/aprender-ia/index.html`);
+    console.log('==================================================================\n');
   });
 }
 
 module.exports = app;
+
