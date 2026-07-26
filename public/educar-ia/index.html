@@ -13,7 +13,14 @@
       background-color: #F4F7FA;
       color: #1E293B;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      animation: pageEntranceSmooth 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
+    @keyframes pageEntranceSmooth {
+      0% { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
 
     /* Executive Navbar Header */
     .executive-navbar {
@@ -421,115 +428,14 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-    /* --------------------------------------------------------------------------
-       EXECUTIVE INTRO SPLASH OVERLAY & STAGGERED ENTRANCE TRANSITIONS
-       -------------------------------------------------------------------------- */
-    .executive-splash-overlay {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(135deg, #001A38 0%, #002B5B 60%, #004586 100%);
-      color: #FFFFFF;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      padding: 24px;
-      text-align: center;
-      animation: splashFadeOut 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
-      pointer-events: none;
     }
-
-    @keyframes splashFadeOut {
-      0% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(1.03); visibility: hidden; }
-    }
-
-    .splash-logo-crest {
-      width: 72px;
-      height: 72px;
-      background: #F7D000;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      color: #000;
-      font-size: 2.4rem;
-      box-shadow: 0 12px 30px rgba(247, 208, 0, 0.4);
-      margin-bottom: 16px;
-      animation: logoPulse 1.2s ease-in-out infinite alternate;
-    }
-
-    @keyframes logoPulse {
-      0% { transform: scale(0.96); box-shadow: 0 8px 20px rgba(247, 208, 0, 0.3); }
-      100% { transform: scale(1.05); box-shadow: 0 16px 36px rgba(247, 208, 0, 0.55); }
-    }
-
-    .splash-progress-bar {
-      width: 240px;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 100px;
-      overflow: hidden;
-      margin-top: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-
-    .splash-progress-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #F7D000 0%, #38BDF8 100%);
-      border-radius: 100px;
-      animation: fillProgress 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes fillProgress {
-      0% { width: 0%; }
-      100% { width: 100%; }
-    }
-
-    /* Staggered Content Reveal Keyframes */
-    .stagger-entry {
-      opacity: 0;
-      transform: translateY(22px);
-      animation: fadeInUpSmooth 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes fadeInUpSmooth {
-      0% { opacity: 0; transform: translateY(22px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .stagger-delay-1 { animation-delay: 1.05s; }
-    .stagger-delay-2 { animation-delay: 1.18s; }
-    .stagger-delay-3 { animation-delay: 1.30s; }
-    .stagger-delay-4 { animation-delay: 1.42s; }
-    .stagger-delay-5 { animation-delay: 1.54s; }
   </style>
 </head>
 <body>
 
-  <!-- Executive Corporate Splash Screen Intro Overlay -->
-  <div class="executive-splash-overlay">
-    <div class="splash-logo-crest">E</div>
-    <h2 style="font-size: 1.6rem; font-weight: 900; margin: 0; letter-spacing: -0.5px; color: #FFFFFF;">
-      EducarIA <span style="font-size: 0.8rem; background: rgba(247, 208, 0, 0.2); color: #F7D000; padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(247,208,0,0.4); margin-left: 8px;">MINEDU</span>
-    </h2>
-    <p style="font-size: 0.85rem; color: #93C5FD; margin: 6px 0 0 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;">
-      Sincronizando Telemetría Cognitiva en Tiempo Real...
-    </p>
-    <div class="splash-progress-bar">
-      <div class="splash-progress-fill"></div>
-    </div>
-    <div style="font-size: 0.72rem; color: #38BDF8; font-weight: 700; margin-top: 12px; display: flex; align-items: center; gap: 6px;">
-      🔒 Red Intranet Offline Protegida
-    </div>
-  </div>
-
   <!-- Executive Corporate Navbar Header -->
-  <header class="executive-navbar stagger-entry stagger-delay-1">
-
+  <header class="executive-navbar">
     <div style="display: flex; align-items: center; gap: 14px;">
       <div style="width: 38px; height: 38px; background: #F7D000; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 1.2rem;">
         E
@@ -550,7 +456,7 @@
   <main class="executive-container">
 
     <!-- Student Focus Banner (Mateo Rossi) -->
-    <div class="corporate-hero-block stagger-entry stagger-delay-2">
+    <div class="corporate-hero-block">
       <div>
         <span style="font-size: 0.75rem; font-weight: 800; color: #004586; text-transform: uppercase; letter-spacing: 0.5px;">ESTUDIANTE DESTACADO EN SESIÓN</span>
         <h2 style="font-size: 1.45rem; font-weight: 800; margin: 4px 0 2px 0; color: #0F172A;">Mateo Rossi — 6to Grado de Primaria</h2>
@@ -568,7 +474,7 @@
     </div>
 
     <!-- Corporate KPI Grid -->
-    <div class="corp-kpi-grid stagger-entry stagger-delay-3">
+    <div class="corp-kpi-grid">
       <div class="corp-kpi-card" style="border-left: 4px solid #004586;">
         <div class="corp-kpi-label">Total Estudiantes</div>
         <div class="corp-kpi-val" id="kpi-total-students">1</div>
@@ -592,7 +498,7 @@
     </div>
 
     <!-- Telemetry Table Card -->
-    <div class="corp-card-block stagger-entry stagger-delay-4">
+    <div class="corp-card-block">
       <div class="corp-card-header">
         <div style="display: flex; align-items: center; gap: 10px;">
           <span style="font-weight: 800; font-size: 0.95rem; color: #0F172A;">📊 Telemetría Cognitiva en Tiempo Real</span>
@@ -633,8 +539,7 @@
   </main>
 
   <!-- FLOATING CHANCAY AI DIAGNOSTIC WIDGET (BOTTOM RIGHT) -->
-  <button class="chancay-fab-btn stagger-entry stagger-delay-5" id="chancay-fab-btn" onclick="toggleAIDiagnosticDrawer()" title="Abrir Asistente Diagnóstico Chancay">
-
+  <button class="chancay-fab-btn" id="chancay-fab-btn" onclick="toggleAIDiagnosticDrawer()" title="Abrir Asistente Diagnóstico Chancay">
     <img src="/images/chancay/chancay-vaso.png" alt="Chancay AI Assistant" class="chancay-fab-img">
     <span class="chancay-fab-badge">IA</span>
   </button>
