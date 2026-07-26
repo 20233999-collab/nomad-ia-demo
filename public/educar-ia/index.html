@@ -13,13 +13,42 @@
       background-color: #F4F7FA;
       color: #1E293B;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      animation: pageEntranceSmooth 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    @keyframes pageEntranceSmooth {
-      0% { opacity: 0; transform: translateY(8px); }
-      100% { opacity: 1; transform: translateY(0); }
+    /* --------------------------------------------------------------------------
+       ULTRA-SMOOTH STAGGERED COMPONENT FADE-IN KEYFRAMES
+       -------------------------------------------------------------------------- */
+    @keyframes componentFadeInSmooth {
+      0% {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
+    .executive-navbar {
+      animation: componentFadeInSmooth 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+    }
+
+    .corporate-hero-block {
+      animation: componentFadeInSmooth 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+    }
+
+    .corp-kpi-grid {
+      animation: componentFadeInSmooth 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.19s both;
+    }
+
+    .corp-card-block {
+      animation: componentFadeInSmooth 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.26s both;
+    }
+
+    .chancay-fab-btn {
+      animation: componentFadeInSmooth 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.33s both;
+    }
+
 
 
     /* Executive Navbar Header */
