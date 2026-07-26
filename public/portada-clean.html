@@ -3,28 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOMAD-IA — Portada Minimalista Mondrian (AprenderIA & EducarIA)</title>
+  <title>AprenderIA & EducarIA — Portada Oficial Minimalista Mondrian</title>
 
-  <!-- Google Fonts for Mondrian & Modern Futuristic Typography -->
+  <!-- Google Fonts for Bold Game & EdTech Aesthetic -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@400;600;700;800;900&family=Luckiest+Guy&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 
   <style>
     /* --------------------------------------------------------------------------
-       MONDRIAN DESIGN SYSTEM TOKENS (docs/DESIGN.md & MINIMALIST FUTURISTIC)
+       PRISTINE WHITE MINIMALIST MONDRIAN TOKENS
        -------------------------------------------------------------------------- */
     :root {
       --mondrian-red: #E52521;
       --mondrian-blue: #004586;
       --mondrian-yellow: #F7D000;
-      --mondrian-beige: #F6F4EE;
       --mondrian-white: #FFFFFF;
       --mondrian-black: #000000;
       --gold-intis: #FFE082;
-      --status-green: #00875A;
 
-      --border-black-thick: 4px solid var(--mondrian-black);
+      --border-black-standard: 3.5px solid var(--mondrian-black);
       --font-title: 'Luckiest Guy', 'Bungee', cursive, sans-serif;
       --font-badge: 'Bungee', cursive, sans-serif;
       --font-body: 'Fredoka', 'Nunito', sans-serif;
@@ -40,7 +38,7 @@
     html, body {
       width: 100%;
       min-height: 100dvh;
-      background: var(--mondrian-beige);
+      background: #FFFFFF;
       color: var(--mondrian-black);
       font-family: var(--font-body);
       overflow-x: hidden;
@@ -48,16 +46,16 @@
       position: relative;
     }
 
-    /* Minimalist Background Subtle Grid Lines (Mondrian Architecture) */
-    .mondrian-grid-bg {
+    /* Ultra-Clean Architectural Grid Lines */
+    .clean-grid-overlay {
       position: fixed;
       inset: 0;
       z-index: 1;
       pointer-events: none;
       background-image: 
-        linear-gradient(to right, rgba(0, 0, 0, 0.04) 2px, transparent 2px),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 2px, transparent 2px);
-      background-size: 80px 80px;
+        linear-gradient(to right, rgba(0, 0, 0, 0.035) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1.5px, transparent 1.5px);
+      background-size: 90px 90px;
     }
 
     #confetti-canvas {
@@ -69,55 +67,19 @@
       z-index: 90;
     }
 
-    /* Decorative Floating Mondrian Rectangles */
-    .mondrian-block-float-1 {
+    /* Subtle Geometric Accent Block Borders */
+    .mondrian-top-line {
       position: fixed;
-      top: 5%;
-      left: 3%;
-      width: 80px;
-      height: 140px;
-      background: var(--mondrian-red);
-      border: var(--border-black-thick);
-      box-shadow: 6px 6px 0 var(--mondrian-black);
-      z-index: 2;
-      opacity: 0.9;
-      animation: floatMondrian 6s ease-in-out infinite alternate;
-    }
-
-    .mondrian-block-float-2 {
-      position: fixed;
-      bottom: 6%;
-      right: 4%;
-      width: 120px;
-      height: 70px;
-      background: var(--mondrian-yellow);
-      border: var(--border-black-thick);
-      box-shadow: 6px 6px 0 var(--mondrian-black);
-      z-index: 2;
-      opacity: 0.9;
-      animation: floatMondrian 7s ease-in-out infinite alternate-reverse;
-    }
-
-    .mondrian-block-float-3 {
-      position: fixed;
-      bottom: 8%;
-      left: 4%;
-      width: 90px;
-      height: 90px;
-      background: var(--mondrian-blue);
-      border: var(--border-black-thick);
-      box-shadow: 6px 6px 0 var(--mondrian-black);
-      z-index: 2;
-      opacity: 0.95;
-    }
-
-    @keyframes floatMondrian {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-10px); }
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--mondrian-blue) 0%, var(--mondrian-blue) 40%, var(--mondrian-red) 40%, var(--mondrian-red) 70%, var(--mondrian-yellow) 70%, var(--mondrian-yellow) 100%);
+      z-index: 100;
     }
 
     /* --------------------------------------------------------------------------
-       MAIN STAGE CONTAINER (CLEAN & MINIMALIST)
+       MAIN STAGE CONTAINER (HORIZONTALLY BALANCED TRIO)
        -------------------------------------------------------------------------- */
     .cover-main-stage {
       position: relative;
@@ -133,153 +95,115 @@
       text-align: center;
     }
 
-    /* Top National Header Tag */
-    .minedu-national-tag {
-      background: var(--mondrian-white);
-      border: var(--border-black-thick);
+    /* Top National MINEDU Tag */
+    .minedu-badge-tag {
+      background: #FFFFFF;
+      border: var(--border-black-standard);
       box-shadow: 4px 4px 0 var(--mondrian-black);
-      padding: 8px 22px;
+      padding: 8px 24px;
       border-radius: 100px;
       font-family: var(--font-badge);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: var(--mondrian-black);
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-bottom: 32px;
+      margin-bottom: 36px;
       display: inline-flex;
       align-items: center;
       gap: 10px;
     }
 
-    /* CENTRAL BRAND LOGOS GRID (APRENDER-IA & EDUCAR-IA) */
-    .brand-logos-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-      max-width: 980px;
-      width: 100%;
-    }
-
-    /* AprenderIA Brand Box */
-    .brand-card-box {
-      background: var(--mondrian-white);
-      border: var(--border-black-thick);
-      border-radius: 24px;
-      padding: 24px 32px;
-      box-shadow: 8px 8px 0 var(--mondrian-black);
-      flex: 1 1 380px;
-      max-width: 440px;
-      text-align: center;
-      position: relative;
-      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.25s;
-    }
-
-    .brand-card-box:hover {
-      transform: translateY(-4px);
-      box-shadow: 12px 12px 0 var(--mondrian-black);
-    }
-
-    .brand-card-header-badge {
-      display: inline-block;
-      font-family: var(--font-badge);
-      font-size: 0.7rem;
-      padding: 4px 12px;
-      border-radius: 100px;
-      border: 2px solid var(--mondrian-black);
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      font-weight: 800;
-    }
-
-    .brand-logo-title-aprender {
-      font-family: var(--font-title);
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
-      line-height: 1;
-      color: var(--mondrian-blue);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin: 0 0 4px 0;
-    }
-
-    .brand-logo-title-educar {
-      font-family: var(--font-title);
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
-      line-height: 1;
-      color: var(--mondrian-red);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin: 0 0 4px 0;
-    }
-
-    .brand-desc-text {
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: #334155;
-      line-height: 1.45;
-    }
-
-    /* Central Interlocking NOMAD-IA Emblem Badge */
-    .nomad-central-emblem {
-      background: var(--mondrian-yellow);
-      border: var(--border-black-thick);
-      box-shadow: 6px 6px 0 var(--mondrian-black);
-      border-radius: 18px;
-      padding: 10px 24px;
-      font-family: var(--font-title);
-      font-size: 1.6rem;
-      color: var(--mondrian-black);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin: -10px 0 24px 0;
-      display: inline-block;
-      transform: rotate(-1.5deg);
-    }
-
     /* --------------------------------------------------------------------------
-       CENTERED CHANCAY MASCOT SPOTLIGHT
+       3-COLUMN BALANCED TRIO (APRENDER-IA | CHANCAY DEFAULT | EDUCAR-IA)
        -------------------------------------------------------------------------- */
-    .chancay-spotlight-container {
+    .cover-trio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1fr;
+      align-items: center;
+      justify-items: center;
+      gap: 24px;
+      max-width: 1180px;
+      width: 100%;
+      margin-bottom: 36px;
+    }
+
+    /* Logo Column Containers */
+    .logo-column-card {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-bottom: 28px;
+      padding: 20px;
+      width: 100%;
+    }
+
+    .official-logo-img {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.12));
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .official-logo-img:hover {
+      transform: scale(1.05);
+    }
+
+    .role-badge-tag {
+      font-family: var(--font-badge);
+      font-size: 0.75rem;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 2px solid var(--mondrian-black);
+      box-shadow: 3px 3px 0 var(--mondrian-black);
+      margin-top: 14px;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    /* Center Column: Chancay Default Mascot Spotlight */
+    .chancay-center-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       position: relative;
     }
 
-    .chancay-img-hero {
-      width: clamp(170px, 22vw, 240px);
+    .chancay-default-img {
+      width: clamp(210px, 24vw, 290px);
       height: auto;
-      filter: drop-shadow(0 14px 28px rgba(0,0,0,0.3));
-      animation: chancayGentleFloat 4s ease-in-out infinite alternate;
+      object-fit: contain;
+      filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.2));
+      animation: chancayDefaultFloat 4.2s ease-in-out infinite alternate;
       cursor: pointer;
     }
 
-    @keyframes chancayGentleFloat {
+    @keyframes chancayDefaultFloat {
       0% { transform: translateY(0) rotate(-1deg); }
-      100% { transform: translateY(-10px) rotate(1deg); }
+      100% { transform: translateY(-12px) rotate(1deg); }
     }
 
-    /* Speech Bubble Minimalist Capsule */
-    .speech-capsule-minimal {
-      background: var(--mondrian-white);
-      border: var(--border-black-thick);
+    /* Minimalist Floating Speech Bubble */
+    .speech-bubble-minimalist {
+      background: #FFFFFF;
+      border: var(--border-black-standard);
       box-shadow: 6px 6px 0 var(--mondrian-black);
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 12px 22px;
-      max-width: 380px;
-      margin-top: 10px;
+      max-width: 320px;
+      margin-top: 8px;
       font-size: 0.92rem;
       font-weight: 700;
       color: var(--mondrian-black);
       line-height: 1.4;
       position: relative;
+      text-align: center;
     }
 
-    .speech-capsule-minimal::before {
+    .speech-bubble-minimalist::before {
       content: '';
       position: absolute;
       top: -12px;
@@ -291,30 +215,30 @@
     }
 
     /* --------------------------------------------------------------------------
-       TACTILE 3D INTIS REWARD BUTTON (MINIMALIST)
+       PROMINENT RESTART / INTIS ACTION BUTTON
        -------------------------------------------------------------------------- */
     .intis-action-btn-clean {
       background: var(--mondrian-yellow);
       color: var(--mondrian-black);
-      border: var(--border-black-thick);
+      border: var(--border-black-standard);
       box-shadow: 6px 6px 0 var(--mondrian-black);
       font-family: var(--font-body);
       font-weight: 900;
-      font-size: 1.1rem;
-      padding: 14px 34px;
+      font-size: 1.15rem;
+      padding: 16px 38px;
       border-radius: 100px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .intis-action-btn-clean:hover {
-      transform: translateY(-3px);
-      box-shadow: 9px 9px 0 var(--mondrian-black);
+      transform: translateY(-4px);
+      box-shadow: 10px 10px 0 var(--mondrian-black);
       background: #FFE082;
     }
 
@@ -323,81 +247,82 @@
       box-shadow: 2px 2px 0 var(--mondrian-black);
     }
 
-    /* Clean Recording Hint Tag */
-    .clean-recording-hint {
-      font-size: 0.76rem;
+    /* Clean Recording Mode Hint */
+    .clean-hint-tag {
+      font-size: 0.78rem;
       color: #64748B;
       font-weight: 700;
-      margin-top: 20px;
+      margin-top: 24px;
       transition: opacity 0.3s;
     }
 
-    .clean-recording-hint.hidden-ui {
+    .clean-hint-tag.hidden-ui {
       opacity: 0;
       pointer-events: none;
+    }
+
+    /* Responsive Adaptation for Mobile/Tablet */
+    @media (max-width: 900px) {
+      .cover-trio-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .chancay-center-col {
+        order: -1;
+      }
+      .official-logo-img {
+        max-width: 280px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Grid Lines & Canvas -->
-  <div class="mondrian-grid-bg"></div>
-  <canvas id="confetti-canvas"></canvas>
+  <!-- Top Mondrian Color Stripe -->
+  <div class="mondrian-top-line"></div>
 
-  <!-- Decorative Floating Mondrian Rectangles -->
-  <div class="mondrian-block-float-1"></div>
-  <div class="mondrian-block-float-2"></div>
-  <div class="mondrian-block-float-3"></div>
+  <!-- Background Grid Lines & Canvas -->
+  <div class="clean-grid-overlay"></div>
+  <canvas id="confetti-canvas"></canvas>
 
   <!-- MAIN COVER STAGE -->
   <main class="cover-main-stage">
 
     <!-- Top National MINEDU Tag -->
-    <div class="minedu-national-tag">
+    <div class="minedu-badge-tag">
       <span>🇵🇪 MINEDU PERÚ</span>
       <span>•</span>
-      <span style="color: var(--mondrian-blue);">MALETA TECNOLÓGICA OFF-GRID</span>
+      <span style="color: var(--mondrian-blue);">ECOSISTEMA NOMAD-IA OFF-GRID</span>
     </div>
 
-    <!-- BRAND LOGOS SHOWCASE (APRENDER-IA & EDUCAR-IA) -->
-    <div class="brand-logos-wrapper">
-      
-      <!-- APRENDER-IA (Estudiantes) -->
-      <div class="brand-card-box" style="border-top: 8px solid var(--mondrian-blue);">
-        <div class="brand-card-header-badge" style="background: #E0F2FE; color: #0369A1;">
+    <!-- 3-COLUMN BALANCED TRIO (APRENDER-IA | CHANCAY DEFAULT | EDUCAR-IA) -->
+    <div class="cover-trio-grid">
+
+      <!-- LEFT: APRENDER-IA OFFICIAL LOGO -->
+      <div class="logo-column-card">
+        <img src="/portada-mondrian/LOGO APRENDERIA.png" alt="Logo AprenderIA" class="official-logo-img">
+        <div class="role-badge-tag" style="background: #E0F2FE; color: #0369A1;">
           🎓 MÓDULO ESTUDIANTE
         </div>
-        <h1 class="brand-logo-title-aprender">APRENDER IA</h1>
-        <p class="brand-desc-text">
-          Tutor virtual interactivo con voz, minijuegos arcade y gamificación con Intis 🪙 sin internet.
-        </p>
       </div>
 
-      <!-- EDUCAR-IA (Docentes) -->
-      <div class="brand-card-box" style="border-top: 8px solid var(--mondrian-red);">
-        <div class="brand-card-header-badge" style="background: #FEE2E2; color: #B91C1C;">
+      <!-- CENTER: CHANCAY DEFAULT MASCOT SPOTLIGHT -->
+      <div class="chancay-center-col">
+        <img src="/images/chancay/chancay-default.png" alt="Chancay Mascot Default" class="chancay-default-img" onclick="launchConfettiIntis()">
+        
+        <div class="speech-bubble-minimalist">
+          ¡Hola! 🐹🇵🇪 Soy Chancay, tu tutor virtual de la maleta tecnológica.
+        </div>
+      </div>
+
+      <!-- RIGHT: EDUCAR-IA OFFICIAL LOGO -->
+      <div class="logo-column-card">
+        <img src="/portada-mondrian/LOGO EDUCARIA.png" alt="Logo EducarIA" class="official-logo-img">
+        <div class="role-badge-tag" style="background: #FEE2E2; color: #B91C1C;">
           💼 MÓDULO DOCENTE
         </div>
-        <h1 class="brand-logo-title-educar">EDUCAR IA</h1>
-        <p class="brand-desc-text">
-          Monitoreo de telemetría cognitiva en tiempo real, semáforo pedagógico y asistencia IA.
-        </p>
       </div>
 
-    </div>
-
-    <!-- CENTRAL EMBLEM -->
-    <div class="nomad-central-emblem">
-      NOMAD-IA
-    </div>
-
-    <!-- CENTERED CHANCAY MASCOT SPOTLIGHT -->
-    <div class="chancay-spotlight-container">
-      <img src="/images/chancay/chancay-emocionado.png" alt="Chancay Mascot" class="chancay-img-hero" onclick="launchConfettiIntis()">
-      
-      <div class="speech-capsule-minimal">
-        ¡Hola! 🐹🇵🇪 Soy Chancay, tu tutor virtual de la maleta tecnológica NOMAD-IA.
-      </div>
     </div>
 
     <!-- PROMINENT INTIS REWARD BUTTON -->
@@ -406,7 +331,7 @@
     </button>
 
     <!-- Clean Video Recording Hint -->
-    <div class="clean-recording-hint" id="clean-hint">
+    <div class="clean-hint-tag" id="clean-hint">
       🎥 Presiona la tecla <strong>H</strong> para ocultar/mostrar la interfaz durante la grabación del trailer.
     </div>
 
@@ -432,16 +357,16 @@
       const audio = new Audio('/chancay/audio/felicitaciones.mp3');
       audio.play().catch(e => console.log('Audio info:', e));
 
-      for (let i = 0; i < 60; i++) {
+      for (let i = 0; i < 65; i++) {
         confettiItems.push({
-          x: window.innerWidth / 2 + (Math.random() - 0.5) * 240,
-          y: window.innerHeight / 2 + 50,
+          x: window.innerWidth / 2 + (Math.random() - 0.5) * 260,
+          y: window.innerHeight / 2 + 20,
           vx: (Math.random() - 0.5) * 16,
-          vy: Math.random() * -14 - 5,
+          vy: Math.random() * -15 - 5,
           gravity: 0.38,
           rot: Math.random() * Math.PI * 2,
           vRot: (Math.random() - 0.5) * 0.25,
-          size: Math.random() * 16 + 20,
+          size: Math.random() * 16 + 22,
           symbol: Math.random() > 0.3 ? '🪙' : '✨',
           alpha: 1.0
         });
