@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprender IA — Portada Oficial & Trailer Showcase</title>
+
+  <!-- Google Fonts for Bold Game & EdTech Aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@400;600;700;800;900&family=Luckiest+Guy&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* --------------------------------------------------------------------------
+       GLOBAL DESIGN SYSTEM TOKENS (UI-UX-PRO-MAX & GOODTASTE)
+       -------------------------------------------------------------------------- */
+    :root {
+      --bg-dark: #0A081D;
+      --bg-dark-card: rgba(18, 14, 42, 0.85);
+      --mondrian-blue: #004586;
+      --mondrian-red: #E52521;
+      --mondrian-yellow: #F7D000;
+      --gold-intis: #FFE082;
+      --cyan-neon: #80DEEA;
+      --text-light: #F8FAFC;
+      --text-muted: #94A3B8;
+      --font-title: 'Luckiest Guy', 'Bungee', cursive, sans-serif;
+      --font-badge: 'Bungee', cursive, sans-serif;
+      --font-body: 'Fredoka', 'Nunito', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: var(--font-body);
+      position: relative;
+    }
+
+    /* Animated Particle Glow Background Canvas */
+    #bg-canvas, #confetti-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    #bg-canvas { z-index: 1; }
+    #confetti-canvas { z-index: 90; }
+
+    /* Radial Ambient Background Glows */
+    .ambient-glow-1 {
+      position: absolute;
+      top: -15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(0, 69, 134, 0.45) 0%, rgba(229, 37, 33, 0.15) 50%, transparent 70%);
+      filter: blur(80px);
+      z-index: 2;
+      pointer-events: none;
+      animation: pulseGlow 6s ease-in-out infinite alternate;
+    }
+
+    .ambient-glow-2 {
+      position: absolute;
+      bottom: -20%;
+      right: 10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(247, 208, 0, 0.25) 0%, transparent 70%);
+      filter: blur(90px);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.7; transform: translateX(-50%) scale(0.95); }
+      100% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+    }
+
+    /* --------------------------------------------------------------------------
+       TOP CONTROL BAR FOR VIDEO TRAILER RECORDING (HIDEABLE WITH H KEY)
+       -------------------------------------------------------------------------- */
+    .trailer-controls-bar {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      background: rgba(15, 12, 35, 0.88);
+      backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 100px;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .trailer-controls-bar.hidden-ui {
+      opacity: 0;
+      transform: translate(-50%, -60px);
+      pointer-events: none;
+    }
+
+    .control-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--text-light);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 100px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .control-btn.active {
+      background: var(--mondrian-yellow);
+      color: #000;
+      border-color: var(--mondrian-yellow);
+      box-shadow: 0 4px 12px rgba(247, 208, 0, 0.4);
+    }
+
+    /* --------------------------------------------------------------------------
+       MAIN TRAILER COVER STAGE CONTAINER
+       -------------------------------------------------------------------------- */
+    .trailer-stage {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    /* Subtitle Top Tagline Badge */
+    .hero-badge-tag {
+      background: linear-gradient(135deg, rgba(0, 69, 134, 0.4) 0%, rgba(229, 37, 33, 0.4) 100%);
+      border: 1.5px solid rgba(255, 224, 130, 0.4);
+      padding: 6px 18px;
+      border-radius: 100px;
+      font-family: var(--font-badge);
+      font-size: 0.85rem;
+      color: var(--gold-intis);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      animation: floatBadge 3.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatBadge {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-6px); }
+    }
+
+    /* MAIN CENTERED LOGO BOX */
+    .main-logo-container {
+      text-align: center;
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .logo-main-title {
+      font-family: var(--font-title);
+      font-size: clamp(3.2rem, 8vw, 6.2rem);
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFE082 45%, #F7D000 80%, #FFB300 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 35px rgba(247, 208, 0, 0.4));
+      margin: 0;
+      position: relative;
+    }
+
+    .logo-sub-badge {
+      display: inline-block;
+      font-family: var(--font-title);
+      font-size: clamp(1.4rem, 3.5vw, 2.6rem);
+      color: #FFFFFF;
+      background: var(--mondrian-red);
+      padding: 4px 24px;
+      border-radius: 16px;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 8px 24px rgba(229, 37, 33, 0.6), inset 0 2px 0 rgba(255,255,255,0.4);
+      transform: rotate(-2deg);
+      margin-top: -12px;
+      letter-spacing: 1px;
+    }
+
+    .hero-tagline-text {
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      font-weight: 600;
+      color: #E2E8F0;
+      max-width: 680px;
+      margin: 20px auto 0 auto;
+      line-height: 1.45;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+    }
+
+    /* --------------------------------------------------------------------------
+       CHANCAY MASCOT SPOTLIGHT & FLOATING SPEECH BUBBLE
+       -------------------------------------------------------------------------- */
+    .chancay-spotlight-stage {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .chancay-avatar-wrapper {
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .chancay-avatar-wrapper:hover {
+      transform: scale(1.08) rotate(2deg);
+    }
+
+    .chancay-avatar-img {
+      width: clamp(180px, 26vw, 290px);
+      height: auto;
+      filter: drop-shadow(0 16px 30px rgba(0,0,0,0.8)) drop-shadow(0 0 20px rgba(0, 69, 134, 0.5));
+      animation: chancayFloat 3.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes chancayFloat {
+      0% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+      100% { transform: translateY(-4px) rotate(-1deg); }
+    }
+
+    /* Speech Bubble Capsule */
+    .speech-bubble-capsule {
+      background: rgba(15, 12, 35, 0.94);
+      border: 2px solid var(--gold-intis);
+      border-radius: 20px;
+      padding: 14px 22px;
+      max-width: 320px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.7), inset 0 0 15px rgba(255, 224, 130, 0.15);
+      position: relative;
+      backdrop-filter: blur(14px);
+      animation: bubblePulse 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes bubblePulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.02); }
+    }
+
+    .speech-bubble-capsule::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 12px solid var(--gold-intis);
+    }
+
+    .bubble-speaker-tag {
+      font-family: var(--font-badge);
+      font-size: 0.72rem;
+      color: var(--mondrian-yellow);
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bubble-text {
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    /* --------------------------------------------------------------------------
+       GAMIFIED FEATURE BADGES ROW (INTIS, TELEMETRIA, OFFLINE)
+       -------------------------------------------------------------------------- */
+    .feature-badges-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .feature-badge-card {
+      background: var(--bg-dark-card);
+      border: 1.5px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      transition: all 0.25s ease;
+    }
+
+    .feature-badge-card:hover {
+      border-color: var(--gold-intis);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(247, 208, 0, 0.25);
+    }
+
+    .badge-icon {
+      font-size: 1.4rem;
+    }
+
+    .badge-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-val {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-light);
+    }
+
+    /* --------------------------------------------------------------------------
+       SCENE QUICK CONTROLS OVERLAY (BOTTOM ACTION BAR)
+       -------------------------------------------------------------------------- */
+    .scene-action-bar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      gap: 12px;
+      background: rgba(10, 8, 29, 0.92);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 100px;
+      padding: 8px 18px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(16px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .scene-action-bar.hidden-ui {
+      opacity: 0;
+      transform: translate(-50%, 60px);
+      pointer-events: none;
+    }
+
+    .action-pill-btn {
+      background: linear-gradient(135deg, var(--mondrian-red) 0%, #C62828 100%);
+      color: #FFFFFF;
+      border: none;
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 10px 20px;
+      border-radius: 100px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 6px 16px rgba(229, 37, 33, 0.4);
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .action-pill-btn:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 10px 24px rgba(229, 37, 33, 0.6);
+    }
+
+    .action-pill-btn:active {
+      transform: translateY(1px);
+    }
+
+    .action-pill-yellow {
+      background: linear-gradient(135deg, var(--mondrian-yellow) 0%, #F57F17 100%);
+      color: #000000;
+      box-shadow: 0 6px 16px rgba(247, 208, 0, 0.4);
+    }
+
+    /* Recording Clean Mode Notification Toast */
+    .record-toast-tip {
+      position: fixed;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 69, 134, 0.9);
+      color: #FFFFFF;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.2);
+      z-index: 99;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    /* Responsive Adaptation for Laptop, Tablet, Mobile Recording */
+    @media (max-width: 768px) {
+      .chancay-spotlight-stage {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .speech-bubble-capsule::before {
+        left: 50%;
+        top: -12px;
+        transform: translateX(-50%);
+        border-right: 10px solid transparent;
+        border-left: 10px solid transparent;
+        border-bottom: 12px solid var(--gold-intis);
+        border-top: none;
+      }
+      .feature-badges-row {
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Animated Canvas Glow -->
+  <canvas id="bg-canvas"></canvas>
+  <canvas id="confetti-canvas"></canvas>
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+
+  <!-- TOP CONTROL BAR FOR VIDEO TRAILER RECORDING -->
+  <div class="trailer-controls-bar" id="top-controls-bar">
+    <button class="control-btn active" onclick="switchScene('scene-logo')">
+      🎬 Escena 1: Logo
+    </button>
+    <button class="control-btn" onclick="switchScene('scene-chancay')">
+      🐹 Escena 2: Chancay
+    </button>
+    <button class="control-btn" onclick="switchScene('scene-arcade')">
+      🧪 Escena 3: Minijuegos
+    </button>
+    <button class="control-btn" onclick="switchScene('scene-telemetry')">
+      📊 Escena 4: EducarIA
+    </button>
+    <div style="width: 1px; height: 18px; background: rgba(255,255,255,0.2); margin: 0 4px;"></div>
+    <button class="control-btn" onclick="toggleCleanRecordingMode()" title="Ocultar interfaz para capturar pantalla (Tecla H)">
+      🎥 Modo Grabación (Tecla H)
+    </button>
+  </div>
+
+  <!-- Recording Clean Mode Hint -->
+  <div class="record-toast-tip" id="record-tip">
+    💡 Presiona la tecla <strong>H</strong> para ocultar/mostrar la interfaz durante la grabación del trailer.
+  </div>
+
+  <!-- MAIN TRAILER STAGE -->
+  <main class="trailer-stage" id="trailer-stage">
+
+    <!-- Top Badge Tagline -->
+    <div class="hero-badge-tag" id="scene-badge">
+      <span>🇵🇪 ECOSISTEMA OFFLINE MINEDU</span>
+      <span>•</span>
+      <span style="color: #FFF;">MALETA TECNOLÓGICA</span>
+    </div>
+
+    <!-- MAIN CENTERED LOGO BOX -->
+    <div class="main-logo-container">
+      <h1 class="logo-main-title">APRENDER IA</h1>
+      <div class="logo-sub-badge">NOMAD-IA</div>
+      <p class="hero-tagline-text" id="scene-tagline">
+        Inteligencia Artificial offline y minijuegos educativos sin conexión a internet al servicio de los estudiantes del Perú.
+      </p>
+    </div>
+
+    <!-- CHANCAY MASCOT SPOTLIGHT & SPEECH BUBBLE -->
+    <div class="chancay-spotlight-stage">
+      <div class="chancay-avatar-wrapper" onclick="triggerChancayVoice()">
+        <img id="chancay-trailer-hero" class="chancay-avatar-img" src="/images/chancay/chancay-emocionado.png" alt="Chancay Mascot Trailer Hero">
+      </div>
+
+      <div class="speech-bubble-capsule" id="chancay-bubble">
+        <div class="bubble-speaker-tag">
+          <span>🐹 CHANCAY IA</span>
+          <span style="font-size: 0.6rem; color: #A5D6A7; background: rgba(76,175,80,0.2); padding: 1px 6px; border-radius: 4px;">TUTOR VIRTUAL</span>
+        </div>
+        <div class="bubble-text" id="chancay-speech-text">
+          ¡Hola Mateo! 🐹🇵🇪 ¡Estoy listo para aprender contigo sobre Ciencia, Matemática e Historia en la Ruta YACHAY!
+        </div>
+      </div>
+    </div>
+
+    <!-- GAMIFIED FEATURE BADGES ROW -->
+    <div class="feature-badges-row" id="feature-badges">
+      <div class="feature-badge-card">
+        <span class="badge-icon">🪙</span>
+        <div>
+          <div class="badge-label">Gamificación</div>
+          <div class="badge-val">150 Intis YACHAY</div>
+        </div>
+      </div>
+
+      <div class="feature-badge-card">
+        <span class="badge-icon">🧪</span>
+        <div>
+          <div class="badge-label">Misión Actual</div>
+          <div class="badge-val">Gases Nobles</div>
+        </div>
+      </div>
+
+      <div class="feature-badge-card">
+        <span class="badge-icon">📡</span>
+        <div>
+          <div class="badge-label">Conectividad</div>
+          <div class="badge-val" style="color: #80DEEA;">Intranet Offline 100%</div>
+        </div>
+      </div>
+
+      <div class="feature-badge-card">
+        <span class="badge-icon">🟢</span>
+        <div>
+          <div class="badge-label">EducarIA</div>
+          <div class="badge-val" style="color: #A5D6A7;">Semáforo Verde</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- BOTTOM ACTION BAR -->
+  <div class="scene-action-bar" id="bottom-action-bar">
+    <button class="action-pill-btn action-pill-yellow" onclick="launchConfettiIntis()">
+      🪙 ¡LANZAR INTIS DE LA VICTORIA! 💥
+    </button>
+    <button class="action-pill-btn" onclick="triggerChancayVoice()">
+      🔊 HABLAR CON CHANCAY
+    </button>
+    <a href="/aprender-ia/index.html" class="action-pill-btn" style="background: var(--mondrian-blue); text-decoration: none;">
+      🚀 INGRESAR AL HUB APRENDER-IA
+    </a>
+  </div>
+
+  <!-- JAVASCRIPT ANIMATIONS & TRAILER SCENE ENGINE -->
+  <script>
+    // --------------------------------------------------------------------------
+    // 1. PARTICLES & STARLIGHT CANVAS SYSTEM
+    // --------------------------------------------------------------------------
+    const bgCanvas = document.getElementById('bg-canvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    let particles = [];
+
+    function resizeBgCanvas() {
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeBgCanvas);
+    resizeBgCanvas();
+
+    for (let i = 0; i < 65; i++) {
+      particles.push({
+        x: Math.random() * bgCanvas.width,
+        y: Math.random() * bgCanvas.height,
+        r: Math.random() * 2.5 + 1,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        alpha: Math.random() * 0.7 + 0.3,
+        pulse: Math.random() * 0.02 + 0.01
+      });
+    }
+
+    function renderParticles() {
+      bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha += Math.sin(Date.now() * 0.002) * p.pulse * 0.2;
+
+        if (p.x < 0) p.x = bgCanvas.width;
+        if (p.x > bgCanvas.width) p.x = 0;
+        if (p.y < 0) p.y = bgCanvas.height;
+        if (p.y > bgCanvas.height) p.y = 0;
+
+        bgCtx.beginPath();
+        bgCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        bgCtx.fillStyle = `rgba(255, 224, 130, ${Math.abs(p.alpha)})`;
+        bgCtx.shadowBlur = 10;
+        bgCtx.shadowColor = '#FFE082';
+        bgCtx.fill();
+      });
+
+      requestAnimationFrame(renderParticles);
+    }
+    renderParticles();
+
+    // --------------------------------------------------------------------------
+    // 2. CONFETTI INTIS COIN BURST SYSTEM
+    // --------------------------------------------------------------------------
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const confettiCtx = confettiCanvas.getContext('2d');
+    let confettiItems = [];
+
+    function resizeConfettiCanvas() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeConfettiCanvas);
+    resizeConfettiCanvas();
+
+    function launchConfettiIntis() {
+      for (let i = 0; i < 45; i++) {
+        confettiItems.push({
+          x: window.innerWidth / 2 + (Math.random() - 0.5) * 200,
+          y: window.innerHeight / 2,
+          vx: (Math.random() - 0.5) * 14,
+          vy: Math.random() * -12 - 4,
+          gravity: 0.35,
+          rot: Math.random() * Math.PI * 2,
+          vRot: (Math.random() - 0.5) * 0.2,
+          size: Math.random() * 14 + 18,
+          symbol: Math.random() > 0.3 ? '🪙' : '✨',
+          alpha: 1.0
+        });
+      }
+    }
+
+    function renderConfetti() {
+      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+      for (let i = confettiItems.length - 1; i >= 0; i--) {
+        let c = confettiItems[i];
+        c.x += c.vx;
+        c.y += c.vy;
+        c.vy += c.gravity;
+        c.rot += c.vRot;
+        c.alpha -= 0.012;
+
+        if (c.alpha <= 0 || c.y > confettiCanvas.height + 50) {
+          confettiItems.splice(i, 1);
+          continue;
+        }
+
+        confettiCtx.save();
+        confettiCtx.translate(c.x, c.y);
+        confettiCtx.rotate(c.rot);
+        confettiCtx.globalAlpha = c.alpha;
+        confettiCtx.font = `${c.size}px sans-serif`;
+        confettiCtx.textAlign = 'center';
+        confettiCtx.textBaseline = 'middle';
+        confettiCtx.fillText(c.symbol, 0, 0);
+        confettiCtx.restore();
+      }
+
+      requestAnimationFrame(renderConfetti);
+    }
+    renderConfetti();
+
+    // --------------------------------------------------------------------------
+    // 3. INTERACTIVE SCENE SWITCHER FOR TRAILER RECORDING
+    // --------------------------------------------------------------------------
+    const scenes = {
+      'scene-logo': {
+        badge: '🇵🇪 ECOSISTEMA OFFLINE MINEDU • MALETA TECNOLÓGICA',
+        pose: '/images/chancay/chancay-emocionado.png',
+        speech: '¡Hola Mateo! 🐹🇵🇪 ¡Bienvenido a AprenderIA! Tu tutor virtual y tus minijuegos sin conexión a internet.',
+        tagline: 'Inteligencia Artificial offline y minijuegos educativos sin conexión a internet al servicio de los estudiantes del Perú.',
+        audio: '/chancay/audio/saludo.mp3'
+      },
+      'scene-chancay': {
+        badge: '🐹 TUTOR VIRTUAL INTERACTIVO CON VOZ ELEVENLABS',
+        pose: '/images/chancay/chancay-quimico.png',
+        speech: '¡Dab científico! 🧪 ¿Sabías que los Gases Nobles son los elementos más estables de la tabla periódica?',
+        tagline: 'Conversa con Chancay mediante reconocimiento de voz y respuestas habladas en tiempo real.',
+        audio: '/chancay/audio/gases-nobles.mp3'
+      },
+      'scene-arcade': {
+        badge: '🎮 MINIJUEGOS ARCADE EDUCATIVOS CON GAMIFICACIÓN',
+        pose: '/images/chancay/chancay-dab.png',
+        speech: '¡ESO ES TODO, CAMPEÓN! 🔥 ¡DAB PARA TI! ¡Ganaste 150 Intis 🪙 en el Laboratorio de Química!',
+        tagline: 'Democratizando el aprendizaje interactivo con juegos adaptativos de 60fps.',
+        audio: '/chancay/audio/felicitaciones.mp3'
+      },
+      'scene-telemetry': {
+        badge: '📊 EDUCAR-IA • PANEL DOCENTE CON TELEMETRÍA COGNITIVA',
+        pose: '/images/chancay/chancay-vaso.png',
+        speech: '¡Diagnóstico en tiempo real! 💡 Semáforo de aprendizaje en VERDE y telemetría registrada en la maleta off-grid.',
+        tagline: 'Supervisión en tiempo real del progreso del estudiante mediante alertas tempranas y asistencia inteligente.',
+        audio: '/chancay/audio/inteligencia-artificial.mp3'
+      }
+    };
+
+    function switchScene(sceneKey) {
+      const data = scenes[sceneKey];
+      if (!data) return;
+
+      // Update Active Control Button
+      document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Update Stage Elements
+      document.getElementById('scene-badge').innerHTML = data.badge;
+      document.getElementById('scene-tagline').textContent = data.tagline;
+      document.getElementById('chancay-speech-text').textContent = data.speech;
+
+      const heroImg = document.getElementById('chancay-trailer-hero');
+      heroImg.style.transform = 'scale(0.8) rotate(-5deg)';
+      setTimeout(() => {
+        heroImg.src = data.pose;
+        heroImg.style.transform = 'scale(1) rotate(0deg)';
+      }, 120);
+
+      // Play HD ElevenLabs Audio
+      if (data.audio) {
+        const audio = new Audio(data.audio);
+        audio.play().catch(e => console.log('Audio autoplay info:', e));
+      }
+
+      launchConfettiIntis();
+    }
+
+    function triggerChancayVoice() {
+      launchConfettiIntis();
+      const currentAudio = '/chancay/audio/saludo.mp3';
+      const audio = new Audio(currentAudio);
+      audio.play().catch(e => console.log('Audio info:', e));
+    }
+
+    // --------------------------------------------------------------------------
+    // 4. CLEAN VIDEO RECORDING MODE TOGGLE (KEY H)
+    // --------------------------------------------------------------------------
+    let isCleanMode = false;
+    function toggleCleanRecordingMode() {
+      isCleanMode = !isCleanMode;
+      const topBar = document.getElementById('top-controls-bar');
+      const bottomBar = document.getElementById('bottom-action-bar');
+      const recordTip = document.getElementById('record-tip');
+
+      if (isCleanMode) {
+        topBar.classList.add('hidden-ui');
+        bottomBar.classList.add('hidden-ui');
+        recordTip.style.opacity = '0';
+      } else {
+        topBar.classList.remove('hidden-ui');
+        bottomBar.classList.remove('hidden-ui');
+        recordTip.style.opacity = '1';
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'h' || e.key === 'H') {
+        toggleCleanRecordingMode();
+      }
+    });
+  </script>
+
+</body>
+</html>
